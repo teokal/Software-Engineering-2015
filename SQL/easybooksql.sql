@@ -1,4 +1,6 @@
--- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
+CREATE DATABASE  IF NOT EXISTS `easybooksql` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `easybooksql`;
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: easybooksql
 -- ------------------------------------------------------
@@ -24,9 +26,7 @@ DROP TABLE IF EXISTS `booked_rooms`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `booked_rooms` (
   `book_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
-  `check_in` datetime NOT NULL,
-  `check_out` datetime NOT NULL
+  `room_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,9 +36,24 @@ CREATE TABLE `booked_rooms` (
 
 LOCK TABLES `booked_rooms` WRITE;
 /*!40000 ALTER TABLE `booked_rooms` DISABLE KEYS */;
-INSERT INTO `booked_rooms` VALUES (1,1,'2015-12-25 14:00:00','2016-01-25 12:00:00');
+INSERT INTO `booked_rooms` VALUES (1,1);
 /*!40000 ALTER TABLE `booked_rooms` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `booked_rooms_and_dates`
+--
+
+DROP TABLE IF EXISTS `booked_rooms_and_dates`;
+/*!50001 DROP VIEW IF EXISTS `booked_rooms_and_dates`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `booked_rooms_and_dates` AS SELECT 
+ 1 AS `book_id`,
+ 1 AS `room_id`,
+ 1 AS `check_in`,
+ 1 AS `check_out`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `booking_extras`
@@ -87,7 +102,9 @@ CREATE TABLE `bookings` (
   `status` varchar(45) NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`b_id`),
   UNIQUE KEY `b_id_UNIQUE` (`b_id`),
-  UNIQUE KEY `b_code_UNIQUE` (`code`)
+  UNIQUE KEY `b_code_UNIQUE` (`code`),
+  KEY `check_in_idx` (`check_in`),
+  KEY `check_out_idx` (`check_out`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -241,9 +258,27 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'rafsonic','202cb962ac59075b964b07152d234b70','Rafael','Panayiotou','admin'),(2,'teokal','123','Thodoris','Kalatzis','admin'),(3,'petrosp','123','Petros','Papadakos','admin');
+INSERT INTO `users` VALUES (1,'rafsonic','202cb962ac59075b964b07152d234b70','Rafael','Panayiotou','admin'),(2,'teokal','202cb962ac59075b964b07152d234b70','Thodoris','Kalatzis','admin'),(3,'petrosp','202cb962ac59075b964b07152d234b70','Petros','Papadakos','admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `booked_rooms_and_dates`
+--
+
+/*!50001 DROP VIEW IF EXISTS `booked_rooms_and_dates`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `booked_rooms_and_dates` AS select `booked_rooms`.`book_id` AS `book_id`,`booked_rooms`.`room_id` AS `room_id`,`bookings`.`check_in` AS `check_in`,`bookings`.`check_out` AS `check_out` from (`booked_rooms` left join `bookings` on((`bookings`.`b_id` = `booked_rooms`.`book_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -254,4 +289,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-29 21:28:25
+-- Dump completed on 2015-11-30  5:06:30

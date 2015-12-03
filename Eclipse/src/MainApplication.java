@@ -55,6 +55,9 @@ public class MainApplication {
 		
 		JButton btn_bookings = new JButton(Messages.getString("MainApplication.btn_bookings")); //$NON-NLS-1$
 		NavigationPanel.add(btn_bookings);
+		
+		JButton btnNewButton = new JButton(Messages.getString("MainApplication.btnNewButton.text")); //$NON-NLS-1$
+		NavigationPanel.add(btnNewButton);
 	}
 
 }

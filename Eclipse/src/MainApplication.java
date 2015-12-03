@@ -50,7 +50,7 @@ public class MainApplication {
 		JButton btn_newBook = new JButton(Messages.getString("MainApplication.btn_newBook")); //$NON-NLS-1$
 		NavigationPanel.add(btn_newBook);
 		
-		optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
+		//optionsMenu.add(jmiLogin = new JMenuItem("Login", 'L'));
 
 		
 		JButton btn_bookings = new JButton(Messages.getString("MainApplication.btn_bookings")); //$NON-NLS-1$

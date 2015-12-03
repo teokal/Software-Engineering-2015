@@ -1,6 +1,6 @@
 import java.sql.*;
  
-public class CONN {
+public class conn {
  
     public Connection c() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");

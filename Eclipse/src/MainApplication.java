@@ -5,6 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class MainApplication {
 
@@ -58,6 +61,13 @@ public class MainApplication {
 		
 		JButton btnNewButton = new JButton(Messages.getString("MainApplication.btnNewButton.text")); //$NON-NLS-1$
 		NavigationPanel.add(btnNewButton);
+		
+		JCheckBox chckbxKaneClick = new JCheckBox("Kane click");
+		frame.getContentPane().add(chckbxKaneClick, BorderLayout.CENTER);
+		
+		JCheckBox chckbxKaneoClick = new JCheckBox("Kane 2o click");
+		chckbxKaneoClick.setForeground(Color.BLUE);
+		frame.getContentPane().add(chckbxKaneoClick, BorderLayout.SOUTH);
 	}
 
 }

@@ -62,12 +62,19 @@ public class MainApplication {
 		JButton btnNewButton = new JButton(Messages.getString("MainApplication.btnNewButton.text")); //$NON-NLS-1$
 		NavigationPanel.add(btnNewButton);
 		
+		JButton btnExoNevra = new JButton(Messages.getString("MainApplication.btnExoNevra.text")); //$NON-NLS-1$
+		NavigationPanel.add(btnExoNevra);
+		
+				
 		JCheckBox chckbxKaneClick = new JCheckBox("Kane click");
 		frame.getContentPane().add(chckbxKaneClick, BorderLayout.CENTER);
 		
 		JCheckBox chckbxKaneoClick = new JCheckBox("Kane 2o click");
 		chckbxKaneoClick.setForeground(Color.BLUE);
 		frame.getContentPane().add(chckbxKaneoClick, BorderLayout.SOUTH);
+		
+		JCheckBox chckbxKaneeClick = new JCheckBox("kai edo exo Nevraaaaaaaaa");
+		frame.getContentPane().add(chckbxKaneeClick, BorderLayout.EAST);
 	}
 
 }

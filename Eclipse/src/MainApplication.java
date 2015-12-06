@@ -29,9 +29,7 @@ public class MainApplication {
 	private JTextField textField_8;
 	private JTextField textField_9;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -70,18 +68,10 @@ public class MainApplication {
 		tabbedPane.addTab("New Book", null, panel, null);
 		panel.setLayout(null);
 		
-		new_book_panel_1 = new JPanel();
-		new_book_panel_1.setVisible(false);
-		
 		JPanel new_book_panel_2 = new JPanel();
 		new_book_panel_2.setVisible(false);
-		new_book_panel_2.setBounds(0, 0, 719, 433);
-		panel.add(new_book_panel_2);
-		new_book_panel_2.setLayout(null);
 		
-		JLabel lblRooms = new JLabel("Rooms");
-		lblRooms.setBounds(306, 119, 112, 31);
-		new_book_panel_2.add(lblRooms);
+		new_book_panel_1 = new JPanel();
 		
 		new_book_panel_1.setBounds(0, 0, 729, 433);
 		panel.add(new_book_panel_1);
@@ -119,6 +109,13 @@ public class MainApplication {
 		JLabel lblExtras = new JLabel("Extras:");
 		lblExtras.setBounds(180, 172, 46, 14);
 		new_book_panel_1.add(lblExtras);
+		new_book_panel_2.setBounds(0, 0, 719, 433);
+		panel.add(new_book_panel_2);
+		new_book_panel_2.setLayout(null);
+		
+		JLabel lblRooms = new JLabel("Rooms");
+		lblRooms.setBounds(306, 119, 112, 31);
+		new_book_panel_2.add(lblRooms);
 		
 		JPanel new_book_panel_3 = new JPanel();
 		new_book_panel_3.setVisible(false);

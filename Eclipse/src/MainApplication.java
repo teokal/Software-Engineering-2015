@@ -12,6 +12,12 @@ import java.util.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.awt.Component;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.BevelBorder;
 
 
 public class MainApplication {
@@ -19,8 +25,6 @@ public class MainApplication {
 	private JFrame frame;
 	private JTextField textField;
 	private JPanel new_book_panel_1;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
@@ -28,6 +32,7 @@ public class MainApplication {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTextField textField_9;
+	private JTextField textField_1;
 
 	
 	public static void main(String[] args) {
@@ -68,10 +73,9 @@ public class MainApplication {
 		tabbedPane.addTab("New Book", null, panel, null);
 		panel.setLayout(null);
 		
-		JPanel new_book_panel_2 = new JPanel();
-		new_book_panel_2.setVisible(false);
-		
 		new_book_panel_1 = new JPanel();
+		new_book_panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
 		
 		new_book_panel_1.setBounds(0, 0, 729, 433);
 		panel.add(new_book_panel_1);
@@ -92,33 +96,62 @@ public class MainApplication {
 		lblDateCheckIn.setBounds(178, 85, 97, 14);
 		new_book_panel_1.add(lblDateCheckIn);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(285, 82, 86, 20);
-		new_book_panel_1.add(textField_1);
-		textField_1.setColumns(10);
-		
 		JLabel lblNewLabel = new JLabel("Date Check Out:");
 		lblNewLabel.setBounds(178, 122, 97, 14);
 		new_book_panel_1.add(lblNewLabel);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(285, 119, 86, 20);
-		new_book_panel_1.add(textField_2);
-		textField_2.setColumns(10);
-		
 		JLabel lblExtras = new JLabel("Extras:");
 		lblExtras.setBounds(180, 172, 46, 14);
 		new_book_panel_1.add(lblExtras);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(285, 82, 103, 20);
+		new_book_panel_1.add(dateChooser);
+		
+		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(285, 122, 103, 20);
+		new_book_panel_1.add(dateChooser_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(285, 169, 182, 99);
+		new_book_panel_1.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnNext = new JButton("NEXT");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new_book_panel_1.setVisible(false);
+			
+				
+				
+				
+			
+			}
+		});
+		btnNext.setBounds(73, 328, 166, 23);
+		new_book_panel_1.add(btnNext);
+		
+		JPanel new_book_panel_2 = new JPanel();
+		new_book_panel_2.setBorder(new CompoundBorder());
 		new_book_panel_2.setBounds(0, 0, 719, 433);
 		panel.add(new_book_panel_2);
 		new_book_panel_2.setLayout(null);
 		
-		JLabel lblRooms = new JLabel("Rooms");
-		lblRooms.setBounds(306, 119, 112, 31);
+		JButton btnNextPage = new JButton("NEXT PAGE");
+		btnNextPage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new_book_panel_2.setVisible(false);
+				
+			}
+		});
+		btnNextPage.setBounds(305, 381, 146, 23);
+		new_book_panel_2.add(btnNextPage);
+		
+		JLabel lblRooms = new JLabel("ROOMS:   ");
+		lblRooms.setBounds(99, 144, 72, 14);
 		new_book_panel_2.add(lblRooms);
 		
 		JPanel new_book_panel_3 = new JPanel();
-		new_book_panel_3.setVisible(false);
 		new_book_panel_3.setBounds(0, 0, 729, 433);
 		panel.add(new_book_panel_3);
 		new_book_panel_3.setLayout(null);
@@ -189,6 +222,31 @@ public class MainApplication {
 				textField_9.setBounds(107, 320, 207, 20);
 				new_book_panel_3.add(textField_9);
 				textField_9.setColumns(10);
+				
+				JButton btnEpomeno = new JButton("EPOMENO");
+				btnEpomeno.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						new_book_panel_3.setVisible(false);
+						
+					}
+				});
+				btnEpomeno.setBounds(209, 349, 89, 23);
+				new_book_panel_3.add(btnEpomeno);
+		
+		JPanel new_book_panel_5 = new JPanel();
+		new_book_panel_5.setBounds(0, 0, 729, 433);
+		panel.add(new_book_panel_5);
+		new_book_panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNewbookpanel = new JLabel("Book has been successfully completed!");
+		new_book_panel_5.add(lblNewbookpanel);
+		
+		JButton btnExit = new JButton("EXIT!!!");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		new_book_panel_5.add(btnExit);
 		
 		JPanel new_book_panel_4 = new JPanel();
 		new_book_panel_4.setBounds(0, 0, 729, 433);
@@ -200,15 +258,14 @@ public class MainApplication {
 		new_book_panel_4.add(lblNewLabel_6);
 		
 		JButton btnNex = new JButton("COMPLETE");
-		btnNex.setBounds(310, 311, 85, 23);
+		btnNex.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new_book_panel_4.setVisible(false);
+				new_book_panel_5.setVisible(true);
+			}
+		});
+		btnNex.setBounds(306, 297, 85, 23);
 		new_book_panel_4.add(btnNex);
-		
-		JPanel new_book_panel_5 = new JPanel();
-		new_book_panel_5.setBounds(0, 0, 729, 433);
-		panel.add(new_book_panel_5);
-		
-		JLabel lblNewbookpanel = new JLabel("Book has been successfully completed!");
-		new_book_panel_5.add(lblNewbookpanel);
 		
 		JPanel panel_1 = new JPanel(false);
 		tabbedPane.addTab("Bookings", null, panel_1, null);

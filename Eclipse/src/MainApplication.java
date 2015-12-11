@@ -22,7 +22,7 @@ import javax.swing.border.BevelBorder;
 
 public class MainApplication {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textField;
 	private JPanel new_book_panel_1;
 	private JTextField textField_3;
@@ -117,6 +117,9 @@ public class MainApplication {
 		new_book_panel_1.add(textField_1);
 		textField_1.setColumns(10);
 		
+	
+		
+		
 		JButton btnNext = new JButton("NEXT");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,6 +131,8 @@ public class MainApplication {
 			
 			}
 		});
+		
+		
 		btnNext.setBounds(73, 328, 166, 23);
 		new_book_panel_1.add(btnNext);
 		
@@ -233,6 +238,25 @@ public class MainApplication {
 				btnEpomeno.setBounds(209, 349, 89, 23);
 				new_book_panel_3.add(btnEpomeno);
 		
+		JPanel new_book_panel_4 = new JPanel();
+		new_book_panel_4.setBounds(0, 0, 729, 433);
+		panel.add(new_book_panel_4);
+		new_book_panel_4.setLayout(null);
+		
+		JLabel lblNewLabel_6 = new JLabel("Book Preview");
+		lblNewLabel_6.setBounds(331, 11, 64, 14);
+		new_book_panel_4.add(lblNewLabel_6);
+		
+		JButton btnNex = new JButton("COMPLETE");
+		btnNex.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new_book_panel_4.setVisible(false);
+				
+			}
+		});
+		btnNex.setBounds(306, 297, 85, 23);
+		new_book_panel_4.add(btnNex);
+		
 		JPanel new_book_panel_5 = new JPanel();
 		new_book_panel_5.setBounds(0, 0, 729, 433);
 		panel.add(new_book_panel_5);
@@ -247,25 +271,6 @@ public class MainApplication {
 			}
 		});
 		new_book_panel_5.add(btnExit);
-		
-		JPanel new_book_panel_4 = new JPanel();
-		new_book_panel_4.setBounds(0, 0, 729, 433);
-		panel.add(new_book_panel_4);
-		new_book_panel_4.setLayout(null);
-		
-		JLabel lblNewLabel_6 = new JLabel("Book Preview");
-		lblNewLabel_6.setBounds(331, 11, 64, 14);
-		new_book_panel_4.add(lblNewLabel_6);
-		
-		JButton btnNex = new JButton("COMPLETE");
-		btnNex.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new_book_panel_4.setVisible(false);
-				new_book_panel_5.setVisible(true);
-			}
-		});
-		btnNex.setBounds(306, 297, 85, 23);
-		new_book_panel_4.add(btnNex);
 		
 		JPanel panel_1 = new JPanel(false);
 		tabbedPane.addTab("Bookings", null, panel_1, null);

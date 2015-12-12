@@ -33,7 +33,7 @@
                   </Pane>
                   <Pane id="newBook" prefHeight="571.0" prefWidth="200.0">
                      <children>
-                        <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
+                        <Button id="newBook" fx:id="btnNewBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
                         <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
                         <ToggleButton layoutX="56.0" layoutY="144.0" mnemonicParsing="false" text="All Bookings" />
                         <RadioButton layoutX="56.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="104.0" text="Coming Soon" />

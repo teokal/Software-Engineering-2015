@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
@@ -11,6 +12,60 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
+    <Tab id="bookings" text="Bookings">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutX="203.0" prefHeight="571.0" prefWidth="597.0">
+                     <children>
+                        <Group />
+                        <TableView layoutX="16.0" layoutY="28.0" prefHeight="535.0" prefWidth="568.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Code" />
+                            <TableColumn prefWidth="86.0" text="Surname" />
+                              <TableColumn prefWidth="76.0" text="Check In" />
+                              <TableColumn prefWidth="75.0" text="Check Out" />
+                              <TableColumn prefWidth="76.0" text="Room" />
+                              <TableColumn prefWidth="69.0" text="Persons" />
+                              <TableColumn prefWidth="78.0" text="Paid" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="newBook" prefHeight="571.0" prefWidth="200.0">
+                     <children>
+                        <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
+                        <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
+                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="categoryBookings" />
+                           </toggleGroup>
+                           <font>
+                              <Font size="13.0" />
+                           </font></RadioButton>
+                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings">
+                           <font>
+                              <Font size="13.0" />
+                           </font></RadioButton>
+                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings">
+                           <font>
+                              <Font size="13.0" />
+                           </font></RadioButton>
+                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings">
+                           <font>
+                              <Font size="13.0" />
+                           </font></RadioButton>
+                        <TextField layoutX="26.0" layoutY="350.0" promptText="Search a book" />
+                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
+                        <Separator layoutY="309.0" prefWidth="200.0" />
+                        <Separator layoutY="112.0" prefWidth="200.0" />
+                        <TextField layoutX="26.0" layoutY="452.0" promptText="Edit a book" />
+                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content></Tab>
       <Tab id="rooms" text="Rooms">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -78,12 +133,161 @@
       </Tab>
       <Tab id="offers" text="Offers">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.24060150375939848" layoutX="102.0" layoutY="107.0" prefHeight="571.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <SplitPane disable="true" dividerPositions="0.24867724867724866" layoutX="-6.0" layoutY="34.0" orientation="VERTICAL" prefHeight="569.0" prefWidth="154.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                   
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane layoutX="148.0" layoutY="85.0" prefHeight="569.0" prefWidth="603.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane layoutX="77.0" layoutY="85.0" prefHeight="569.0" prefWidth="603.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Pane prefHeight="569.0" prefWidth="603.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <HBox layoutX="44.0" layoutY="28.0">
+                                                   <children>
+                                                      <Label layoutX="44.0" layoutY="30.0" prefHeight="17.0" prefWidth="44.0" text="Name:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField layoutX="88.0" layoutY="28.0" promptText="Type name`s offer" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="44.0" layoutY="64.0">
+                                                   <children>
+                                                      <Label layoutX="44.0" layoutY="30.0" prefHeight="17.0" prefWidth="44.0" text="Code:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextField layoutX="88.0" layoutY="28.0" promptText="Type code`s offer" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="18.0" layoutY="106.0" spacing="10.0">
+                                                   <children>
+                                                      <CheckBox layoutX="272.0" layoutY="31.0" mnemonicParsing="false" text="Standard" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <CheckBox layoutX="366.0" layoutY="31.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="83.0" text="Comfort" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <CheckBox layoutX="464.0" layoutY="31.0" mnemonicParsing="false" text="Suite" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="312.0" layoutY="106.0">
+                                                   <children>
+                                                      <RadioButton contentDisplay="CENTER" layoutX="278.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Duration:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets right="5.0" />
+                                                         </padding>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </RadioButton>
+                                                      <TextField layoutX="366.0" layoutY="64.0" prefHeight="25.0" prefWidth="76.0" promptText="&gt;10 days" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="312.0" layoutY="28.0">
+                                                   <children>
+                                                      <RadioButton contentDisplay="CENTER" layoutX="278.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Percentage:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets right="10.0" />
+                                                         </padding>
+                                                      </RadioButton>
+                                                      <TextField layoutX="366.0" layoutY="64.0" prefHeight="25.0" prefWidth="59.0" promptText="30%" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="312.0" layoutY="64.0">
+                                                   <children>
+                                                      <RadioButton contentDisplay="CENTER" layoutX="278.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Price:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                      <TextField layoutX="366.0" layoutY="64.0" prefHeight="25.0" prefWidth="59.0" promptText="-20" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <Separator layoutX="278.0" layoutY="96.0" prefHeight="1.0" prefWidth="306.0" />
+                                                <RadioButton layoutX="312.0" layoutY="142.0" mnemonicParsing="false" text="Dates:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </RadioButton>
+                                                <HBox layoutX="312.0" layoutY="175.0" spacing="25.0">
+                                                   <children>
+                                                      <DatePicker layoutX="312.0" layoutY="182.0" prefHeight="25.0" prefWidth="116.0" promptText="From" HBox.hgrow="ALWAYS" />
+                                                      <DatePicker layoutX="437.0" layoutY="182.0" prefHeight="25.0" prefWidth="116.0" promptText="Until" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="18.0" layoutY="142.0">
+                                                   <children>
+                                                      <CheckBox layoutX="272.0" layoutY="31.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="91.0" text="4 Bed" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <CheckBox layoutX="366.0" layoutY="31.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="93.0" text="3 Bed" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                      <CheckBox layoutX="464.0" layoutY="31.0" mnemonicParsing="false" text="2 Bed" HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </CheckBox>
+                                                   </children>
+                                                </HBox>
+                                             </children></Pane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
         </content>
       </Tab>
       <Tab id="statistics" text="Statistics">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.29797979797979796" layoutX="349.0" layoutY="206.0" prefHeight="571.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                    </items>
+                  </SplitPane>
+               </children></AnchorPane>
         </content>
       </Tab>
       <Tab id="options" text="Options">
@@ -91,48 +295,6 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
       </Tab>
-    <Tab id="bookings" text="Bookings">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Pane layoutX="203.0" prefHeight="571.0" prefWidth="597.0">
-                     <children>
-                        <Group />
-                        <TableView layoutX="16.0" layoutY="28.0" prefHeight="535.0" prefWidth="568.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Code" />
-                            <TableColumn prefWidth="86.0" text="Surname" />
-                              <TableColumn prefWidth="76.0" text="Check In" />
-                              <TableColumn prefWidth="75.0" text="Check Out" />
-                              <TableColumn prefWidth="76.0" text="Room" />
-                              <TableColumn prefWidth="69.0" text="Persons" />
-                              <TableColumn prefWidth="78.0" text="Paid" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </Pane>
-                  <Pane id="newBook" prefHeight="571.0" prefWidth="200.0">
-                     <children>
-                        <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
-                        <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
-                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="categoryBookings" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings" />
-                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings" />
-                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings" />
-                        <TextField layoutX="26.0" layoutY="350.0" promptText="Search a book" />
-                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
-                        <Separator layoutY="309.0" prefWidth="200.0" />
-                        <Separator layoutY="112.0" prefWidth="200.0" />
-                        <TextField layoutX="26.0" layoutY="452.0" promptText="Edit a book" />
-                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
-                     </children>
-                  </Pane>
-               </children>
-            </AnchorPane>
-         </content></Tab>
   </tabs>
    <effect>
       <Blend />

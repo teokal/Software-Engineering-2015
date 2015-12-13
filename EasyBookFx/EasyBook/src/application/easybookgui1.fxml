@@ -35,10 +35,13 @@
                      <children>
                         <Button id="newBook" fx:id="btnNewBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
                         <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
-                        <ToggleButton layoutX="56.0" layoutY="144.0" mnemonicParsing="false" text="All Bookings" />
-                        <RadioButton layoutX="56.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="104.0" text="Coming Soon" />
-                        <RadioButton layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" />
-                        <RadioButton layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" />
+                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="categoryBookings" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings" />
+                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings" />
+                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings" />
                         <TextField layoutX="26.0" layoutY="350.0" />
                         <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
                         <Separator layoutY="309.0" prefWidth="200.0" />

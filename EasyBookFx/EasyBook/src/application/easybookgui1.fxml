@@ -60,7 +60,6 @@
                <children>
                   <Pane layoutX="221.0" prefHeight="572.0" prefWidth="579.0">
                      <children>
-<<<<<<< HEAD
                         <Pagination layoutX="19.0" layoutY="14.0" maxPageIndicatorCount="3" pageCount="3" prefHeight="246.0" prefWidth="543.0" />
                         <VBox prefHeight="200.0" prefWidth="461.0" />
                         <Label layoutX="135.0" layoutY="63.0" text="Name:">
@@ -73,7 +72,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="212.0" layoutY="22.0" text="Room`s Details:">
+                        <Label layoutX="212.0" layoutY="22.0" text="Room's Details:">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -91,8 +90,6 @@
                             <MenuItem mnemonicParsing="false" text="Action 2" />
                           </items>
                         </SplitMenuButton>
-=======
-                        <Pagination layoutX="15.0" layoutY="51.0" maxPageIndicatorCount="3" pageCount="3" prefHeight="246.0" prefWidth="543.0" />
                         <Group>
                            <children>
                               <Label layoutX="135.0" layoutY="63.0" text="Name:">
@@ -125,7 +122,6 @@
                               <TextField editable="false" layoutX="212.0" layoutY="64.0" promptText="Room 200" />
                            </children>
                         </Group>
->>>>>>> origin/master
                         <TreeTableView layoutX="101.0" layoutY="317.0" prefHeight="200.0" prefWidth="427.0">
                           <columns>
                             <TreeTableColumn prefWidth="75.0" text="Room" />
@@ -139,7 +135,7 @@
                   <Pane prefHeight="571.0" prefWidth="221.0">
                      <children>
                         <Button alignment="CENTER" layoutX="71.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="Add Room" textAlignment="CENTER" wrapText="true" />
-                        <TextField layoutX="36.0" layoutY="98.0" />
+                        <TextField layoutX="36.0" layoutY="98.0" promptText="Search a room" />
                         <Button layoutX="85.0" layoutY="131.0" mnemonicParsing="false" text="Search" />
                         <Separator layoutX="11.0" layoutY="180.0" prefWidth="200.0" />
                         <ToggleButton layoutX="60.0" layoutY="204.0" mnemonicParsing="false" prefWidth="100.0" text="Standard" />
@@ -167,6 +163,48 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
       </Tab>
+    <Tab id="bookings" text="Bookings">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutX="203.0" prefHeight="571.0" prefWidth="597.0">
+                     <children>
+                        <Group />
+                        <TableView layoutX="16.0" layoutY="28.0" prefHeight="535.0" prefWidth="568.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Code" />
+                            <TableColumn prefWidth="86.0" text="Surname" />
+                              <TableColumn prefWidth="76.0" text="Check In" />
+                              <TableColumn prefWidth="75.0" text="Check Out" />
+                              <TableColumn prefWidth="76.0" text="Room" />
+                              <TableColumn prefWidth="69.0" text="Persons" />
+                              <TableColumn prefWidth="78.0" text="Paid" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="newBook" prefHeight="571.0" prefWidth="200.0">
+                     <children>
+                        <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
+                        <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
+                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="categoryBookings" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings" />
+                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings" />
+                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings" />
+                        <TextField layoutX="26.0" layoutY="350.0" promptText="Search a book" />
+                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
+                        <Separator layoutY="309.0" prefWidth="200.0" />
+                        <Separator layoutY="112.0" prefWidth="200.0" />
+                        <TextField layoutX="26.0" layoutY="452.0" promptText="Edit a book" />
+                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content></Tab>
   </tabs>
    <effect>
       <Blend />

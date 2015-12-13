@@ -36,6 +36,7 @@
                      <children>
                         <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
                         <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
+<<<<<<< HEAD
                         <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
                            <toggleGroup>
                               <ToggleGroup fx:id="categoryBookings" />
@@ -61,6 +62,22 @@
                         <Separator layoutY="112.0" prefWidth="200.0" />
                         <TextField layoutX="26.0" layoutY="452.0" promptText="Edit a book" />
                         <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
+=======
+                        <ToggleButton id="categoryAllBookings" layoutX="56.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" selected="true" text="All Bookings">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="categoryBookings" />
+                           </toggleGroup></ToggleButton>
+                        <ToggleButton id="categoryComingSoon" layoutX="56.0" layoutY="184.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Coming Soon" toggleGroup="$categoryBookings" />
+                        <ToggleButton id="categoryRunning" layoutX="56.0" layoutY="219.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Running" toggleGroup="$categoryBookings" />
+                        <ToggleButton id="categoryCompleted" layoutX="56.0" layoutY="254.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Completed" toggleGroup="$categoryBookings" />
+                        <TextField layoutX="26.0" layoutY="350.0" />
+                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
+                        <Separator layoutY="309.0" prefWidth="200.0" />
+                        <Separator layoutY="112.0" prefWidth="200.0" />
+                        <TextField layoutX="26.0" layoutY="452.0" />
+                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
+                     
+>>>>>>> origin/master
                      </children>
                   </Pane>
                </children>
@@ -72,7 +89,36 @@
                <children>
                   <Pane layoutX="221.0" prefHeight="572.0" prefWidth="579.0">
                      <children>
-                        <Pagination layoutX="15.0" layoutY="51.0" maxPageIndicatorCount="3" pageCount="3" prefHeight="246.0" prefWidth="543.0" />
+                        <Pagination layoutX="19.0" layoutY="14.0" maxPageIndicatorCount="3" pageCount="3" prefHeight="246.0" prefWidth="543.0" />
+                        <VBox prefHeight="200.0" prefWidth="461.0" />
+                        <Label layoutX="135.0" layoutY="63.0" text="Name:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="144.0" layoutY="111.0" text="Type:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="212.0" layoutY="22.0" text="Room's Details:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="138.0" layoutY="160.0" text="Code:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="212.0" layoutY="64.0" />
+                        <TextField layoutX="212.0" layoutY="161.0" />
+                        <SplitMenuButton layoutX="211.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="                               ">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </SplitMenuButton>
                         <Group>
                            <children>
                               <Label layoutX="135.0" layoutY="63.0" text="Name:">

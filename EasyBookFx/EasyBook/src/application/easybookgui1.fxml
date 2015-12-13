@@ -36,33 +36,7 @@
                      <children>
                         <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
                         <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
-<<<<<<< HEAD
-                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="categoryBookings" />
-                           </toggleGroup>
-                           <font>
-                              <Font size="13.0" />
-                           </font></RadioButton>
-                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings">
-                           <font>
-                              <Font size="13.0" />
-                           </font></RadioButton>
-                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings">
-                           <font>
-                              <Font size="13.0" />
-                           </font></RadioButton>
-                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings">
-                           <font>
-                              <Font size="13.0" />
-                           </font></RadioButton>
-                        <TextField layoutX="26.0" layoutY="350.0" promptText="Search a book" />
-                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
-                        <Separator layoutY="309.0" prefWidth="200.0" />
-                        <Separator layoutY="112.0" prefWidth="200.0" />
-                        <TextField layoutX="26.0" layoutY="452.0" promptText="Edit a book" />
-                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
-=======
+
                         <ToggleButton id="categoryAllBookings" layoutX="56.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" selected="true" text="All Bookings">
                            <toggleGroup>
                               <ToggleGroup fx:id="categoryBookings" />
@@ -77,7 +51,7 @@
                         <TextField layoutX="26.0" layoutY="452.0" />
                         <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
                      
->>>>>>> origin/master
+
                      </children>
                   </Pane>
                </children>

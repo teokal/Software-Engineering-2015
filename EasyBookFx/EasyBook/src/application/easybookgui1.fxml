@@ -35,19 +35,20 @@
                      <children>
                         <Button id="newBook" fx:id="btnNewBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
                         <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
-                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
+                        <ToggleButton id="categoryAllBookings" layoutX="56.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" selected="true" text="All Bookings">
                            <toggleGroup>
                               <ToggleGroup fx:id="categoryBookings" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings" />
-                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings" />
-                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings" />
+                           </toggleGroup></ToggleButton>
+                        <ToggleButton id="categoryComingSoon" layoutX="56.0" layoutY="184.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Coming Soon" toggleGroup="$categoryBookings" />
+                        <ToggleButton id="categoryRunning" layoutX="56.0" layoutY="219.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Running" toggleGroup="$categoryBookings" />
+                        <ToggleButton id="categoryCompleted" layoutX="56.0" layoutY="254.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Completed" toggleGroup="$categoryBookings" />
                         <TextField layoutX="26.0" layoutY="350.0" />
                         <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
                         <Separator layoutY="309.0" prefWidth="200.0" />
                         <Separator layoutY="112.0" prefWidth="200.0" />
                         <TextField layoutX="26.0" layoutY="452.0" />
                         <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
+                     
                      </children>
                   </Pane>
                </children>
@@ -60,6 +61,7 @@
                   <Pane layoutX="221.0" prefHeight="572.0" prefWidth="579.0">
                      <children>
                         <Pagination layoutX="19.0" layoutY="14.0" maxPageIndicatorCount="3" pageCount="3" prefHeight="246.0" prefWidth="543.0" />
+                        <VBox prefHeight="200.0" prefWidth="461.0" />
                         <Label layoutX="135.0" layoutY="63.0" text="Name:">
                            <font>
                               <Font size="18.0" />

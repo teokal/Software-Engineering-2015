@@ -11,48 +11,6 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab id="bookings" text="Bookings">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Pane layoutX="203.0" prefHeight="571.0" prefWidth="597.0">
-                     <children>
-                        <Group />
-                        <TableView layoutX="16.0" layoutY="28.0" prefHeight="535.0" prefWidth="568.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Code" />
-                            <TableColumn prefWidth="86.0" text="Surname" />
-                              <TableColumn prefWidth="76.0" text="Check In" />
-                              <TableColumn prefWidth="75.0" text="Check Out" />
-                              <TableColumn prefWidth="76.0" text="Room" />
-                              <TableColumn prefWidth="69.0" text="Persons" />
-                              <TableColumn prefWidth="78.0" text="Paid" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </Pane>
-                  <Pane id="newBook" prefHeight="571.0" prefWidth="200.0">
-                     <children>
-                        <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
-                        <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
-                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="categoryBookings" />
-                           </toggleGroup></RadioButton>
-                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings" />
-                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings" />
-                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings" />
-                        <TextField layoutX="26.0" layoutY="350.0" />
-                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
-                        <Separator layoutY="309.0" prefWidth="200.0" />
-                        <Separator layoutY="112.0" prefWidth="200.0" />
-                        <TextField layoutX="26.0" layoutY="452.0" />
-                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
-                     </children>
-                  </Pane>
-               </children>
-            </AnchorPane>
-         </content></Tab>
       <Tab id="rooms" text="Rooms">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -105,7 +63,7 @@
                   <Pane prefHeight="571.0" prefWidth="221.0">
                      <children>
                         <Button alignment="CENTER" layoutX="71.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="80.0" text="Add Room" textAlignment="CENTER" wrapText="true" />
-                        <TextField layoutX="36.0" layoutY="98.0" />
+                        <TextField layoutX="36.0" layoutY="98.0" promptText="Search a room" />
                         <Button layoutX="85.0" layoutY="131.0" mnemonicParsing="false" text="Search" />
                         <Separator layoutX="11.0" layoutY="180.0" prefWidth="200.0" />
                         <ToggleButton layoutX="60.0" layoutY="204.0" mnemonicParsing="false" prefWidth="100.0" text="Standard" />
@@ -133,6 +91,48 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
       </Tab>
+    <Tab id="bookings" text="Bookings">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Pane layoutX="203.0" prefHeight="571.0" prefWidth="597.0">
+                     <children>
+                        <Group />
+                        <TableView layoutX="16.0" layoutY="28.0" prefHeight="535.0" prefWidth="568.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Code" />
+                            <TableColumn prefWidth="86.0" text="Surname" />
+                              <TableColumn prefWidth="76.0" text="Check In" />
+                              <TableColumn prefWidth="75.0" text="Check Out" />
+                              <TableColumn prefWidth="76.0" text="Room" />
+                              <TableColumn prefWidth="69.0" text="Persons" />
+                              <TableColumn prefWidth="78.0" text="Paid" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="newBook" prefHeight="571.0" prefWidth="200.0">
+                     <children>
+                        <Button id="newBook" layoutX="64.0" layoutY="29.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="73.0" text="New Book" wrapText="true" />
+                        <Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
+                        <RadioButton id="categoryAllBookings" layoutX="56.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="All Bookings">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="categoryBookings" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton id="categoryComingSoon" layoutX="56.0" layoutY="202.0" mnemonicParsing="false" text="Coming Soon" toggleGroup="$categoryBookings" />
+                        <RadioButton id="categoryRunning" layoutX="56.0" layoutY="229.0" mnemonicParsing="false" text="Running" toggleGroup="$categoryBookings" />
+                        <RadioButton id="categoryCompleted" layoutX="56.0" layoutY="255.0" mnemonicParsing="false" text="Completed" toggleGroup="$categoryBookings" />
+                        <TextField layoutX="26.0" layoutY="350.0" promptText="Search a book" />
+                        <Button layoutX="75.0" layoutY="389.0" mnemonicParsing="false" text="Search" />
+                        <Separator layoutY="309.0" prefWidth="200.0" />
+                        <Separator layoutY="112.0" prefWidth="200.0" />
+                        <TextField layoutX="26.0" layoutY="452.0" promptText="Edit a book" />
+                        <Button layoutX="82.0" layoutY="489.0" mnemonicParsing="false" text="Edit" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content></Tab>
   </tabs>
    <effect>
       <Blend />

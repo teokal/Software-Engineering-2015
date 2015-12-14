@@ -120,18 +120,28 @@
                            </font></Button>
                         <TextField alignment="CENTER" layoutX="36.0" layoutY="98.0" promptText="Search a room" />
                         <Button layoutX="82.0" layoutY="131.0" mnemonicParsing="false" text="Search" />
-                        <ToggleButton layoutX="60.0" layoutY="204.0" mnemonicParsing="false" prefWidth="100.0" text="Standard">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton layoutX="60.0" layoutY="252.0" mnemonicParsing="false" prefWidth="100.0" text="Comfort">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton layoutX="60.0" layoutY="298.0" mnemonicParsing="false" prefWidth="100.0" text="Suite">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
+                        <Group>
+                           <children>
+                              <ToggleButton layoutX="60.0" layoutY="252.0" mnemonicParsing="false" prefWidth="100.0" text="Comfort">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="categoryTypesRooms" />
+                                 </toggleGroup>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </ToggleButton>
+                              <ToggleButton layoutX="60.0" layoutY="204.0" mnemonicParsing="false" prefWidth="100.0" text="Standard" toggleGroup="$categoryTypesRooms">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </ToggleButton>
+                              <ToggleButton layoutX="60.0" layoutY="298.0" mnemonicParsing="false" prefWidth="100.0" text="Suite" toggleGroup="$categoryTypesRooms">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </ToggleButton>
+                           </children>
+                        </Group>
                         <HBox layoutX="70.0" layoutY="374.0">
                            <children>
                               <VBox layoutX="70.0" layoutY="374.0">
@@ -141,21 +151,24 @@
                                           <Group layoutX="4.0" layoutY="-12.0">
                                              <children>
                                                 <ToggleButton layoutX="66.0" layoutY="431.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="3 Bed">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="categoryBedRooms" />
+                                                   </toggleGroup>
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </ToggleButton>
-                                                <ToggleButton layoutX="67.0" layoutY="386.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="4 Bed">
+                                                <ToggleButton layoutX="67.0" layoutY="386.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="4 Bed" toggleGroup="$categoryBedRooms">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </ToggleButton>
-                                                <ToggleButton layoutX="66.0" layoutY="476.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="2 Bed">
+                                                <ToggleButton layoutX="66.0" layoutY="476.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="2 Bed" toggleGroup="$categoryBedRooms">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </ToggleButton>
-                                                <ToggleButton layoutX="66.0" layoutY="520.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="1 Bed">
+                                                <ToggleButton layoutX="66.0" layoutY="520.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="1 Bed" toggleGroup="$categoryBedRooms">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -212,33 +225,36 @@
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="categoryOffers" />
+                                             </toggleGroup>
                                           </ToggleButton>
-                                          <ToggleButton layoutX="43.0" layoutY="130.0" mnemonicParsing="false" text="Standard">
+                                          <ToggleButton layoutX="43.0" layoutY="130.0" mnemonicParsing="false" text="Standard" toggleGroup="$categoryOffers">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </ToggleButton>
-                                          <ToggleButton layoutX="42.0" layoutY="170.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="78.0" text="Comfort">
+                                          <ToggleButton layoutX="42.0" layoutY="170.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="78.0" text="Comfort" toggleGroup="$categoryOffers">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </ToggleButton>
-                                          <ToggleButton layoutX="42.0" layoutY="208.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="78.0" text="Suite">
+                                          <ToggleButton layoutX="42.0" layoutY="208.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="78.0" text="Suite" toggleGroup="$categoryOffers">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </ToggleButton>
-                                          <ToggleButton layoutX="53.0" layoutY="283.0" mnemonicParsing="false" text="4 Bed">
+                                          <ToggleButton layoutX="53.0" layoutY="283.0" mnemonicParsing="false" text="4 Bed" toggleGroup="$categoryOffers">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </ToggleButton>
-                                          <ToggleButton layoutX="53.0" layoutY="321.0" mnemonicParsing="false" text="3 Bed">
+                                          <ToggleButton layoutX="53.0" layoutY="321.0" mnemonicParsing="false" text="3 Bed" toggleGroup="$categoryOffers">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </ToggleButton>
-                                          <ToggleButton layoutX="53.0" layoutY="358.0" mnemonicParsing="false" text="2 Bed">
+                                          <ToggleButton layoutX="53.0" layoutY="358.0" mnemonicParsing="false" text="2 Bed" toggleGroup="$categoryOffers">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -309,6 +325,9 @@
                                                          <HBox.margin>
                                                             <Insets />
                                                          </HBox.margin>
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="categoryRadioDatesOffers" />
+                                                         </toggleGroup>
                                                       </RadioButton>
                                                       <TextField layoutX="366.0" layoutY="64.0" prefHeight="25.0" prefWidth="70.0" promptText="&gt;10 days" HBox.hgrow="ALWAYS" />
                                                    </children>
@@ -322,13 +341,16 @@
                                                          <padding>
                                                             <Insets right="10.0" />
                                                          </padding>
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="categoryRadioTypeOffers" />
+                                                         </toggleGroup>
                                                       </RadioButton>
                                                       <TextField layoutX="366.0" layoutY="64.0" prefHeight="25.0" prefWidth="66.0" promptText="30%" HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                                 <HBox layoutX="312.0" layoutY="64.0" prefHeight="25.0" prefWidth="179.0">
                                                    <children>
-                                                      <RadioButton contentDisplay="CENTER" layoutX="278.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Price:" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                                                      <RadioButton contentDisplay="CENTER" layoutX="278.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Price:" textAlignment="RIGHT" toggleGroup="$categoryRadioTypeOffers" HBox.hgrow="ALWAYS">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -337,7 +359,7 @@
                                                    </children>
                                                 </HBox>
                                                 <Separator layoutX="300.0" layoutY="96.0" prefHeight="3.0" prefWidth="284.0" />
-                                                <RadioButton layoutX="312.0" layoutY="142.0" mnemonicParsing="false" text="Dates:">
+                                                <RadioButton layoutX="312.0" layoutY="142.0" mnemonicParsing="false" text="Dates:" toggleGroup="$categoryRadioDatesOffers">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -462,8 +484,11 @@
                                        <font>
                                           <Font size="14.0" />
                                        </font>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="categoryIncomeBooksStatistics" />
+                                       </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton layoutX="113.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="69.0" text="Books" HBox.hgrow="ALWAYS">
+                                    <ToggleButton layoutX="113.0" layoutY="49.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="69.0" text="Books" toggleGroup="$categoryIncomeBooksStatistics" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -503,13 +528,16 @@
                            <font>
                               <Font size="13.0" />
                            </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="categoryTypeOptions" />
+                           </toggleGroup>
                         </ToggleButton>
-                        <ToggleButton layoutX="26.0" layoutY="112.0" mnemonicParsing="false" prefWidth="70.0" text="Suite">
+                        <ToggleButton layoutX="26.0" layoutY="112.0" mnemonicParsing="false" prefWidth="70.0" text="Suite" toggleGroup="$categoryTypeOptions">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </ToggleButton>
-                        <ToggleButton layoutX="26.0" layoutY="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Standard">
+                        <ToggleButton layoutX="26.0" layoutY="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Standard" toggleGroup="$categoryTypeOptions">
                            <font>
                               <Font size="13.0" />
                            </font>

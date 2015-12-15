@@ -455,30 +455,8 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="168.0">
                            <children>
-                              <Group layoutX="3.0" layoutY="45.0">
-                                 <children>
-                                    <CheckBox layoutX="69.0" layoutY="93.0" mnemonicParsing="false" text="Duration">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </CheckBox>
-                                    <MenuButton layoutX="116.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Year">
-                                       <items>
-                                          <MenuItem mnemonicParsing="false" text="Action 1" />
-                                          <MenuItem mnemonicParsing="false" text="Action 2" />
-                                       </items>
-                                    </MenuButton>
-                                    <DatePicker layoutX="116.0" layoutY="123.0" prefHeight="25.0" prefWidth="98.0" promptText="Until" />
-                                    <DatePicker layoutX="5.0" layoutY="123.0" prefHeight="25.0" prefWidth="98.0" promptText="From" />
-                                    <MenuButton layoutX="5.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Month">
-                                      <items>
-                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                                      </items>
-                                    </MenuButton>
-                                 </children>
-                              </Group>
-                              <HBox layoutX="38.0" layoutY="37.0" spacing="15.0">
+                              <Group layoutX="4.0" layoutY="145.0" />
+                              <HBox layoutX="38.0" layoutY="26.0" spacing="15.0">
                                  <children>
                                     <ToggleButton layoutX="37.0" layoutY="49.0" mnemonicParsing="false" text="Income">
                                        <font>
@@ -495,8 +473,8 @@
                                     </ToggleButton>
                                  </children>
                               </HBox>
-                              <Separator layoutX="14.0" layoutY="221.0" prefWidth="200.0" />
-                              <HBox layoutX="29.0" layoutY="255.0" spacing="10.0">
+                              <Separator layoutX="14.0" layoutY="245.0" prefWidth="200.0" />
+                              <HBox layoutX="14.0" layoutY="412.0" spacing="10.0">
                                  <children>
                                     <Label layoutX="14.0" layoutY="255.0" text="Cancellations:" HBox.hgrow="ALWAYS">
                                        <font>
@@ -510,6 +488,54 @@
                                     </Label>
                                  </children>
                               </HBox>
+                              <HBox layoutX="40.0" layoutY="101.0">
+                                 <children>
+                                    <RadioButton layoutX="28.0" layoutY="97.0" mnemonicParsing="false">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <MenuButton layoutX="65.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Select a month">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="January" />
+                                        <MenuItem mnemonicParsing="false" text="February" />
+                                          <MenuItem mnemonicParsing="false" text="March" />
+                                          <MenuItem mnemonicParsing="false" text="April" />
+                                          <MenuItem mnemonicParsing="false" text="May" />
+                                          <MenuItem mnemonicParsing="false" text="June" />
+                                          <MenuItem mnemonicParsing="false" text="July" />
+                                          <MenuItem mnemonicParsing="false" text="August" />
+                                          <MenuItem mnemonicParsing="false" text="September" />
+                                          <MenuItem mnemonicParsing="false" text="October" />
+                                          <MenuItem mnemonicParsing="false" text="November" />
+                                          <MenuItem mnemonicParsing="false" text="December" />
+                                      </items>
+                                    </MenuButton>
+                                 </children>
+                              </HBox>
+                              <MenuButton layoutX="66.0" layoutY="139.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Select a year">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="2015" />
+                                    <MenuItem mnemonicParsing="false" text="2016" />
+                                 </items>
+                              </MenuButton>
+                              <Separator layoutX="14.0" layoutY="80.0" prefWidth="200.0" />
+                              <RadioButton layoutX="40.0" layoutY="141.0" mnemonicParsing="false">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <Group layoutX="-98.0" layoutY="20.0">
+                                 <children>
+                                    <DatePicker layoutX="213.0" layoutY="184.0" prefHeight="25.0" prefWidth="99.0" promptText="Until" />
+                                    <RadioButton layoutX="139.0" layoutY="158.0" mnemonicParsing="false" text="Duration">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <DatePicker layoutX="108.0" layoutY="184.0" prefHeight="25.0" prefWidth="98.0" promptText="From" />
+                                 </children>
+                              </Group>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="546.0" />
@@ -572,6 +598,145 @@
                         <CheckBox layoutX="437.0" layoutY="120.0" mnemonicParsing="false" text="4 Bed" />
                      </children>
                   </Group>
+                  <Separator layoutX="26.0" layoutY="171.0" prefHeight="0.0" prefWidth="738.0" />
+                  <VBox layoutX="13.0" layoutY="202.0">
+                     <children>
+                        <VBox layoutX="26.0" layoutY="202.0">
+                           <children>
+                              <HBox layoutX="33.0" layoutY="202.0" spacing="10.0">
+                                 <children>
+                                    <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Breackfast">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                    <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" text="€" />
+                                      </items>
+                                    </SplitMenuButton>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="33.0" layoutY="234.0" spacing="10.0">
+                                 <children>
+                                    <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Full Dinner">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                    <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" text="€" />
+                                       </items>
+                                    </SplitMenuButton>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="33.0" layoutY="268.0" spacing="10.0">
+                                 <children>
+                                    <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Pool">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                    <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" text="€" />
+                                       </items>
+                                    </SplitMenuButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox layoutX="13.0" layoutY="290.0" spacing="10.0">
+                           <children>
+                              <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="69.0" text="Hair Salon">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                              <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="€" />
+                                 </items>
+                              </SplitMenuButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="277.0" layoutY="202.0">
+                     <children>
+                        <HBox layoutX="283.0" layoutY="220.0" spacing="10.0">
+                           <children>
+                              <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="117.0" text="Fitness Centre">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                              <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="€" />
+                                 </items>
+                              </SplitMenuButton>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="287.0" layoutY="245.0" spacing="10.0">
+                           <children>
+                              <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Spa Treatments">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                              <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="€" />
+                                 </items>
+                              </SplitMenuButton>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="283.0" layoutY="273.0" spacing="10.0">
+                           <children>
+                              <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Face &amp; Body Care">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                              <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="€" />
+                                 </items>
+                              </SplitMenuButton>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="288.0" layoutY="316.0" spacing="10.0">
+                           <children>
+                              <Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Massage Therapies">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                              <SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="€" />
+                                 </items>
+                              </SplitMenuButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button layoutX="567.0" layoutY="235.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Separator layoutX="26.0" layoutY="332.0" prefHeight="0.0" prefWidth="738.0" />
                </children></AnchorPane>
         </content>
       </Tab>

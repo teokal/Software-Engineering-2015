@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="168.0" layoutY="90.0" opacity="0.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <MenuBar prefHeight="25.0" prefWidth="800.0">
               <menus>
@@ -134,149 +134,291 @@
             </Button>
          </children>
       </Pane>
-      <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane opacity="0.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="33.0" prefHeight="38.0" prefWidth="427.0" style="-fx-border-color: black; -fx-border-radius: 20;" text="Additional services for a luxury accomodation" textAlignment="CENTER">
                <font>
                   <Font name="Serif Regular" size="20.0" />
                </font>
             </Label>
-            <Group>
+            <VBox layoutX="82.0" layoutY="140.0">
                <children>
-                  <Group layoutY="-31.0">
+                  <HBox layoutX="81.0" layoutY="168.0" spacing="10.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="57.0" layoutY="160.0" prefHeight="38.0" prefWidth="295.0">
+                        <HBox layoutX="81.0" layoutY="168.0">
                            <children>
-                              <CheckBox layoutX="150.0" layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Breackfast ">
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Breakfast">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <Label contentDisplay="RIGHT" layoutX="288.0" layoutY="202.0" prefHeight="30.0" prefWidth="19.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="€">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label text="          (per person)" />
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" layoutX="57.0" layoutY="198.0" prefHeight="38.0" prefWidth="295.0">
-                           <children>
-                              <CheckBox layoutX="150.0" layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Full Dinner ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <Label contentDisplay="RIGHT" layoutX="288.0" layoutY="202.0" prefHeight="30.0" prefWidth="20.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="€">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label text="          (per person)" />
-                           </children>
-                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="per person" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
-                  </Group>
-                  <Group layoutX="-311.0" layoutY="45.0">
+                  </HBox>
+                  <HBox layoutX="70.0" layoutY="196.0" spacing="10.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="365.0" layoutY="198.0" prefHeight="38.0" prefWidth="317.0">
+                        <HBox layoutX="81.0" layoutY="168.0">
                            <children>
-                              <CheckBox layoutX="150.0" layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Fitness Centre">
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Full Dinner">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <Label contentDisplay="RIGHT" layoutX="288.0" layoutY="202.0" prefHeight="30.0" prefWidth="19.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="€">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="3.0" prefWidth="91.0" text="          (unlimited)" />
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" layoutX="365.0" layoutY="160.0" prefHeight="38.0" prefWidth="295.0">
-                           <children>
-                              <CheckBox layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Pool">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <Label contentDisplay="RIGHT" layoutX="288.0" layoutY="202.0" prefHeight="30.0" prefWidth="20.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="€">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label text="          (unlimited)" />
-                           </children>
-                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="per person" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
-                  </Group>
-                  <Group layoutX="-5.0" layoutY="25.0">
+                  </HBox>
+                  <HBox layoutX="89.0" layoutY="227.0" spacing="10.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="57.0" layoutY="300.0" prefHeight="38.0" prefWidth="295.0">
+                        <HBox layoutX="81.0" layoutY="168.0">
                            <children>
-                              <CheckBox layoutX="200.0" layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Hair Salon">
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="95.0" text="Pool">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <Label contentDisplay="RIGHT" layoutX="288.0" layoutY="202.0" prefHeight="30.0" prefWidth="20.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="€">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label text="          (one time)" />
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" layoutX="56.0" layoutY="262.0" prefHeight="38.0" prefWidth="340.0">
-                           <children>
-                              <CheckBox layoutX="150.0" layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="Spa Treatments">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <Label contentDisplay="RIGHT" layoutX="288.0" layoutY="202.0" prefHeight="30.0" prefWidth="19.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label text="€">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label text="          (one time)" />
-                           </children>
-                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="unlimited" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
-                  </Group>
+                  </HBox>
+                  <HBox layoutX="67.0" layoutY="269.0" spacing="10.0">
+                     <children>
+                        <HBox layoutX="81.0" layoutY="168.0">
+                           <children>
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Hair Salon">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="one time" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="65.0" layoutY="300.0" spacing="10.0">
+                     <children>
+                        <HBox layoutX="81.0" layoutY="168.0">
+                           <children>
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Fitness Center">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="unlimited" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="73.0" layoutY="345.0" spacing="10.0">
+                     <children>
+                        <HBox layoutX="81.0" layoutY="168.0">
+                           <children>
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Spa Treatments">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="75.0" text="one treatment" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="26.0" layoutY="386.0" spacing="10.0">
+                     <children>
+                        <HBox layoutX="81.0" layoutY="168.0">
+                           <children>
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Face &amp; Body Care">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="72.0" text="one time" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="78.0" layoutY="424.0" spacing="10.0">
+                     <children>
+                        <HBox layoutX="81.0" layoutY="168.0">
+                           <children>
+                              <CheckBox layoutX="81.0" layoutY="168.0" mnemonicParsing="false" text="Massage Therapies">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <HBox layoutX="198.0" layoutY="170.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="198.0" layoutY="170.0" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="238.0" layoutY="170.0" prefHeight="21.0" prefWidth="11.0" text="€">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="once a day" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
-            </Group>
+            </VBox>
+            <Separator layoutX="48.0" layoutY="340.0" prefHeight="3.0" prefWidth="711.0" />
+            <TabPane layoutX="383.0" layoutY="118.0" prefHeight="190.0" prefWidth="356.0" style="-fx-border-color: grey;" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Special Reguests">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="343.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="289.0" text="Make changes or cancel this booking online before 8 July 2016, 00:00 (Protaras time), for € 0" wrapText="true">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children>
       </Pane>
    </children>

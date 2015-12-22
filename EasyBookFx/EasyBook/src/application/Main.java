@@ -20,18 +20,29 @@ public class Main extends Application {
 			primaryStage.setScene(scene); 
 			primaryStage.show();		
 			
+			//			Alert alert = new Alert(AlertType.INFORMATION);
+			//			alert.setTitle("Information Dialog");
+			//			alert.setHeaderText(null);
+			//			alert.setContentText("I have a great message for you!");
+			//
+			//			alert.show();
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void start2(Stage secStage){
-		try{
-			Parent root1 = FXMLLoader.load(getClass().getResource("/application/addBookGui.fxml"));
-			Scene scene1 = new Scene(root1);
-			scene1.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			secStage.setScene(scene1); 
-			secStage.show();	
+	public void startNewBookPanel() {
+		try {
+			
+			Stage primaryStage = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("/application/addBookGui.fxml"));
+			Scene scene = new Scene(root);
+			
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene); 
+			primaryStage.show();
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

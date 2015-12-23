@@ -134,7 +134,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane opacity="0.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane disable="true" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="33.0" prefHeight="38.0" prefWidth="427.0" style="-fx-border-color: black; -fx-border-radius: 20;" text="Additional services for a luxury accomodation" textAlignment="CENTER">
                <font>

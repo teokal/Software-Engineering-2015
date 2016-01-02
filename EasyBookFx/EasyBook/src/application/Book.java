@@ -19,7 +19,6 @@ public class Book {
 	private float money_received;
 	private SimpleStringProperty  status;
 	
-	private SimpleStringProperty  room;
 
 	public Book( 
 			int b_id, 
@@ -52,7 +51,7 @@ public class Book {
 		this.status = new SimpleStringProperty(status);
 	}
 
-	private void setB_id (int s) {
+	public void setB_id (int s) {
 		b_id = s;
 	}
 
@@ -106,6 +105,10 @@ public class Book {
 
 	public void setStatus (String s) {
 		status.set(s);
+	}
+	
+	public int getB_id() {
+		return b_id;
 	}
 
 	public String getCode () {

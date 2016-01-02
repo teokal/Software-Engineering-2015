@@ -13,13 +13,12 @@ import com.mysql.jdbc.Statement;
 
 import application.Book;
 import application.Main;
+import application.Room;
 import database.Conn;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
@@ -28,8 +27,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.TableView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -53,10 +50,24 @@ public class AdministrationPanel implements Initializable {
 	private TableColumn<Book, String> email_clmn;
 	@FXML
 	private TableColumn<Book, String> idnum_clmn;
+
+	@FXML
+	private TableColumn<Room, Integer> room_name_col;
+	@FXML
+	private TableColumn<Room, String> type_col;
+	@FXML
+	private TableColumn<Room, Integer> single_beds_col;
+	@FXML
+	private TableColumn<Room, Integer> double_beds_col;
+	@FXML
+	private TableColumn<Room, Float> cost_col;
+
 	@FXML
 	private ToggleGroup categoryTypesRooms;
 	@FXML
 	private Button searchBook;
+	@FXML
+	private Button searchRoom;
 	@FXML
 	private TableColumn<Book, String> persons_clmn;
 	@FXML
@@ -76,51 +87,71 @@ public class AdministrationPanel implements Initializable {
 	@FXML
 	private TextField searchBookText;
 	@FXML
+	private TextField searchRoomText;
+	@FXML
 	private ToggleGroup categoryRadioTypeOffers;
 	@FXML
 	private ToggleGroup categoryIncomeBooksStatistics;
 	@FXML
 	private TableView<Book> bookingsTable;
 	@FXML
+	private TableView<Room> roomsTable;
+	@FXML
 	private Button newBookBtn;
 	@FXML
 	private ToggleGroup categoryTypeOptions;
-    @FXML
-    private ToggleButton allBookings;
-    @FXML
-    private ToggleButton completedBookings;
-    @FXML
-    private ToggleButton comingSoonBookings;
-    @FXML
-    private ToggleButton runningBookings;
+	@FXML
+	private ToggleButton allBookings;
+	@FXML
+	private ToggleButton completedBookings;
+	@FXML
+	private ToggleButton comingSoonBookings;
+	@FXML
+	private ToggleButton runningBookings;
+	@FXML
+	private ToggleButton allRooms;
+	@FXML
+	private ToggleButton standardRooms;
+	@FXML
+	private ToggleButton comfortRooms;
+	@FXML
+	private ToggleButton suiteRooms;
+	@FXML
+	private ToggleButton rooms_1bed;
+	@FXML
+	private ToggleButton rooms_2beds;
+	@FXML
+	private ToggleButton rooms_3beds;
+	@FXML
+	private ToggleButton rooms_4plusbeds;
 
 	private ObservableList<Book> bookingList;
+	private ObservableList<Room> roomsList;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		showAllBookings(null);
+		showAllRooms(null);
 	}
 
+	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
 		Main main = new Main();
 		main.startNewBookPanel();
 	}
-	
+
 	public void showAllBookings(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings");
 	}
-	
 	public void showRunning(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings"
 				+ " where ( `check_in` >= concat(curdate(), ' ', curtime()) ) "
 				+ "AND (`check_out` < concat(curdate(), ' ', curtime()) )");
 	}
-	
 	public void showComingSoon(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings"
-				+ " where `check_in` < concat( curdate(), ' ', curtime() )");
+				+ " where `check_in` > concat( curdate(), ' ', curtime() )");
 	}
-	
 	public void showCompleted(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings"
 				+ " where `check_out` <= concat( curdate(), ' ', curtime() )");
@@ -131,28 +162,24 @@ public class AdministrationPanel implements Initializable {
 		String textSearch = searchBookText.getText();
 
 		if (! textSearch.isEmpty() ) {
-			
-			deselectToggle();
-			
-			try {
-				Statement stmt = (Statement) conn.createStatement();
 
-				String query = "SELECT * FROM bookings "
-						+ "WHERE `b_id` LIKE '%" + textSearch + "%'	"
-						+ "OR	`code`  LIKE '%" + textSearch + "%'	"
-						+ "OR	`name` LIKE '%" + textSearch + "%'	"
-						+ "OR	`sname` LIKE '%" + textSearch + "%'	"
-						+ "OR 	`tel` LIKE '%" + textSearch + "%'	"
-						+ "OR	`email` LIKE '%" + textSearch + "%'	";
+			deselectBookingsToggle();
 
-				showBookingsOnTable(query);
 
-			} catch (SQLException e ) {
-				e.printStackTrace();
-			}
+
+			String query = "SELECT * FROM bookings "
+					+ "WHERE `b_id` LIKE '%" + textSearch + "%'	"
+					+ "OR	`code`  LIKE '%" + textSearch + "%'	"
+					+ "OR	`name` LIKE '%" + textSearch + "%'	"
+					+ "OR	`sname` LIKE '%" + textSearch + "%'	"
+					+ "OR 	`tel` LIKE '%" + textSearch + "%'	"
+					+ "OR	`email` LIKE '%" + textSearch + "%'	";
+
+			showBookingsOnTable(query);
+
+
 		}
 	}
-
 	public void showBookingsOnTable(String query) {
 
 		code_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("code") );
@@ -167,36 +194,14 @@ public class AdministrationPanel implements Initializable {
 		persons_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("paid") );
 		paid_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("paid") );
 
-		bookingList = getTableData(query);
+		bookingList = getBookingsTableData(query);
 		bookingsTable.setItems( bookingList );
 
-		bookingsTable.getSelectionModel().selectedIndexProperty().addListener(new RowSelectChangeListener());
 
 	}
-
-	private class RowSelectChangeListener implements ChangeListener<Number> {
-
-		@Override
-		public void changed(ObservableValue<? extends Number> ov, 
-				Number oldVal, Number newVal) {
-
-			int ix = newVal.intValue();
-
-			if ((ix < 0) || (ix >= bookingList.size())) {
-
-				return; // invalid data
-			}
-
-			Book book = bookingList.get(ix);
-			//actionStatus.setText(book.toString());	
-		}
-	}
-
-	private ObservableList<Book> getTableData(String query) {
+	private ObservableList<Book> getBookingsTableData(String query) {
 
 		List<Book> list = new ArrayList<Book>();
-		
-		boolean found = false;
 
 		try {
 			Statement stmt = (Statement) conn.createStatement();
@@ -204,7 +209,6 @@ public class AdministrationPanel implements Initializable {
 			ResultSet rs = stmt.executeQuery( query );
 
 			while (rs.next()) {
-				found = true;
 				list.add( new Book(
 						rs.getInt("b_id"), 
 						rs.getString("code"), 
@@ -223,24 +227,116 @@ public class AdministrationPanel implements Initializable {
 			}
 		} catch (SQLException e )	{ e.printStackTrace();
 		} catch (ParseException e)	{ e.printStackTrace();	}
-		
-//		if ( !found ){
-//			Alert alert = new Alert(AlertType.INFORMATION);
-//			alert.setTitle("Search Results");
-//			alert.setContentText("Nothing found!");
-//			alert.showAndWait();
-//		}
-		
+
 		ObservableList<Book> data = FXCollections.observableList(list);
 
 		return data;
 	}
-
-	private void deselectToggle(){
+	private void deselectBookingsToggle(){
 		allBookings.setSelected(false);
 		completedBookings.setSelected(false);
 		runningBookings.setSelected(false);
 		comingSoonBookings.setSelected(false);
-		
+	}
+
+	/* Rooms TAB */
+	public void showAllRooms(ActionEvent event) {
+		deselectRoomsBedsToggle();
+		showRoomsOnTable("Select * from rooms");
+	}
+	public void showStandardRooms(ActionEvent event) {
+		deselectRoomsBedsToggle();
+		showRoomsOnTable("Select * from rooms where `room_type`='Standard'");
+	}
+	public void showComfortRooms(ActionEvent event) {
+		deselectRoomsBedsToggle();
+		showRoomsOnTable("Select * from rooms where `room_type`='Comfort'");
+	}
+	public void showSuiteRooms(ActionEvent event) {
+		deselectRoomsBedsToggle();
+		showRoomsOnTable("Select * from rooms where `room_type`='Suite'");
+	}
+
+	public void showRooms1Bed(ActionEvent event) {
+		deselectRoomsTypeToggle();
+		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` = 1");
+	}
+	public void showRooms2Beds(ActionEvent event) {
+		deselectRoomsTypeToggle();
+		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` = 2");
+	}
+	public void showRooms3Beds(ActionEvent event) {
+		deselectRoomsTypeToggle();
+		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` = 3");
+	}
+	public void showRooms4plusBeds(ActionEvent event) {
+		deselectRoomsTypeToggle();
+		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` >= 4");
+	}
+
+	public void searchRoomFromText(ActionEvent event) {
+
+		deselectRoomsTypeToggle();
+		deselectRoomsBedsToggle();
+
+		String textSearch = searchRoomText.getText();
+
+		if (! textSearch.isEmpty() ) {
+
+			String query = "SELECT * FROM `rooms` WHERE "
+					+ "`room_name` LIKE '%" + textSearch + "%'";
+
+			showRoomsOnTable(query);
+		}
+	}
+	public void showRoomsOnTable(String query) {
+
+		room_name_col.setCellValueFactory(new PropertyValueFactory<Room, Integer>("room_name") );
+		type_col.setCellValueFactory(new PropertyValueFactory<Room, String>("room_type") );
+		single_beds_col.setCellValueFactory(new PropertyValueFactory<Room, Integer>("single_beds") );
+		double_beds_col.setCellValueFactory(new PropertyValueFactory<Room, Integer>("double_beds") );
+		cost_col.setCellValueFactory(new PropertyValueFactory<Room, Float>("cost") );
+
+		roomsList = getRoomsTableData(query);
+		roomsTable.setItems( roomsList );
+
+	}
+	private ObservableList<Room> getRoomsTableData(String query) {
+
+		List<Room> list = new ArrayList<Room>();
+
+		try {
+			Statement stmt = (Statement) conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery( query );
+
+			while ( rs.next()) {
+
+				list.add( new Room(
+						rs.getInt("room_id"), 
+						rs.getString("room_name"), 
+						rs.getString("room_type"),
+						rs.getInt("single_beds"),
+						rs.getInt("double_beds"),
+						rs.getFloat("cost") ) ); 
+			}
+		} catch (SQLException e) { e.printStackTrace();
+		}
+
+		ObservableList<Room> data = FXCollections.observableList(list);
+
+		return data;
+	}
+	private void deselectRoomsTypeToggle(){
+		allRooms.setSelected(false);
+		standardRooms.setSelected(false);
+		comfortRooms.setSelected(false);
+		suiteRooms.setSelected(false);
+	}
+	private void deselectRoomsBedsToggle(){
+		rooms_1bed.setSelected(false);
+		rooms_2beds.setSelected(false);
+		rooms_3beds.setSelected(false);
+		rooms_4plusbeds.setSelected(false);
 	}
 }

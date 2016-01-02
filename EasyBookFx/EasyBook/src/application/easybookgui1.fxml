@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AdministrationPanel">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AdministrationPanel">
 	<tabs>
 		<Tab id="bookings" text="Bookings">
 			<content>
@@ -106,13 +106,15 @@
 					<children>
 						<Pane layoutX="198.0" layoutY="-15.0" prefHeight="532.0" prefWidth="594.0">
 							<children>
-								<TreeTableView layoutX="17.0" layoutY="31.0" prefHeight="500.0" prefWidth="570.0">
+								<TableView fx:id="roomsTable" layoutX="17.0" layoutY="31.0" prefHeight="500.0" prefWidth="570.0">
 									<columns>
-										<TreeTableColumn fx:id="room_col" text="Room" />
-										<TreeTableColumn fx:id="type_col" text="Type" />
-										<TreeTableColumn fx:id="bed_col" text="Bed" />
+										<TableColumn fx:id="room_name_col" text="Room" />
+										<TableColumn fx:id="type_col" text="Type" />
+										<TableColumn fx:id="single_beds_col" text="Single Beds" />
+										<TableColumn fx:id="double_beds_col" text="Double Beds" />
+										<TableColumn fx:id="cost_col" text="Cost/Day" />
 									</columns>
-								</TreeTableView>
+								</TableView>
 							</children>
 						</Pane>
 						<Pane layoutY="1.0" prefHeight="571.0" prefWidth="221.0">
@@ -122,11 +124,11 @@
 										<Font size="14.0" />
 									</font>
 								</Button>
-								<TextField alignment="CENTER" layoutX="36.0" layoutY="98.0" promptText="Search a room" />
-								<Button layoutX="82.0" layoutY="131.0" mnemonicParsing="false" text="Search" />
-								<Group>
+								<TextField fx:id="searchRoomText" alignment="CENTER" layoutX="36.0" layoutY="98.0" promptText="Search a room" />
+								<Button fx:id="searchRoom" layoutX="84.0" layoutY="135.0" mnemonicParsing="false" onAction="#searchRoomFromText" text="Search" />
+								<Group layoutY="9.0">
 									<children>
-										<ToggleButton layoutX="60.0" layoutY="252.0" mnemonicParsing="false" prefWidth="100.0" text="Comfort">
+										<ToggleButton fx:id="allRooms" layoutX="60.0" layoutY="190.0" mnemonicParsing="false" onAction="#showAllRooms" prefWidth="100.0" text="All Rooms">
 											<toggleGroup>
 												<ToggleGroup fx:id="categoryTypesRooms" />
 											</toggleGroup>
@@ -134,12 +136,17 @@
 												<Font size="14.0" />
 											</font>
 										</ToggleButton>
-										<ToggleButton layoutX="60.0" layoutY="204.0" mnemonicParsing="false" prefWidth="100.0" text="Standard" toggleGroup="$categoryTypesRooms">
+										<ToggleButton fx:id="standardRooms" layoutX="60.0" layoutY="225.0" mnemonicParsing="false" onAction="#showStandardRooms" prefWidth="100.0" text="Standard" toggleGroup="$categoryTypesRooms">
 											<font>
 												<Font size="14.0" />
 											</font>
 										</ToggleButton>
-										<ToggleButton layoutX="60.0" layoutY="298.0" mnemonicParsing="false" prefWidth="100.0" text="Suite" toggleGroup="$categoryTypesRooms">
+										<ToggleButton fx:id="comfortRooms" layoutX="60.0" layoutY="260.0" mnemonicParsing="false" onAction="#showComfortRooms" prefWidth="100.0" text="Comfort" toggleGroup="$categoryTypesRooms">
+											<font>
+												<Font size="14.0" />
+											</font>
+										</ToggleButton>
+										<ToggleButton fx:id="suiteRooms" layoutX="60.0" layoutY="295.0" mnemonicParsing="false" onAction="#showSuiteRooms" prefWidth="100.0" text="Suite" toggleGroup="$categoryTypesRooms">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -154,7 +161,7 @@
 													<children>
 														<Group layoutX="4.0" layoutY="-12.0">
 															<children>
-																<ToggleButton layoutX="66.0" layoutY="431.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="3 Bed">
+																<ToggleButton fx:id="rooms_4plusbeds" layoutX="66.0" layoutY="386.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" onAction="#showRooms4plusBeds" text="4+ Beds">
 																	<toggleGroup>
 																		<ToggleGroup fx:id="categoryBedRooms" />
 																	</toggleGroup>
@@ -162,17 +169,17 @@
 																		<Font size="14.0" />
 																	</font>
 																</ToggleButton>
-																<ToggleButton layoutX="67.0" layoutY="386.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="4 Bed" toggleGroup="$categoryBedRooms">
+																<ToggleButton fx:id="rooms_3beds" layoutX="66.0" layoutY="431.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" onAction="#showRooms3Beds" text="3 Beds" toggleGroup="$categoryBedRooms">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
 																</ToggleButton>
-																<ToggleButton layoutX="66.0" layoutY="476.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="2 Bed" toggleGroup="$categoryBedRooms">
+																<ToggleButton fx:id="rooms_2beds" layoutX="66.0" layoutY="476.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" onAction="#showRooms2Beds" text="2 Beds" toggleGroup="$categoryBedRooms">
 																	<font>
 																		<Font size="14.0" />
 																	</font>
 																</ToggleButton>
-																<ToggleButton layoutX="66.0" layoutY="520.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" text="1 Bed" toggleGroup="$categoryBedRooms">
+																<ToggleButton fx:id="rooms_1bed" layoutX="66.0" layoutY="520.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="80.0" onAction="#showRooms1Bed" text="1 Bed" toggleGroup="$categoryBedRooms">
 																	<font>
 																		<Font size="14.0" />
 																	</font>

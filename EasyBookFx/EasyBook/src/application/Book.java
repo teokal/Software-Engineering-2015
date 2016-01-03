@@ -1,6 +1,9 @@
 package application;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javafx.beans.property.SimpleStringProperty;
 
 public class Book {
@@ -115,12 +118,20 @@ public class Book {
 		return code.get();
 	}
 
-	public String getCheck_in () {
-		return check_in.get();
+	public String getCheck_in () throws ParseException {
+		String origDate = check_in.getValueSafe();
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(origDate);
+		String newDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(date);
+		
+		return newDate;
 	}
 
-	public String getCheck_out () {
-		return check_out.get();
+	public String getCheck_out () throws ParseException {
+		String origDate = check_out.getValueSafe();
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(origDate);
+		String newstring = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(date);
+		
+		return newstring;
 	}
 
 	public String getName () {

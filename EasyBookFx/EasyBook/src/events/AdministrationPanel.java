@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +14,23 @@ import com.mysql.jdbc.Statement;
 
 import application.Book;
 import application.Main;
+import application.Offer;
 import application.Room;
 import database.Conn;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -50,6 +54,12 @@ public class AdministrationPanel implements Initializable {
 	private TableColumn<Book, String> email_clmn;
 	@FXML
 	private TableColumn<Book, String> idnum_clmn;
+	@FXML
+	private TableColumn<Book, String> persons_clmn;
+	@FXML
+	private TableColumn<Book, String> code_clmn;
+	@FXML
+	private TableColumn<Book, String> room_clmn;
 
 	@FXML
 	private TableColumn<Room, Integer> room_name_col;
@@ -63,13 +73,34 @@ public class AdministrationPanel implements Initializable {
 	private TableColumn<Room, Float> cost_col;
 
 	@FXML
+	private TableColumn<Offer, String> offer_name_col;
+	@FXML
+	private TableColumn<Offer, String> offer_req_days_col;
+	@FXML
+	private TableColumn<Offer, String> offers_type_stand_col;
+	@FXML
+	private TableColumn<Offer, String> offers_type_comf_col;
+	@FXML
+	private TableColumn<Offer, String> offers_type_suite_col;
+	@FXML
+	private TableColumn<Offer, String> offers_beds_one_col;
+	@FXML
+	private TableColumn<Offer, String> offers_beds_two_col;
+	@FXML
+	private TableColumn<Offer, String> offers_beds_three_col;
+	@FXML
+	private TableColumn<Offer, String> offers_beds_fplus_col;
+	@FXML
+	private TableColumn<Offer, String> offers_disc_per_col;
+	@FXML
+	private TableColumn<Offer, String> offers_disc_am_col;
+	@FXML
+	private TableColumn<Offer, String> offers_valid_from_col;
+	@FXML
+	private TableColumn<Offer, String> offers_valid_until_col;
+
+	@FXML
 	private ToggleGroup categoryTypesRooms;
-	@FXML
-	private Button searchBook;
-	@FXML
-	private Button searchRoom;
-	@FXML
-	private TableColumn<Book, String> persons_clmn;
 	@FXML
 	private ToggleGroup categoryOffers;
 	@FXML
@@ -77,29 +108,63 @@ public class AdministrationPanel implements Initializable {
 	@FXML
 	private ToggleGroup categoryBookings;
 	@FXML
-	private TableColumn<Book, String> code_clmn;
+	private ToggleGroup categoryRadioTypeOffers;
 	@FXML
-	private TableColumn<Book, String> room_clmn;
+	private ToggleGroup categoryTypeOptions;
+	@FXML
+	private ToggleGroup categoryIncomeBooksStatistics;
 	@FXML
 	private ToggleGroup categoryBedRooms;
-	@FXML
-	private Pane bookings_tab;
+
+
 	@FXML
 	private TextField searchBookText;
 	@FXML
 	private TextField searchRoomText;
 	@FXML
-	private ToggleGroup categoryRadioTypeOffers;
+	private TextField offer_name_text;
 	@FXML
-	private ToggleGroup categoryIncomeBooksStatistics;
+	private TextField offer_req_days_text;
+	@FXML
+	private TextField offer_dis_per_text;
+	@FXML
+	private TextField offer_dis_am_text;
+	
+	@FXML
+	private DatePicker offer_valid_from_date;
+	@FXML
+	private DatePicker offer_valid_until_date;
+	
+	@FXML
+	private RadioButton offer_dis_per_radio;
+	@FXML
+	private RadioButton offer_dis_am_radio;
+	
+	@FXML
+	private CheckBox offer_type_stand_check;
+	@FXML
+	private CheckBox offer_type_comf_check;
+	@FXML
+	private CheckBox offer_type_suite_check;
+	@FXML
+	private CheckBox offer_one_bed_check;
+	@FXML
+	private CheckBox offer_two_beds_check;
+	@FXML
+	private CheckBox offer_three_beds_check;
+	@FXML
+	private CheckBox offer_fplus_beds_check;
+	
+	@FXML
+	private TextArea offer_desc_text;
+
 	@FXML
 	private TableView<Book> bookingsTable;
 	@FXML
 	private TableView<Room> roomsTable;
 	@FXML
-	private Button newBookBtn;
-	@FXML
-	private ToggleGroup categoryTypeOptions;
+	private TableView<Offer> offersTable;
+	
 	@FXML
 	private ToggleButton allBookings;
 	@FXML
@@ -127,11 +192,16 @@ public class AdministrationPanel implements Initializable {
 
 	private ObservableList<Book> bookingList;
 	private ObservableList<Room> roomsList;
+	private ObservableList<Offer> offersList;
+	
+	@SuppressWarnings("unused")
+	private int o_id_ToEdit;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		showAllBookings(null);
 		showAllRooms(null);
+		showAllOffers(null);
 	}
 
 	/* Bookings TAB */
@@ -338,5 +408,131 @@ public class AdministrationPanel implements Initializable {
 		rooms_2beds.setSelected(false);
 		rooms_3beds.setSelected(false);
 		rooms_4plusbeds.setSelected(false);
+	}
+
+
+	/* Offers TAB */
+	public void showAllOffers(ActionEvent event) {
+		showOffersOnTable("Select * from offers");
+	}	
+	public void showOffersOnTable(String query) {
+
+		offer_name_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("name") );
+		offer_req_days_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("req_days") );
+		offers_type_stand_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("type_stand") );
+		offers_type_comf_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("type_comf") );
+		offers_type_suite_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("type_suite") );
+		offers_beds_one_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("one_bed") );
+		offers_beds_two_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("two_beds") );
+		offers_beds_three_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("three_beds") );
+		offers_beds_fplus_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("fplus_beds") );
+		offers_disc_per_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("discount_percentage") );
+		offers_disc_am_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("discount_amount") );
+		offers_valid_from_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("valid_from") );
+		offers_valid_until_col.setCellValueFactory(new PropertyValueFactory<Offer, String>("valid_until") );
+
+		offersList = getOffersTableData(query);
+		offersTable.setItems( offersList );
+
+	}
+	private ObservableList<Offer> getOffersTableData(String query) {
+
+		List<Offer> list = new ArrayList<Offer>();
+
+		try {
+			Statement stmt = (Statement) conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery( query );
+
+			while ( rs.next()) {
+
+				list.add( new Offer(
+						rs.getInt("o_id"),
+						rs.getString("name"),
+						rs.getString("valid_from"),
+						rs.getString("valid_until"),
+						rs.getInt("required_days"),
+						rs.getInt("one_bed"),
+						rs.getInt("two_beds"),
+						rs.getInt("three_beds"),
+						rs.getInt("fplus_beds"),
+						rs.getInt("type_stand"),
+						rs.getInt("type_comf"),
+						rs.getInt("type_suite"),
+						rs.getInt("discount_amount"),
+						rs.getInt("discount_percentage") ) ); 
+			}
+		} catch (SQLException e) { e.printStackTrace();
+		}
+
+		ObservableList<Offer> data = FXCollections.observableList(list);
+
+		return data;
+	}
+	public void editOffer (ActionEvent event) throws ParseException {
+		Offer offerToEdit = offersTable.getSelectionModel().getSelectedItem();
+		
+		o_id_ToEdit = offerToEdit.getO_id();
+		
+		offer_name_text.setText(String.valueOf( offerToEdit.getName() ));
+		
+		offer_req_days_text.setText(String.valueOf(offerToEdit.getReq_days() ) );
+		
+		offer_valid_from_date.setValue( (LocalDate) offerToEdit.getValid_from_edit() );
+		
+		offer_valid_until_date.setValue( (LocalDate) offerToEdit.getValid_until_edit() );
+		
+		if ( offerToEdit.getDiscount_amount() != 0 ) {
+			offer_dis_am_radio.setSelected(true);
+			offer_dis_am_text.setText(String.valueOf( offerToEdit.getDiscount_amount() ));
+		} else {
+			offer_dis_per_radio.setSelected(true);
+			offer_dis_per_text.setText(String.valueOf( offerToEdit.getDiscount_percentage() ));
+		}
+		
+		if ( offerToEdit.getType_stand_edit() == 1 ) {
+			offer_type_stand_check.setSelected(true);
+		} else {
+			offer_type_stand_check.setSelected(false);
+		}
+		
+		if ( offerToEdit.getType_comf_edit() == 1 ) {
+			offer_type_comf_check.setSelected(true);
+		} else {
+			offer_type_comf_check.setSelected(false);
+		}
+		
+		if ( offerToEdit.getType_suite_edit() == 1 ) {
+			offer_type_suite_check.setSelected(true);
+		} else {
+			offer_type_suite_check.setSelected(false);
+		}
+		
+		if ( offerToEdit.getOne_bed_edit() == 1 ) {
+			offer_one_bed_check.setSelected(true);
+		} else {
+			offer_one_bed_check.setSelected(false);
+		}
+		
+		if ( offerToEdit.getTwo_beds_edit() == 1 ) {
+			offer_two_beds_check.setSelected(true);
+		} else {
+			offer_two_beds_check.setSelected(false);
+		}
+		
+		if ( offerToEdit.getThree_beds_edit() == 1 ) {
+			offer_three_beds_check.setSelected(true);
+		} else {
+			offer_three_beds_check.setSelected(false);
+		}
+		
+		if ( offerToEdit.getFplus_beds_edit() == 1 ) {
+			offer_fplus_beds_check.setSelected(true);
+		} else {
+			offer_fplus_beds_check.setSelected(false);
+		}
+		
+		//offer_desc_text
+		
 	}
 }

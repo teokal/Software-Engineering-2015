@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -401,14 +402,166 @@
                   </HBox>
                </children>
             </VBox>
-            <Separator layoutX="48.0" layoutY="340.0" prefHeight="3.0" prefWidth="711.0" />
-            <TabPane layoutX="383.0" layoutY="118.0" prefHeight="190.0" prefWidth="356.0" style="-fx-border-color: grey;" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Special Reguests">
+            <Button layoutX="370.0" layoutY="533.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="52.0" text="Back" />
+            <Separator layoutX="438.0" layoutY="132.0" prefHeight="3.0" prefWidth="286.0" />
+            <HBox layoutX="80.0" layoutY="368.0" spacing="20.0">
+               <children>
+                  <VBox layoutX="80.0" layoutY="368.0">
+                     <children>
+                        <Label layoutX="488.0" layoutY="130.0" text="Title">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <SplitMenuButton layoutX="469.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Mr.">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Mr." />
+                            <MenuItem mnemonicParsing="false" text="Ms." />
+                              <MenuItem mnemonicParsing="false" text="Mrs." />
+                          </items>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </SplitMenuButton>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="176.0" layoutY="368.0">
+                     <children>
+                        <Label layoutX="507.0" layoutY="140.0" text="First Name">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="504.0" layoutY="165.0" prefWidth="110.0" promptText="Name">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="350.0" layoutY="368.0">
+                     <children>
+                        <Label layoutX="507.0" layoutY="140.0" text="Last Name">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="504.0" layoutY="165.0" prefWidth="120.0" promptText="Last Name">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox layoutX="82.0" layoutY="437.0" spacing="20.0">
+               <children>
+                  <VBox layoutX="82.0" layoutY="443.0">
+                     <children>
+                        <Label layoutX="68.0" layoutY="445.0" text="Telephone">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="121.0" promptText="0030 -">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="220.0" layoutY="443.0">
+                     <children>
+                        <Label layoutX="68.0" layoutY="445.0" text="Email">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="169.0" promptText="ale_pele@hotmail.com">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox layoutX="432.0" layoutY="368.0">
+               <children>
+                  <Label layoutX="68.0" layoutY="445.0" text="ID">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="72.0" promptText="ID code">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <Button alignment="CENTER" layoutX="416.0" layoutY="449.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="109.0" style="-fx-background-radius: 40;" text="Continue" textAlignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Label layoutX="443.0" layoutY="108.0" text="Special Requests">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="443.0" layoutY="133.0" prefHeight="40.0" prefWidth="286.0" text="Special requests cannot be guaranteed–but the accommodation will do its best to meet your needs." wrapText="true" />
+            <TextArea layoutX="447.0" layoutY="181.0" prefHeight="149.0" prefWidth="277.0" promptText="Text here your needs" />
+            <Separator layoutX="52.0" layoutY="523.0" prefHeight="3.0" prefWidth="733.0" />
+            <HBox layoutX="24.0" layoutY="545.0">
+               <children>
+                  <Label layoutX="24.0" layoutY="545.0" text="Total Cost:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="116.0" layoutY="549.0" prefHeight="25.0" prefWidth="46.0" text="00">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="158.0" layoutY="553.0" text="€">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Accordion layoutX="572.0" layoutY="345.0" prefHeight="247.0" prefWidth="220.0">
+              <panes>
+                <TitledPane animated="false" text="Free Changes or Cancel">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="343.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="289.0" text="Make changes or cancel this booking online before 8 July 2016, 00:00 (Protaras time), for € 0" wrapText="true">
+                              <Group>
+                                 <children>
+                                    <Label layoutX="29.0" layoutY="10.0" prefHeight="51.0" prefWidth="184.0" text="Make free changes or cancel this booking online before " wrapText="true" AnchorPane.bottomAnchor="-8.599998474121094" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-29.0" AnchorPane.topAnchor="25.0">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" layoutX="43.0" layoutY="58.0" prefHeight="19.0" prefWidth="138.0" style="-fx-border-color: black;">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Group>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Penalties and Charges">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" prefHeight="76.0" prefWidth="201.0" text="However if you cancelled this booking 20 days before arrival required 20% penalty. In case you didn't arrival 50%" textAlignment="JUSTIFY" wrapText="true">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -416,9 +569,61 @@
                            </children>
                         </AnchorPane>
                   </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+                </TitledPane>
+                  <TitledPane animated="false" layoutX="10.0" layoutY="35.0" prefHeight="103.0" prefWidth="220.0" text="Check In &amp; Check Out Hours ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" prefHeight="84.0" prefWidth="201.0" text="Chech in opens at 14:00 and Check Out ends at 12:00." textAlignment="JUSTIFY" wrapText="true">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="10.0" layoutY="60.0" text="Payment Methods">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" prefHeight="64.0" prefWidth="201.0" text="Don`t forget that you are able to choose any payment method you prefer! " textAlignment="JUSTIFY" wrapText="true">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="10.0" layoutY="85.0" prefHeight="80.0" prefWidth="220.0" text="Offers">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" prefHeight="59.0" prefWidth="201.0" text="Check Offers Section and you will find delicius choises for your hospitality!" textAlignment="JUSTIFY" wrapText="true">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="10.0" layoutY="110.0" text="Free parking">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="5.0" layoutY="12.0" prefHeight="72.0" prefWidth="201.0" text="We offer free parking 365 days per year!" textAlignment="JUSTIFY" wrapText="true">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
          </children>
       </Pane>
    </children>

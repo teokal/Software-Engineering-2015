@@ -2,9 +2,9 @@ CREATE DATABASE  IF NOT EXISTS `easybooksql` /*!40100 DEFAULT CHARACTER SET utf8
 USE `easybooksql`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: easybooksql
+-- Host: 127.0.0.1    Database: easybooksql
 -- ------------------------------------------------------
--- Server version	5.6.24
+-- Server version	5.5.5-10.1.9-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -87,25 +87,25 @@ DROP TABLE IF EXISTS `bookings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bookings` (
   `b_id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(15) NOT NULL,
+  `code` varchar(15) CHARACTER SET utf8 NOT NULL,
   `check_in` datetime NOT NULL,
   `check_out` datetime NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `sname` varchar(45) NOT NULL,
-  `tel` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `idnum` varchar(45) NOT NULL,
-  `payment_method` varchar(45) NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `sname` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `tel` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `email` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `idnum` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `payment_method` varchar(45) CHARACTER SET utf8 NOT NULL,
   `total_cost` decimal(2,0) NOT NULL,
-  `paid` varchar(10) NOT NULL DEFAULT 'no',
+  `paid` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT 'no',
   `money_received` decimal(2,0) NOT NULL DEFAULT '0',
-  `status` varchar(45) NOT NULL DEFAULT 'pending',
+  `status` varchar(45) CHARACTER SET utf8 NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`b_id`),
   UNIQUE KEY `b_id_UNIQUE` (`b_id`),
   UNIQUE KEY `b_code_UNIQUE` (`code`),
   KEY `check_in_idx` (`check_in`),
   KEY `check_out_idx` (`check_out`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,17 +155,22 @@ DROP TABLE IF EXISTS `offers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `offers` (
   `o_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8 NOT NULL,
   `valid_from` datetime NOT NULL,
   `valid_until` datetime NOT NULL,
   `required_days` int(11) NOT NULL DEFAULT '0',
-  `beds` varchar(45) NOT NULL,
-  `types` varchar(45) NOT NULL,
+  `one_bed` bit(1) DEFAULT b'0',
+  `two_beds` bit(1) DEFAULT b'0',
+  `three_beds` bit(1) DEFAULT b'0',
+  `fplus_beds` bit(1) DEFAULT b'0',
+  `type_stand` bit(1) NOT NULL,
+  `type_comf` bit(1) DEFAULT b'0',
+  `type_suite` bit(1) DEFAULT b'0',
   `discount_amount` int(11) DEFAULT '0',
   `discount_percentage` int(11) DEFAULT '0',
   PRIMARY KEY (`o_id`),
   UNIQUE KEY `o_id_UNIQUE` (`o_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +179,34 @@ CREATE TABLE `offers` (
 
 LOCK TABLES `offers` WRITE;
 /*!40000 ALTER TABLE `offers` DISABLE KEYS */;
+INSERT INTO `offers` VALUES (1,'PreEaster','2016-02-01 00:00:00','2016-04-01 00:00:00',5,'','','\0','','\0','','',15,0);
 /*!40000 ALTER TABLE `offers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `offers_lang`
+--
+
+DROP TABLE IF EXISTS `offers_lang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `offers_lang` (
+  `o_id` int(11) NOT NULL,
+  `lang_en` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+  `lang_gr` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lang_de` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lang_es` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `offers_lang`
+--
+
+LOCK TABLES `offers_lang` WRITE;
+/*!40000 ALTER TABLE `offers_lang` DISABLE KEYS */;
+INSERT INTO `offers_lang` VALUES (1,'werwer',NULL,NULL,NULL),(2,'werwr',NULL,NULL,NULL),(3,'wer',NULL,NULL,NULL),(4,'ewrwer',NULL,NULL,NULL),(5,'werrrr',NULL,NULL,NULL),(6,'ewrwe',NULL,NULL,NULL),(7,'werwr',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `offers_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -192,7 +224,7 @@ CREATE TABLE `room_services` (
   `t_suite` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`s_id`),
   UNIQUE KEY `s_id_UNIQUE` (`s_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,11 +247,13 @@ DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL AUTO_INCREMENT,
   `room_name` varchar(45) NOT NULL,
-  `num_beds` int(11) NOT NULL,
   `room_type` varchar(45) NOT NULL,
+  `single_beds` int(11) NOT NULL DEFAULT '0',
+  `double_beds` int(11) NOT NULL DEFAULT '0',
+  `cost` decimal(10,2) NOT NULL,
   PRIMARY KEY (`room_id`),
   UNIQUE KEY `room_id_UNIQUE` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,8 +262,35 @@ CREATE TABLE `rooms` (
 
 LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` VALUES (1,'ROOM132',2,'comfort'),(2,'ROOM234',3,'standard'),(3,'NEW YORK SUITE',2,'suite'),(4,'AMSTERDAM SUITE',3,'suite');
+INSERT INTO `rooms` VALUES (1,'Room 132','Comfort',4,1,85.50),(2,'Room 234','Standard',2,0,19.50),(3,'New York Suite','Suite',1,3,55.00),(4,'Amsterdam Suite','Suite',1,2,75.00),(5,'Room 23','Comfort',1,1,23.00),(6,'Room 43','Comfort',0,1,36.00),(7,'Silicon Valley Suite','Suite',0,3,350.00);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rooms_lang`
+--
+
+DROP TABLE IF EXISTS `rooms_lang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms_lang` (
+  `room_id` int(11) NOT NULL,
+  `lang_en` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
+  `lang_gr` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lang_de` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lang_es` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`room_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rooms_lang`
+--
+
+LOCK TABLES `rooms_lang` WRITE;
+/*!40000 ALTER TABLE `rooms_lang` DISABLE KEYS */;
+INSERT INTO `rooms_lang` VALUES (1,'Enjoy your staying at our hotel during the Pre-Easter period!','Απολαύστε τη διαμονή στο ξενοδοχείο για την περίοδο πριν το Πάσχα!',NULL,NULL),(2,'Enjoy your staying at our hotel during the Pre-Easter period!','Απολαύστε τη διαμονή στο ξενοδοχείο για την περίοδο πριν το Πάσχα!',NULL,NULL),(3,'ascasca','δσγσδγδσ',NULL,NULL),(4,'ascasca','φασφαφα',NULL,NULL);
+/*!40000 ALTER TABLE `rooms_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -289,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-30  5:06:30
+-- Dump completed on 2016-01-03 21:42:44

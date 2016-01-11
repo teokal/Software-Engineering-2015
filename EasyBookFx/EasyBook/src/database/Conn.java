@@ -24,7 +24,7 @@ public class Conn {
 			if (conn == null) {
 				Logger logger = Logger.getLogger("database");
 				logger.setLevel(Level.SEVERE);
-				logger.info("Connection cannot be established");
+				logger.info("Connection could be established");
 			} else {
 				Logger logger = Logger.getLogger("database");
 				logger.setLevel(Level.INFO);

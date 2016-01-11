@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.zip.DataFormatException;
 
 import com.mysql.jdbc.Statement;
 
@@ -21,6 +22,9 @@ import database.Conn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -129,17 +133,17 @@ public class AdministrationPanel implements Initializable {
 	private TextField offer_dis_per_text;
 	@FXML
 	private TextField offer_dis_am_text;
-	
+
 	@FXML
 	private DatePicker offer_valid_from_date;
 	@FXML
 	private DatePicker offer_valid_until_date;
-	
+
 	@FXML
 	private RadioButton offer_dis_per_radio;
 	@FXML
 	private RadioButton offer_dis_am_radio;
-	
+
 	@FXML
 	private CheckBox offer_type_stand_check;
 	@FXML
@@ -154,7 +158,7 @@ public class AdministrationPanel implements Initializable {
 	private CheckBox offer_three_beds_check;
 	@FXML
 	private CheckBox offer_fplus_beds_check;
-	
+
 	@FXML
 	private TextArea offer_desc_text;
 
@@ -164,7 +168,7 @@ public class AdministrationPanel implements Initializable {
 	private TableView<Room> roomsTable;
 	@FXML
 	private TableView<Offer> offersTable;
-	
+
 	@FXML
 	private ToggleButton allBookings;
 	@FXML
@@ -193,15 +197,20 @@ public class AdministrationPanel implements Initializable {
 	private ObservableList<Book> bookingList;
 	private ObservableList<Room> roomsList;
 	private ObservableList<Offer> offersList;
-	
-	@SuppressWarnings("unused")
-	private int o_id_ToEdit;
+
+	@FXML
+	private Button offer_SAVE_btn;
+
+	private Offer offer_toEdit;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		showAllBookings(null);
 		showAllRooms(null);
 		showAllOffers(null);
+
+		offers_disableAllControls();
+
 	}
 
 	/* Bookings TAB */
@@ -470,69 +479,292 @@ public class AdministrationPanel implements Initializable {
 		return data;
 	}
 	public void editOffer (ActionEvent event) throws ParseException {
-		Offer offerToEdit = offersTable.getSelectionModel().getSelectedItem();
-		
-		o_id_ToEdit = offerToEdit.getO_id();
-		
-		offer_name_text.setText(String.valueOf( offerToEdit.getName() ));
-		
-		offer_req_days_text.setText(String.valueOf(offerToEdit.getReq_days() ) );
-		
-		offer_valid_from_date.setValue( (LocalDate) offerToEdit.getValid_from_edit() );
-		
-		offer_valid_until_date.setValue( (LocalDate) offerToEdit.getValid_until_edit() );
-		
-		if ( offerToEdit.getDiscount_amount() != 0 ) {
-			offer_dis_am_radio.setSelected(true);
-			offer_dis_am_text.setText(String.valueOf( offerToEdit.getDiscount_amount() ));
-		} else {
-			offer_dis_per_radio.setSelected(true);
-			offer_dis_per_text.setText(String.valueOf( offerToEdit.getDiscount_percentage() ));
+
+		offer_toEdit = offersTable.getSelectionModel().getSelectedItem();
+
+		if ( offer_toEdit != null ) {
+
+			offer_name_text.setText(String.valueOf( offer_toEdit.getName() ));
+			offer_req_days_text.setText(String.valueOf(offer_toEdit.getReq_days() ) );
+			offer_valid_from_date.setValue( (LocalDate) offer_toEdit.getValid_from_edit() );
+			offer_valid_until_date.setValue( (LocalDate) offer_toEdit.getValid_until_edit() );
+			offer_desc_text.setText( offer_toEdit.getDesc_en() );
+
+			if ( offer_toEdit.getDiscount_amount() == 0 ) {
+				disableRadioDisAmount(null);
+				offer_dis_am_text.setText(String.valueOf(0));
+			} else {
+				offer_dis_am_radio.setSelected(true);
+				offer_dis_am_text.setText( String.valueOf( offer_toEdit.getDiscount_amount() ));
+			}
+
+			if ( offer_toEdit.getDiscount_percentage() == 0 ) {
+				disableRadioDisPer(null);
+				offer_dis_per_text.setText(String.valueOf(0));
+			} else {
+				offer_dis_per_radio.setSelected(true);
+				offer_dis_per_text.setText( String.valueOf( offer_toEdit.getDiscount_percentage() ));
+			}
+
+			if ( offer_toEdit.getType_stand_edit() == 1 ) {
+				offer_type_stand_check.setSelected(true);
+			} else {
+				offer_type_stand_check.setSelected(false);
+			}
+
+			if ( offer_toEdit.getType_comf_edit() == 1 ) {
+				offer_type_comf_check.setSelected(true);
+			} else {
+				offer_type_comf_check.setSelected(false);
+			}
+
+			if ( offer_toEdit.getType_suite_edit() == 1 ) {
+				offer_type_suite_check.setSelected(true);
+			} else {
+				offer_type_suite_check.setSelected(false);
+			}
+
+			if ( offer_toEdit.getOne_bed_edit() == 1 ) {
+				offer_one_bed_check.setSelected(true);
+			} else {
+				offer_one_bed_check.setSelected(false);
+			}
+
+			if ( offer_toEdit.getTwo_beds_edit() == 1 ) {
+				offer_two_beds_check.setSelected(true);
+			} else {
+				offer_two_beds_check.setSelected(false);
+			}
+
+			if ( offer_toEdit.getThree_beds_edit() == 1 ) {
+				offer_three_beds_check.setSelected(true);
+			} else {
+				offer_three_beds_check.setSelected(false);
+			}
+
+			if ( offer_toEdit.getFplus_beds_edit() == 1 ) {
+				offer_fplus_beds_check.setSelected(true);
+			} else {
+				offer_fplus_beds_check.setSelected(false);
+			}
+
+			offers_enableAllControls();
+
 		}
-		
-		if ( offerToEdit.getType_stand_edit() == 1 ) {
-			offer_type_stand_check.setSelected(true);
-		} else {
-			offer_type_stand_check.setSelected(false);
-		}
-		
-		if ( offerToEdit.getType_comf_edit() == 1 ) {
-			offer_type_comf_check.setSelected(true);
-		} else {
-			offer_type_comf_check.setSelected(false);
-		}
-		
-		if ( offerToEdit.getType_suite_edit() == 1 ) {
-			offer_type_suite_check.setSelected(true);
-		} else {
-			offer_type_suite_check.setSelected(false);
-		}
-		
-		if ( offerToEdit.getOne_bed_edit() == 1 ) {
-			offer_one_bed_check.setSelected(true);
-		} else {
-			offer_one_bed_check.setSelected(false);
-		}
-		
-		if ( offerToEdit.getTwo_beds_edit() == 1 ) {
-			offer_two_beds_check.setSelected(true);
-		} else {
-			offer_two_beds_check.setSelected(false);
-		}
-		
-		if ( offerToEdit.getThree_beds_edit() == 1 ) {
-			offer_three_beds_check.setSelected(true);
-		} else {
-			offer_three_beds_check.setSelected(false);
-		}
-		
-		if ( offerToEdit.getFplus_beds_edit() == 1 ) {
-			offer_fplus_beds_check.setSelected(true);
-		} else {
-			offer_fplus_beds_check.setSelected(false);
-		}
-		
-		//offer_desc_text
-		
+
 	}
+	public void saveOffer (ActionEvent event) throws ParseException {
+
+		int temp;
+		Alert alert = new Alert(AlertType.ERROR);	
+
+		if ( offer_name_text.getText()== null ||  offer_name_text.getText().trim().isEmpty() ) {
+			alert.setContentText("Offer's title cannot be empty!");
+			alert.show();
+			return;
+		}
+
+		if ( offer_dis_per_radio.isSelected() ) {
+
+			try {
+				temp = Integer.parseInt( offer_dis_per_text.getText() );
+
+				if (  temp <= 0 || temp > 100 ) {
+					throw new DataFormatException();
+				}
+
+			} catch ( NumberFormatException e ) {
+				alert.setContentText("Discount percentage cannot contain letters or symbols!");
+				alert.show();
+				return;
+			} catch ( DataFormatException e ) {
+				alert.setContentText("Discount percentage must be an integer from 1 to 100!");
+				alert.show();
+				return;
+			}
+		} else if ( offer_dis_am_radio.isSelected() ) {
+
+			try {
+				temp = Integer.parseInt( offer_dis_am_text.getText() );
+
+				if (  temp <= 0 ) {
+					throw new DataFormatException();
+				}
+
+			} catch ( NumberFormatException e ) {
+				alert.setContentText("Discount amount cannot contain letters or symbols!");
+				alert.show();
+				return;
+			} catch ( DataFormatException e ) {
+				alert.setContentText("Discount amount must be a positive integer!");
+				alert.show();
+				return;
+			}
+		}
+
+		if ( offer_req_days_text.getText()!= null &&  !offer_req_days_text.getText().trim().isEmpty() ) {
+
+			try {
+				temp = Integer.parseInt( offer_req_days_text.getText() );
+
+				if (  temp < 0 ) {
+					throw new DataFormatException();
+				}
+
+			} catch ( NumberFormatException e ) {
+				alert.setContentText("Required days cannot contain letters or symbols!");
+				alert.show();
+				return;
+			} catch ( DataFormatException e ) {
+				alert.setContentText("Required days must be 0 or a positive integer!");
+				alert.show();
+				return;
+			}
+		} else {
+			alert.setContentText("Required days field cannot be empty!\nFor 0 days required, fill 0");
+			alert.show();
+			return;
+		}
+
+		LocalDate dateF = offer_valid_from_date.getValue();
+		LocalDate dateU = offer_valid_until_date.getValue();
+		
+		if ( dateF.isBefore( dateU ) || dateF.isEqual( dateU ) ) {
+			
+			offer_toEdit.setValid_from( dateF.toString() );
+			offer_toEdit.setValid_until( dateU.toString() );	
+
+		} else {
+			alert.setContentText("Starting day of the offer cannot be after the Ending day");
+			alert.show();
+			return;
+		}
+
+		offer_toEdit.setName( offer_name_text.getText() );
+
+		if ( offer_type_stand_check.isSelected() ) {
+			offer_toEdit.setType_stand(1);
+		} else { offer_toEdit.setType_stand(0); }
+
+		if ( offer_type_comf_check.isSelected() ) {
+			offer_toEdit.setType_comf(1);
+		} else { offer_toEdit.setType_comf(0); }
+
+		if ( offer_type_suite_check.isSelected() ) {
+			offer_toEdit.setType_suite(1);
+		} else { offer_toEdit.setType_suite(0); }
+
+		if ( offer_one_bed_check.isSelected() ) {
+			offer_toEdit.setOne_bed(1);
+		} else { offer_toEdit.setOne_bed(0); }
+
+		if ( offer_two_beds_check.isSelected() ) {
+			offer_toEdit.setTwo_beds(1);
+		} else { offer_toEdit.setTwo_beds(0); }
+
+		if ( offer_three_beds_check.isSelected() ) {
+			offer_toEdit.setThree_beds(1);
+		} else { offer_toEdit.setThree_beds(0); }
+
+		if ( offer_fplus_beds_check.isSelected() ) {
+			offer_toEdit.setFplus_beds(1);
+		} else { offer_toEdit.setFplus_beds(0); }
+
+		if ( offer_dis_per_radio.isSelected() ) {
+			offer_toEdit.setDiscount_amount(0);
+			offer_toEdit.setDiscount_percentage( Integer.parseInt( offer_dis_per_text.getText() ) );
+		} else if ( offer_dis_am_radio.isSelected() ){
+			offer_toEdit.setDiscount_amount( Integer.parseInt( offer_dis_am_text.getText() ) );
+			offer_toEdit.setDiscount_percentage(0);
+		}
+
+		offer_toEdit.setReq_days( Integer.parseInt( offer_req_days_text.getText() ) );
+
+		if ( offer_toEdit.updateOffer() && offer_toEdit.updateDesc_en( offer_desc_text.getText() ) ) {
+
+			offers_disableAllControls();
+			showAllOffers(null);
+
+			alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText("Offer has been successfully saved!");
+			alert.show();
+		
+		} else {
+			
+			alert.setContentText("Offer could not be saved!");
+			alert.show();
+			
+		}
+	}
+
+	public void disableRadioDisAmount (ActionEvent event) {
+		offer_dis_am_text.setDisable(true);
+		offer_dis_am_text.setEditable(false);
+		offer_dis_per_text.setDisable(false);
+		offer_dis_per_text.setEditable(true);
+	}
+	public void disableRadioDisPer (ActionEvent event) {
+		offer_dis_am_text.setDisable(false);
+		offer_dis_am_text.setEditable(true);
+		offer_dis_per_text.setDisable(true);
+		offer_dis_per_text.setEditable(false);
+	}
+	private void offers_enableAllControls(){
+
+		offer_name_text.setDisable(false);
+		offer_desc_text.setDisable(false);
+		offer_dis_am_radio.setDisable(false);
+		offer_dis_per_radio.setDisable(false);
+		offer_dis_am_text.setDisable(false);
+		offer_dis_per_text.setDisable(false);;
+		offer_one_bed_check.setDisable(false);
+		offer_two_beds_check.setDisable(false);
+		offer_three_beds_check.setDisable(false);
+		offer_fplus_beds_check.setDisable(false);
+		offer_type_comf_check.setDisable(false);
+		offer_type_stand_check.setDisable(false);
+		offer_type_suite_check.setDisable(false);
+		offer_valid_from_date.setDisable(false);
+		offer_valid_until_date.setDisable(false);
+		offer_req_days_text.setDisable(false);
+
+		offer_name_text.setEditable(true);
+		offer_desc_text.setEditable(true);
+		offer_dis_am_text.setEditable(true);
+		offer_dis_per_text.setEditable(true);
+		offer_req_days_text.setEditable(true);
+
+		offer_SAVE_btn.setDisable(false);
+
+	}
+	private void offers_disableAllControls(){
+
+		offer_name_text.setDisable(true);
+		offer_desc_text.setDisable(true);
+		offer_dis_am_radio.setDisable(true);
+		offer_dis_per_radio.setDisable(true);
+		offer_dis_am_text.setDisable(true);
+		offer_dis_per_text.setDisable(true);;
+		offer_one_bed_check.setDisable(true);
+		offer_two_beds_check.setDisable(true);
+		offer_three_beds_check.setDisable(true);
+		offer_fplus_beds_check.setDisable(true);
+		offer_type_comf_check.setDisable(true);
+		offer_type_stand_check.setDisable(true);
+		offer_type_suite_check.setDisable(true);
+		offer_valid_from_date.setDisable(true);
+		offer_valid_until_date.setDisable(true);
+		offer_req_days_text.setDisable(true);
+
+		offer_name_text.setEditable(false);
+		offer_desc_text.setEditable(false);
+		offer_dis_am_text.setEditable(false);
+		offer_dis_per_text.setEditable(false);
+		offer_req_days_text.setEditable(false);
+
+		offer_SAVE_btn.setDisable(true);
+
+	}
+
+
 }

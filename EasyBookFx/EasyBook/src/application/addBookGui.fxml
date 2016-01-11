@@ -17,16 +17,12 @@
                 <Menu mnemonicParsing="false" text="Language">
                   <items>
                     <MenuItem mnemonicParsing="false" text="English" />
-                        <MenuItem mnemonicParsing="false" text="Ελληνικά" />
-                        <MenuItem mnemonicParsing="false" text="Deutsch" />
-                        <MenuItem mnemonicParsing="false" text="Español" />
+                    <MenuItem mnemonicParsing="false" text="Ελληνικά" />
+                    <MenuItem mnemonicParsing="false" text="Deutsch" />
+                    <MenuItem mnemonicParsing="false" text="Español" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Currency">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Euros" />
-                  </items>
-                </Menu>
+                
                 <Menu mnemonicParsing="false" text="Contact">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Feedback" />

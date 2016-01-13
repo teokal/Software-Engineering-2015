@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -241,25 +242,35 @@ public class AdministrationPanel implements Initializable {
 		String textSearch = searchBookText.getText();
 
 		if (! textSearch.isEmpty() ) {
-
+			textSearch = "%" + textSearch + "%";
 			deselectBookingsToggle();
 
-
-
 			String query = "SELECT * FROM bookings "
-					+ "WHERE `b_id` LIKE '%" + textSearch + "%'	"
-					+ "OR	`code`  LIKE '%" + textSearch + "%'	"
-					+ "OR	`name` LIKE '%" + textSearch + "%'	"
-					+ "OR	`sname` LIKE '%" + textSearch + "%'	"
-					+ "OR 	`tel` LIKE '%" + textSearch + "%'	"
-					+ "OR	`email` LIKE '%" + textSearch + "%'	";
+					+ "WHERE `b_id` LIKE ?	"
+					+ "OR	`code`  LIKE ?	"
+					+ "OR	`name` LIKE ?	"
+					+ "OR	`sname` LIKE ?	"
+					+ "OR 	`tel` LIKE ?	"
+					+ "OR	`email` LIKE ?";
 
-			showBookingsOnTable(query);
+			try {
+				PreparedStatement preparedStatement = conn.prepareStatement( query );
+				
+				preparedStatement.setString(1, textSearch );
+				preparedStatement.setString(2, textSearch );
+				preparedStatement.setString(3, textSearch );
+				preparedStatement.setString(4, textSearch );
+				preparedStatement.setString(5, textSearch );
+				preparedStatement.setString(6, textSearch );
+				
+				showBookingsOnTable(preparedStatement);
+				
+			} catch (SQLException e) { e.printStackTrace(); }
 
 
 		}
 	}
-	public void showBookingsOnTable(String query) {
+	public void showBookingsOnTable(Object query) {
 
 		code_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("code") );
 		name_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("name") );
@@ -278,15 +289,21 @@ public class AdministrationPanel implements Initializable {
 
 
 	}
-	private ObservableList<Book> getBookingsTableData(String query) {
+	private ObservableList<Book> getBookingsTableData(Object query) {
 
 		List<Book> list = new ArrayList<Book>();
-
+		ResultSet rs;
+		
 		try {
-			Statement stmt = (Statement) conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery( query );
-
+			
+			if ( query.getClass().equals(String.class) ) {
+				Statement stmt = (Statement) conn.createStatement();
+	
+				rs = stmt.executeQuery( (String) query );
+			} else {
+				rs = ((PreparedStatement) query).executeQuery();
+			}
+			
 			while (rs.next()) {
 				list.add( new Book(
 						rs.getInt("b_id"), 
@@ -491,19 +508,15 @@ public class AdministrationPanel implements Initializable {
 			offer_desc_text.setText( offer_toEdit.getDesc_en() );
 
 			if ( offer_toEdit.getDiscount_amount() == 0 ) {
-				disableRadioDisAmount(null);
-				offer_dis_am_text.setText(String.valueOf(0));
-			} else {
-				offer_dis_am_radio.setSelected(true);
-				offer_dis_am_text.setText( String.valueOf( offer_toEdit.getDiscount_amount() ));
-			}
-
-			if ( offer_toEdit.getDiscount_percentage() == 0 ) {
-				disableRadioDisPer(null);
-				offer_dis_per_text.setText(String.valueOf(0));
-			} else {
+				offer_dis_am_text.setText( String.valueOf(0) );				
 				offer_dis_per_radio.setSelected(true);
-				offer_dis_per_text.setText( String.valueOf( offer_toEdit.getDiscount_percentage() ));
+				offer_dis_per_text.setText( String.valueOf( offer_toEdit.getDiscount_percentage() ) );
+				disableRadioDisAmount(null);
+			} else {
+				offer_dis_per_text.setText(String.valueOf(0));
+				offer_dis_am_radio.setSelected(true);
+				offer_dis_am_text.setText( String.valueOf( offer_toEdit.getDiscount_amount() ) );
+				disableRadioDisPer(null);
 			}
 
 			if ( offer_toEdit.getType_stand_edit() == 1 ) {
@@ -715,8 +728,6 @@ public class AdministrationPanel implements Initializable {
 		offer_desc_text.setDisable(false);
 		offer_dis_am_radio.setDisable(false);
 		offer_dis_per_radio.setDisable(false);
-		offer_dis_am_text.setDisable(false);
-		offer_dis_per_text.setDisable(false);;
 		offer_one_bed_check.setDisable(false);
 		offer_two_beds_check.setDisable(false);
 		offer_three_beds_check.setDisable(false);
@@ -730,8 +741,6 @@ public class AdministrationPanel implements Initializable {
 
 		offer_name_text.setEditable(true);
 		offer_desc_text.setEditable(true);
-		offer_dis_am_text.setEditable(true);
-		offer_dis_per_text.setEditable(true);
 		offer_req_days_text.setEditable(true);
 
 		offer_SAVE_btn.setDisable(false);

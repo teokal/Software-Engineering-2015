@@ -8,9 +8,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox layoutX="180.0" layoutY="82.0">
+            <HBox layoutX="61.0" layoutY="85.0">
                <children>
                   <Label alignment="CENTER" layoutX="216.0" layoutY="111.0" prefHeight="30.0" prefWidth="95.0" text="Room`s Name: " textAlignment="CENTER">
                      <font>
@@ -24,7 +24,7 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="180.0" layoutY="124.0" spacing="5.0">
+            <HBox alignment="CENTER" layoutX="61.0" layoutY="127.0" spacing="5.0">
                <children>
                   <Label layoutX="182.0" layoutY="116.0" prefHeight="30.0" prefWidth="89.0" text="Room`s Type: " HBox.hgrow="ALWAYS">
                      <font>
@@ -51,7 +51,7 @@
                   </RadioButton>
                </children>
             </HBox>
-            <HBox layoutX="175.0" layoutY="191.0">
+            <HBox layoutX="56.0" layoutY="194.0">
                <children>
                   <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="152.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Num of Beds" textAlignment="CENTER">
                     <items>
@@ -71,7 +71,7 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox layoutX="179.0" layoutY="163.0" nodeOrientation="LEFT_TO_RIGHT" spacing="5.0">
+            <HBox layoutX="60.0" layoutY="166.0" nodeOrientation="LEFT_TO_RIGHT" spacing="5.0">
                <children>
                   <Label layoutX="204.0" layoutY="243.0" prefHeight="20.0" prefWidth="90.0" text="Bed`s Type:">
                      <font>
@@ -93,7 +93,7 @@
                   </RadioButton>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="179.0" layoutY="255.0">
+            <HBox alignment="CENTER" layoutX="60.0" layoutY="258.0">
                <children>
                   <HBox layoutX="180.0" layoutY="213.0" spacing="15.0">
                      <children>
@@ -116,12 +116,12 @@
                   </Label>
                </children>
             </HBox>
-            <Label layoutX="288.0" layoutY="14.0" text="Add/Edit a room" textAlignment="CENTER">
+            <Label layoutX="188.0" layoutY="14.0" text="Add/Edit a room" textAlignment="CENTER">
                <font>
                   <Font name="Garamond" size="30.0" />
                </font>
             </Label>
-            <VBox layoutX="182.0" layoutY="316.0">
+            <VBox layoutX="213.0" layoutY="250.0">
                <children>
                   <Label layoutX="191.0" layoutY="281.0" text="Room`s Details:">
                      <font>
@@ -135,47 +135,14 @@
                   </TextArea>
                </children>
             </VBox>
-            <Button layoutX="255.0" layoutY="531.0" mnemonicParsing="false" text="Clear">
+            <Button layoutX="184.0" layoutY="430.0" mnemonicParsing="false" text="Clear">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <VBox layoutX="180.0" layoutY="455.0">
-               <children>
-                  <Label layoutX="180.0" layoutY="455.0" text="Add more rooms with same specifications?">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER" layoutX="184.0" layoutY="477.0" spacing="5.0">
-                     <children>
-                        <CheckBox layoutX="184.0" layoutY="482.0" mnemonicParsing="false" text="Add">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </CheckBox>
-                        <Label layoutX="252.0" layoutY="484.0" prefHeight="20.0" prefWidth="51.0" text="another">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField alignment="CENTER" layoutX="318.0" layoutY="477.0" prefHeight="30.0" prefWidth="43.0" promptText="5">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="401.0" layoutY="494.0" text="rooms">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <Separator layoutX="60.0" layoutY="56.0" prefHeight="3.0" prefWidth="714.0" />
-            <Separator layoutX="56.0" layoutY="514.0" prefHeight="3.0" prefWidth="708.0" />
-            <Button layoutX="360.0" layoutY="531.0" mnemonicParsing="false" text="Save">
+            <Separator layoutX="22.0" layoutY="56.0" prefHeight="3.0" prefWidth="558.0" />
+            <Separator layoutX="21.0" layoutY="416.0" prefHeight="3.0" prefWidth="558.0" />
+            <Button layoutX="310.0" layoutY="430.0" mnemonicParsing="false" text="Save">
                <font>
                   <Font size="20.0" />
                </font>

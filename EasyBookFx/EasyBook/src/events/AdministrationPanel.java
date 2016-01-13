@@ -216,9 +216,11 @@ public class AdministrationPanel implements Initializable {
 
 	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
+		String newBookDirection = "/application/addBookGui.fxml";
 		Main main = new Main();
-		main.startNewBookPanel();
+		main.openNewBookPanel(newBookDirection);
 	}
+
 
 	public void showAllBookings(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings");
@@ -336,6 +338,13 @@ public class AdministrationPanel implements Initializable {
 	}
 
 	/* Rooms TAB */
+	
+	/* RAAAAAAAAAAAAAAF */
+	public void newRoom(ActionEvent event) {
+		String newRoomDirection = "/application/addRoomGui.fxml";
+		Main main = new Main();
+		main.openNewBookPanel(newRoomDirection);
+	}
 	public void showAllRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
 		showRoomsOnTable("Select * from rooms");

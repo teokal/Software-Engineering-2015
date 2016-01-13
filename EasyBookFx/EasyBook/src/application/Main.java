@@ -33,9 +33,6 @@ public class Main extends Application {
 	}
 	
 	
-
-	
-	
 	/* RAAAAAAAAAAAAAAF */
 	public void openNewBookPanel(String direction) {
 		

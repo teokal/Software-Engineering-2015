@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AdministrationLogin">
+   <children>
+      <Pane layoutX="238.0" layoutY="70.0" prefHeight="300.0" prefWidth="500.0" style="-fx-border-color: black; -fx-background-color: #CD5C5C;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="175.0" layoutY="14.0" text="Easy Book" textFill="WHITE">
+               <font>
+                  <Font name="Garamond Bold" size="35.0" />
+               </font>
+            </Label>
+            <Pane layoutX="92.0" layoutY="66.0" prefHeight="309.0" prefWidth="330.0" style="-fx-background-color: white; -fx-background-radius: 40;">
+               <children>
+                  <Label layoutX="93.0" layoutY="11.0" text="User Login">
+                     <font>
+                        <Font name="Courier New Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="6.0" layoutY="44.0" prefHeight="3.0" prefWidth="317.0" />
+                  <TextField fx:id="usernameUser" layoutX="60.0" layoutY="84.0" prefHeight="40.0" prefWidth="211.0" promptText="Username">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="passUser" layoutX="60.0" layoutY="147.0" prefHeight="40.0" prefWidth="211.0" promptText="Password">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="104.0" layoutY="249.0" mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="124.0" style="-fx-background-radius: 20;" text="Submit">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Button>
+                  <Hyperlink layoutX="193.0" layoutY="208.0" text="Forgot your details?" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

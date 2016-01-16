@@ -336,6 +336,9 @@ public class AdministrationPanel implements Initializable {
 		runningBookings.setSelected(false);
 		comingSoonBookings.setSelected(false);
 	}
+	
+	
+	
 
 	/* Rooms TAB */
 	

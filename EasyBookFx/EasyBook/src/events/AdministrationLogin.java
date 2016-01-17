@@ -22,7 +22,7 @@ public class AdministrationLogin implements Initializable  {
 	public void submit(ActionEvent event) {
 		String newRoomDirection = "/application/easybookgui1.fxml";
 		Main main = new Main();
-		main.openNewBookPanel(newRoomDirection);
+		main.openNewPanel(newRoomDirection);
 	}
 	
 	

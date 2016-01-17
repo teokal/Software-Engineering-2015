@@ -1,5 +1,6 @@
 package application;
 	
+import events.AddEditRoomAdminPanel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -20,27 +21,17 @@ public class Main extends Application {
 			primaryStage.setScene(scene); 
 			primaryStage.show();		
 			
-			//			Alert alert = new Alert(AlertType.INFORMATION);
-			//			alert.setTitle("Information Dialog");
-			//			alert.setHeaderText(null);
-			//			alert.setContentText("I have a great message for you!");
-			//
-			//			alert.show();
-
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-	/* RAAAAAAAAAAAAAAF */
-	public void openNewBookPanel(String direction) {
-		
+	public void openNewPanel(String path) {
 		
 		try {
 			
 			Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource(direction));
+			Parent root = FXMLLoader.load( getClass().getResource(path) );
 			Scene scene = new Scene(root);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -52,6 +43,29 @@ public class Main extends Application {
 		}
 	}
 	
+	public Room openEditRoomPanel(String path, Room room) {
+		
+		try {
+			
+			Stage primaryStage = new Stage();
+			
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));     
+			Parent root = (Parent)fxmlLoader.load();      
+				
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			AddEditRoomAdminPanel panel = fxmlLoader.<AddEditRoomAdminPanel>getController();
+			panel.loadRoom(room);
+			
+			primaryStage.setScene(scene); 
+			primaryStage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return room;
+	}
 	
 	
 	public static void main(String[] args) {

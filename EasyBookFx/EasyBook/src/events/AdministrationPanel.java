@@ -203,6 +203,7 @@ public class AdministrationPanel implements Initializable {
 	private Button offer_SAVE_btn;
 
 	private Offer offer_toEdit;
+	private Room room_toEdit;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -216,12 +217,10 @@ public class AdministrationPanel implements Initializable {
 
 	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
-		String newBookDirection = "/application/addBookGui.fxml";
+		String newBookPath = "/application/addBookGui.fxml";
 		Main main = new Main();
-		main.openNewBookPanel(newBookDirection);
+		main.openNewPanel(newBookPath);
 	}
-
-
 	public void showAllBookings(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings");
 	}
@@ -344,9 +343,18 @@ public class AdministrationPanel implements Initializable {
 	
 	/* RAAAAAAAAAAAAAAF */
 	public void newRoom(ActionEvent event) {
-		String newRoomDirection = "/application/addRoomGui.fxml";
+		String newRoomPath = "/application/addRoomGui.fxml";
 		Main main = new Main();
-		main.openNewBookPanel(newRoomDirection);
+		main.openNewPanel(newRoomPath);
+	}
+	public void editRoom(ActionEvent event) {
+		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
+
+		if ( room_toEdit != null ) {
+			String newRoomPath = "/application/addRoomGui.fxml";
+			Main main = new Main();
+			main.openEditRoomPanel(newRoomPath, room_toEdit);
+		}
 	}
 	public void showAllRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();

@@ -1,148 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AddEditRoomAdminPanel">
    <children>
       <Pane prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox layoutX="61.0" layoutY="85.0">
+            <Label fx:id="panelTitle" layoutX="230.0" layoutY="14.0" text="Add a room" textAlignment="CENTER">
+               <font>
+                  <Font name="Garamond" size="30.0" />
+               </font>
+            </Label>
+            <Separator layoutX="22.0" layoutY="56.0" prefHeight="3.0" prefWidth="558.0" />
+            <HBox layoutX="60.0" layoutY="85.0">
                <children>
-                  <Label alignment="CENTER" layoutX="216.0" layoutY="111.0" prefHeight="30.0" prefWidth="95.0" text="Room`s Name: " textAlignment="CENTER">
+                  <Label alignment="CENTER" graphicTextGap="0.0" layoutX="216.0" layoutY="111.0" prefHeight="30.0" prefWidth="85.0" text="Room's Title: ">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="313.0" layoutY="106.0" prefHeight="30.0" prefWidth="116.0" promptText="Room 200">
+                  <TextField fx:id="room_name" layoutX="313.0" layoutY="106.0" prefHeight="30.0" prefWidth="406.0" promptText="Room 200">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="61.0" layoutY="127.0" spacing="5.0">
+            <HBox alignment="CENTER" layoutX="60.0" layoutY="125.0" spacing="5.0">
                <children>
-                  <Label layoutX="182.0" layoutY="116.0" prefHeight="30.0" prefWidth="89.0" text="Room`s Type: " HBox.hgrow="ALWAYS">
+                  <Label layoutX="182.0" layoutY="116.0" prefHeight="30.0" prefWidth="89.0" text="Room's Type: " HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <RadioButton layoutX="306.0" layoutY="131.0" mnemonicParsing="false" text="Standard">
+                  <RadioButton fx:id="type_stand" layoutX="306.0" layoutY="131.0" mnemonicParsing="false" text="Standard">
                      <toggleGroup>
                         <ToggleGroup fx:id="radioRoomType" />
                      </toggleGroup>
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </RadioButton>
-                  <RadioButton layoutX="422.0" layoutY="128.0" mnemonicParsing="false" text="Comfort" toggleGroup="$radioRoomType">
+                  <RadioButton fx:id="type_comf" layoutX="422.0" layoutY="128.0" mnemonicParsing="false" text="Comfort" toggleGroup="$radioRoomType">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </RadioButton>
-                  <RadioButton layoutX="512.0" layoutY="128.0" mnemonicParsing="false" text="Suite" toggleGroup="$radioRoomType">
+                  <RadioButton fx:id="type_suite" layoutX="512.0" layoutY="128.0" mnemonicParsing="false" text="Suite" toggleGroup="$radioRoomType">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </RadioButton>
                </children>
             </HBox>
-            <HBox layoutX="56.0" layoutY="194.0">
+            <HBox layoutX="60.0" layoutY="165.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="333.0" spacing="5.0">
                <children>
-                  <SplitMenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="152.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" text="Num of Beds" textAlignment="CENTER">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="1 Bed" />
-                      <MenuItem mnemonicParsing="false" text="2 Beds" />
-                        <MenuItem mnemonicParsing="false" text="3 Beds" />
-                        <MenuItem mnemonicParsing="false" text="4 Beds" />
-                    </items>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </SplitMenuButton>
-                  <TextField alignment="CENTER" layoutX="326.0" layoutY="152.0" prefHeight="25.0" prefWidth="81.0" promptText="0 Beds">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-            <HBox layoutX="60.0" layoutY="166.0" nodeOrientation="LEFT_TO_RIGHT" spacing="5.0">
-               <children>
-                  <Label layoutX="204.0" layoutY="243.0" prefHeight="20.0" prefWidth="90.0" text="Bed`s Type:">
+                  <Label layoutX="204.0" layoutY="243.0" prefHeight="20.0" prefWidth="115.0" text="Number of Beds">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <RadioButton layoutX="304.0" layoutY="245.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Single">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="radioBedType" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton layoutX="380.0" layoutY="253.0" mnemonicParsing="false" text="Double" toggleGroup="$radioBedType">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </RadioButton>
+                  <VBox>
+                     <children>
+                        <HBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="55.0" text="Single">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="numBedsSingle" prefHeight="25.0" prefWidth="50.0" promptText="0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="55.0" text="Double">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="numBedsDouble" prefHeight="25.0" prefWidth="50.0" promptText="0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="60.0" layoutY="258.0">
+            <HBox alignment="CENTER" layoutX="60.0" layoutY="240.0">
                <children>
-                  <HBox layoutX="180.0" layoutY="213.0" spacing="15.0">
-                     <children>
-                        <Label alignment="CENTER" layoutX="180.0" layoutY="215.0" prefHeight="30.0" prefWidth="60.0" text="Cost/Day:" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField alignment="CENTER_RIGHT" layoutX="251.0" layoutY="213.0" prefHeight="30.0" prefWidth="51.0" promptText="120 ">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <Label layoutX="315.0" layoutY="218.0" text="€">
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="60.0" text="Cost/Day:" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="room_cost" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="51.0" promptText="120 ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="€">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="2.0" />
+                     </HBox.margin>
                   </Label>
                </children>
             </HBox>
-            <Label layoutX="188.0" layoutY="14.0" text="Add/Edit a room" textAlignment="CENTER">
-               <font>
-                  <Font name="Garamond" size="30.0" />
-               </font>
-            </Label>
-            <VBox layoutX="213.0" layoutY="250.0">
+            <VBox layoutX="60.0" layoutY="288.0">
                <children>
-                  <Label layoutX="191.0" layoutY="281.0" text="Room`s Details:">
+                  <Label layoutX="191.0" layoutY="281.0" text="Room's Details:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="174.0" layoutY="310.0" prefHeight="102.0" prefWidth="314.0" promptText="Text here more details about this room">
+                  <TextArea layoutX="174.0" layoutY="310.0" prefHeight="102.0" prefWidth="500.0" promptText="Text here more details about this room">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextArea>
                </children>
             </VBox>
-            <Button layoutX="184.0" layoutY="430.0" mnemonicParsing="false" text="Clear">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Separator layoutX="22.0" layoutY="56.0" prefHeight="3.0" prefWidth="558.0" />
-            <Separator layoutX="21.0" layoutY="416.0" prefHeight="3.0" prefWidth="558.0" />
-            <Button layoutX="310.0" layoutY="430.0" mnemonicParsing="false" text="Save">
+            <Separator layoutX="21.0" layoutY="432.0" prefHeight="3.0" prefWidth="558.0" />
+            <Button layoutX="227.0" layoutY="441.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" onAction="#saveRoom" text="Save">
                <font>
                   <Font size="20.0" />
                </font>

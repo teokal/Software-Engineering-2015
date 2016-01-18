@@ -1,6 +1,7 @@
 package application;
 	
 import events.AddEditRoomAdminPanel;
+import events.AdministrationPanel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -9,24 +10,15 @@ import javafx.scene.Scene;
 
 
 public class Main extends Application {
+	
+	public String userTypeInit;
+	
 	@Override
 	public void start(Stage primaryStage) {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/loginGui.fxml"));
-			//Parent root1 = FXMLLoader.load(getClass().getResource("/application/addBookGui.fxml"));
-			Scene scene = new Scene(root);
-			//Scene scene1 = new Scene(root1);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			//scene1.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene); 
-			primaryStage.show();		
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		openNewPanel( "/application/loginGui.fxml", "EasyBook" );
 	}
 	
-	public void openNewPanel(String path) {
+	public void openNewPanel(String path, String title) {
 		
 		try {
 			
@@ -35,6 +27,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle(title);
 			primaryStage.setScene(scene); 
 			primaryStage.show();
 
@@ -43,20 +36,41 @@ public class Main extends Application {
 		}
 	}
 	
-	public Room openEditRoomPanel(String path, Room room) {
+	public void openEasyBookGUIAdminPanel( String userType ) {
 		
 		try {
-			
+    
 			Stage primaryStage = new Stage();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/easybookgui1.fxml"));
+			AdministrationPanel adminpanel = new AdministrationPanel( userType );
 			
+			fxmlLoader.setController( adminpanel );
+			Scene scene = new Scene( (Parent)fxmlLoader.load() );
+			scene.getStylesheets().add( getClass().getResource("application.css").toExternalForm() );
+			
+			primaryStage.setTitle("EasyBook - Integrated Booking System");
+			primaryStage.setScene(scene); 
+			primaryStage.show();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public Room openEditRoomPanel(String path, String title, Room room) {
+		
+		try {
+			Stage primaryStage = new Stage();
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));     
+			
 			Parent root = (Parent)fxmlLoader.load();      
-				
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			AddEditRoomAdminPanel panel = fxmlLoader.<AddEditRoomAdminPanel>getController();
 			panel.loadRoom(room);
 			
+			primaryStage.setTitle(title);
 			primaryStage.setScene(scene); 
 			primaryStage.show();
 
@@ -67,10 +81,8 @@ public class Main extends Application {
 		return room;
 	}
 	
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AdministrationLogin">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AdministrationLogin">
    <children>
       <Pane layoutX="238.0" layoutY="70.0" prefHeight="300.0" prefWidth="500.0" style="-fx-border-color: black; -fx-background-color: #CD5C5C;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,7 +29,7 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="passUser" layoutX="60.0" layoutY="147.0" prefHeight="40.0" prefWidth="211.0" promptText="Password">
+                  <TextField fx:id="passUser" layoutX="60.0" layoutY="147.0" onAction="#submit" prefHeight="40.0" prefWidth="211.0" promptText="Password">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -39,7 +39,7 @@
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </Button>
-                  <Hyperlink layoutX="193.0" layoutY="208.0" text="Forgot your details?" />
+                  <Hyperlink fx:id="forgot" layoutX="137.0" layoutY="208.0" text="Forgot your credentials?" />
                </children>
             </Pane>
          </children>

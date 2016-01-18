@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -40,6 +41,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AdministrationPanel implements Initializable {
+	
+	public AdministrationPanel(String s) {
+		this.userType = s;
+	}
 
 	public Connection conn = Conn.connect();
 
@@ -195,6 +200,13 @@ public class AdministrationPanel implements Initializable {
 	@FXML
 	private ToggleButton rooms_4plusbeds;
 
+	@FXML
+	private Tab offersTab;
+	@FXML
+	private Tab statisticsTab;
+	@FXML
+	private Tab optionsTab;
+
 	private ObservableList<Book> bookingList;
 	private ObservableList<Room> roomsList;
 	private ObservableList<Offer> offersList;
@@ -204,22 +216,31 @@ public class AdministrationPanel implements Initializable {
 
 	private Offer offer_toEdit;
 	private Room room_toEdit;
+	private String userType;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		showAllBookings(null);
-		showAllRooms(null);
-		showAllOffers(null);
+		if ( userType.equals("admin") ) {
+			showAllBookings(null);
+			showAllRooms(null);
+			showAllOffers(null);
 
-		offers_disableAllControls();
-
+			offers_disableAllControls();
+		} else if ( userType.equals("user") ){
+			showAllBookings(null);
+			showAllRooms(null);
+			
+			offersTab.setDisable(true);
+			statisticsTab.setDisable(true);
+			optionsTab.setDisable(true);
+		}
 	}
 
 	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
 		String newBookPath = "/application/addBookGui.fxml";
 		Main main = new Main();
-		main.openNewPanel(newBookPath);
+		main.openNewPanel(newBookPath, "New Book");
 	}
 	public void showAllBookings(ActionEvent event) {
 		showBookingsOnTable("Select * from bookings");
@@ -336,16 +357,11 @@ public class AdministrationPanel implements Initializable {
 		comingSoonBookings.setSelected(false);
 	}
 	
-	
-	
-
 	/* Rooms TAB */
-	
-	/* RAAAAAAAAAAAAAAF */
 	public void newRoom(ActionEvent event) {
 		String newRoomPath = "/application/addRoomGui.fxml";
 		Main main = new Main();
-		main.openNewPanel(newRoomPath);
+		main.openNewPanel(newRoomPath, "New Room");
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
@@ -353,7 +369,7 @@ public class AdministrationPanel implements Initializable {
 		if ( room_toEdit != null ) {
 			String newRoomPath = "/application/addRoomGui.fxml";
 			Main main = new Main();
-			main.openEditRoomPanel(newRoomPath, room_toEdit);
+			main.openEditRoomPanel(newRoomPath, "Edit Room" ,room_toEdit);
 		}
 	}
 	public void showAllRooms(ActionEvent event) {

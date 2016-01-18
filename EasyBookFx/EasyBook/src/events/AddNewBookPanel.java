@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
-public class AddNewAdministrationPanel implements Initializable {
+public class AddNewBookPanel implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

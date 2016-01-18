@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TableColumn?>
 
-<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.AdministrationPanel">
+<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<tabs>
 		<Tab id="bookings" text="Bookings">
 			<content>
@@ -216,7 +216,7 @@
 				</AnchorPane>
 			</content>
 		</Tab>
-		<Tab id="offers" text="Offers">
+		<Tab id="offers" fx:id="offersTab" text="Offers">
 			<content>
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 					<children>
@@ -472,7 +472,7 @@
 				</AnchorPane>
 			</content>
 		</Tab>
-		<Tab id="statistics" text="Statistics">
+		<Tab id="statistics" fx:id="statisticsTab" text="Statistics">
 			<content>
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 					<children>
@@ -570,7 +570,7 @@
 				</AnchorPane>
 			</content>
 		</Tab>
-		<Tab id="options" text="Options">
+		<Tab id="options" fx:id="optionsTab" text="Options">
 			<content>
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 					<children>

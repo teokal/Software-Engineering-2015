@@ -179,7 +179,7 @@ CREATE TABLE `offers` (
 
 LOCK TABLES `offers` WRITE;
 /*!40000 ALTER TABLE `offers` DISABLE KEYS */;
-INSERT INTO `offers` VALUES (1,'PreEaster','2016-02-01 00:00:00','2016-04-01 00:00:00',5,'','','\0','','\0','','',15,0);
+INSERT INTO `offers` VALUES (1,'PreEaster','2016-10-10 00:00:00','2016-10-25 00:00:00',5,'\0','','\0','','','','',100,0);
 /*!40000 ALTER TABLE `offers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +205,7 @@ CREATE TABLE `offers_lang` (
 
 LOCK TABLES `offers_lang` WRITE;
 /*!40000 ALTER TABLE `offers_lang` DISABLE KEYS */;
-INSERT INTO `offers_lang` VALUES (1,'werwer',NULL,NULL,NULL),(2,'werwr',NULL,NULL,NULL),(3,'wer',NULL,NULL,NULL),(4,'ewrwer',NULL,NULL,NULL),(5,'werrrr',NULL,NULL,NULL),(6,'ewrwe',NULL,NULL,NULL),(7,'werwr',NULL,NULL,NULL);
+INSERT INTO `offers_lang` VALUES (1,'Enjoy this special offer!',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `offers_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,7 @@ CREATE TABLE `rooms` (
   `cost` decimal(10,2) NOT NULL,
   PRIMARY KEY (`room_id`),
   UNIQUE KEY `room_id_UNIQUE` (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `rooms` (
 
 LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` VALUES (1,'Room 132','Comfort',4,1,85.50),(2,'Room 234','Standard',2,0,19.50),(3,'New York Suite','Suite',1,3,55.00),(4,'Amsterdam Suite','Suite',1,2,75.00),(5,'Room 23','Comfort',1,1,23.00),(6,'Room 43','Comfort',0,1,36.00),(7,'Silicon Valley Suite','Suite',0,3,350.00);
+INSERT INTO `rooms` VALUES (1,'Room 132','Comfort',4,1,85.50),(2,'Room 234','Standard',2,0,19.50),(3,'New York Suite','Suite',1,3,55.00),(4,'asdasd','Comfort',1,1,75.00),(5,'Room 23','Comfort',1,1,23.00),(6,'Room 43','Comfort',0,1,36.00),(7,'Silicon Valley Suite','Suite',0,3,350.00),(9,'New York Suite 2','Suite',1,3,55.00);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,15 +302,16 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
   `password` varchar(300) NOT NULL,
   `name` varchar(45) NOT NULL,
   `sname` varchar(45) NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_type` varchar(45) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
-  UNIQUE KEY `user_name_UNIQUE` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `user_name_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +320,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'rafsonic','202cb962ac59075b964b07152d234b70','Rafael','Panayiotou','admin'),(2,'teokal','202cb962ac59075b964b07152d234b70','Thodoris','Kalatzis','admin'),(3,'petrosp','202cb962ac59075b964b07152d234b70','Petros','Papadakos','admin');
+INSERT INTO `users` VALUES (1,'rafsonic','202cb962ac59075b964b07152d234b70','Rafael','Panayiotou',NULL,'admin'),(2,'teokal','ecb811f3c49a41b9a16374cba20cac50','Thodoris','Kalatzis','teo.kal@hotmail.com','admin'),(3,'petrosp','202cb962ac59075b964b07152d234b70','Petros','Papadakos',NULL,'admin'),(4,'user','202cb962ac59075b964b07152d234b70','User','Test','user@easybook.gr','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-03 21:42:44
+-- Dump completed on 2016-01-18  6:06:29

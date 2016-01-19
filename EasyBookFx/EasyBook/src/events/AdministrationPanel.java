@@ -365,6 +365,7 @@ public class AdministrationPanel implements Initializable {
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
+		
 
 		if ( room_toEdit != null ) {
 			String newRoomPath = "/application/addRoomGui.fxml";
@@ -372,6 +373,10 @@ public class AdministrationPanel implements Initializable {
 			main.openEditRoomPanel(newRoomPath, "Edit Room" ,room_toEdit);
 		}
 	}
+
+	
+
+	
 	public void showAllRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
 		showRoomsOnTable("Select * from rooms");

@@ -21,34 +21,21 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class AddEditRoomAdminPanel implements Initializable {
-	
+
 	@FXML
 	private Label panelTitle;
-	
 	@FXML
-	private TextField room_name;
+	private TextField room_name, numBedsSingle, numBedsDouble, room_cost;
 	@FXML
-	private TextField numBedsSingle;
-	@FXML
-	private TextField numBedsDouble;
-	@FXML
-	private TextField room_cost;
-	
-	@FXML
-	private RadioButton type_stand;
-	@FXML
-	private RadioButton type_comf;
-	@FXML
-	private RadioButton type_suite;
-	
+	private RadioButton type_stand, type_comf, type_suite;
 	@FXML
 	private ToggleGroup radioRoomType;
-	
+
 	private Room loadedRoom;
 	private boolean update = false;
 
 	public void loadRoom(Room room) {
-		
+
 		loadedRoom = room;
 		update = true;
 
@@ -72,6 +59,8 @@ public class AddEditRoomAdminPanel implements Initializable {
 	public void saveRoom(ActionEvent event){
 		
 		Connection conn = Conn.connect();
+		Alert alert = new Alert(AlertType.ERROR);
+		
 		String query = "";
 		if (update) {
 			query = "UPDATE `rooms` SET "
@@ -86,77 +75,85 @@ public class AddEditRoomAdminPanel implements Initializable {
 					+ "`room_type`,`single_beds`,`double_beds`,`cost`) "
 					+ "VALUES (null, ?, ?, ?, ?, ?)";
 		}
-		
+
 		try {
 
 			PreparedStatement ps = conn.prepareStatement( query );
 
-			ps.setString(1, room_name.getText() );			
-			ps.setString(2, getSelectedRoomType() );
-			
-			try{
-			ps.setInt(3, Integer.parseInt( numBedsSingle.getText() ) );
-			}catch (NumberFormatException e) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText("Wrong number of Single Rooms!\nPlease try again!");
-				alert.show();
-				return;
-			}try{
-			ps.setInt(4, Integer.parseInt( numBedsDouble.getText() ) );
-			}catch (NumberFormatException e) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText("Wrong number of Double Rooms!\nPlease try again!");
-				alert.show();
-				return;
-			}try{
-			ps.setFloat(5, Float.parseFloat(room_cost.getText() ) );
-			}catch (NumberFormatException e) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText("Wrong cost numner!\nPlease try again!");
+			if (! room_name.getText().trim().equals("") ) {
+				ps.setString(1, room_name.getText() );			
+			} else {
+				alert.setContentText("Room's Title cannot be empty!");
 				alert.show();
 				return;
 			}
+			
+			String type = getSelectedRoomType();
+			if (! type.equals("none") ){
+				ps.setString(2, getSelectedRoomType() );
+			} else {
+				alert.setContentText("Please select room's type!");
+				alert.show();
+				return;
+			}
+
+			try{
+				ps.setInt(3, Integer.parseInt( numBedsSingle.getText() ) );
+				ps.setInt(4, Integer.parseInt( numBedsDouble.getText() ) );
+			} catch (NumberFormatException e) {
+				alert.setContentText("Wrong number of beds!\nEnter an integer value!");
+				alert.show();
+				return;
+			}
+			
+			try{
+				ps.setFloat(5, Float.parseFloat(room_cost.getText() ) );
+			} catch (NumberFormatException e) {
+				alert.setContentText("Wrong cost value!\nPlease try again!");
+				alert.show();
+				return;
+			}
+			
 			if (update) {
 				ps.setInt(6, loadedRoom.getRoom_id() );
 			}
-			int rs = ps.executeUpdate();
 			
+			int rs = ps.executeUpdate();
 			if (rs != 0 ){
 				Window window = panelTitle.getScene().getWindow();
 				if (window instanceof Stage){
 					((Stage) window).close();
 				}
 			} else {
-				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText("Room details, could not be updated!\nPlease try again later!");
 				alert.show();			
 				return;
 			}
-			
+
 			conn.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public String getSelectedRoomType() {
 		if ( type_comf.isSelected() == true ) {
 			return "Comfort";
 		} else if ( type_stand.isSelected() == true ) {
 			return "Standard";
-		} else {
+		} else if ( type_suite.isSelected() == true ) {
 			return "Suite";
+		} else {
+			return "none";
 		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

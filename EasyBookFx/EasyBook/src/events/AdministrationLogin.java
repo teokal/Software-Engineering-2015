@@ -29,9 +29,7 @@ public class AdministrationLogin implements Initializable  {
 
 
 	@FXML
-	private TextField usernameUser;
-	@FXML
-	private TextField passUser;
+	private TextField usernameUser, passUser;
 	@FXML
 	private Hyperlink forgot;
 

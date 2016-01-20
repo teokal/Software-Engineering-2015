@@ -9,10 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.zip.DataFormatException;
-
-import com.mysql.jdbc.Statement;
 
 import application.Book;
 import application.Main;
@@ -26,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -35,18 +35,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AdministrationPanel implements Initializable {
-	
+
 	public AdministrationPanel(String s) {
 		this.userType = s;
 	}
-
-	public Connection conn = Conn.connect();
 
 	@FXML
 	private TableColumn<Book, String> check_in_clmn;
@@ -213,10 +212,20 @@ public class AdministrationPanel implements Initializable {
 
 	@FXML
 	private Button offer_SAVE_btn;
-
+	@FXML
+	private Button offer_CANCEL_btn;
+	@FXML
+	private Button offer_EDIT_btn;
+	@FXML
+	private Button offer_DELETE_btn;
+	
+	@FXML
+	private AnchorPane offer_controls;
+	
 	private Offer offer_toEdit;
 	private Room room_toEdit;
 	private String userType;
+	private boolean newOffer = false;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -229,7 +238,7 @@ public class AdministrationPanel implements Initializable {
 		} else if ( userType.equals("user") ){
 			showAllBookings(null);
 			showAllRooms(null);
-			
+
 			offersTab.setDisable(true);
 			statisticsTab.setDisable(true);
 			optionsTab.setDisable(true);
@@ -276,17 +285,20 @@ public class AdministrationPanel implements Initializable {
 					+ "OR	`email` LIKE ?";
 
 			try {
-				PreparedStatement preparedStatement = conn.prepareStatement( query );
+				Connection conn = Conn.connect();
 				
+				PreparedStatement preparedStatement = conn.prepareStatement( query );
+
 				preparedStatement.setString(1, textSearch );
 				preparedStatement.setString(2, textSearch );
 				preparedStatement.setString(3, textSearch );
 				preparedStatement.setString(4, textSearch );
 				preparedStatement.setString(5, textSearch );
 				preparedStatement.setString(6, textSearch );
-				
+
 				showBookingsOnTable(preparedStatement);
 				
+				conn.close();
 			} catch (SQLException e) { e.printStackTrace(); }
 
 
@@ -315,13 +327,13 @@ public class AdministrationPanel implements Initializable {
 
 		List<Book> list = new ArrayList<Book>();
 		ResultSet rs;
-		
+
 		try {
+			Connection conn = Conn.connect();
 			
 			if ( query.getClass().equals(String.class) ) {
-				Statement stmt = (Statement) conn.createStatement();
-	
-				rs = stmt.executeQuery( (String) query );
+				PreparedStatement ps = conn.prepareStatement( (String) query );
+				rs = ps.executeQuery();
 			} else {
 				rs = ((PreparedStatement) query).executeQuery();
 			}
@@ -343,6 +355,7 @@ public class AdministrationPanel implements Initializable {
 						rs.getFloat("money_received"),
 						rs.getString("status") ) ); 
 			}
+			conn.close();
 		} catch (SQLException e )	{ e.printStackTrace();
 		} catch (ParseException e)	{ e.printStackTrace();	}
 
@@ -356,7 +369,7 @@ public class AdministrationPanel implements Initializable {
 		runningBookings.setSelected(false);
 		comingSoonBookings.setSelected(false);
 	}
-	
+
 	/* Rooms TAB */
 	public void newRoom(ActionEvent event) {
 		String newRoomPath = "/application/addRoomGui.fxml";
@@ -370,6 +383,26 @@ public class AdministrationPanel implements Initializable {
 			String newRoomPath = "/application/addRoomGui.fxml";
 			Main main = new Main();
 			main.openEditRoomPanel(newRoomPath, "Edit Room" ,room_toEdit);
+		}
+	}
+	public void deleteRoom(ActionEvent event){
+		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
+
+		if ( room_toEdit != null ) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+
+			alert.setTitle("Confirmation Dialog");
+			alert.setHeaderText("Delete " + room_toEdit.getRoom_name() + "?");
+			alert.setContentText("You can cannot revert this action!");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				room_toEdit.deleteThisRoom();
+
+				showAllRooms(null);
+			} else {
+				return;
+			}
 		}
 	}
 	public void showAllRooms(ActionEvent event) {
@@ -433,14 +466,20 @@ public class AdministrationPanel implements Initializable {
 		roomsTable.setItems( roomsList );
 
 	}
-	private ObservableList<Room> getRoomsTableData(String query) {
+	private ObservableList<Room> getRoomsTableData(Object query) {
 
 		List<Room> list = new ArrayList<Room>();
 
 		try {
-			Statement stmt = (Statement) conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery( query );
+			ResultSet rs;
+			Connection conn = Conn.connect();
+			
+			if ( query.getClass().equals(String.class) ) {
+				PreparedStatement ps = conn.prepareStatement( (String) query );
+				rs = ps.executeQuery();
+			} else {
+				rs = ((PreparedStatement) query).executeQuery();
+			}
 
 			while ( rs.next()) {
 
@@ -497,14 +536,20 @@ public class AdministrationPanel implements Initializable {
 		offersTable.setItems( offersList );
 
 	}
-	private ObservableList<Offer> getOffersTableData(String query) {
+	private ObservableList<Offer> getOffersTableData(Object query) {
 
 		List<Offer> list = new ArrayList<Offer>();
 
 		try {
-			Statement stmt = (Statement) conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery( query );
+			Connection conn = Conn.connect();
+			ResultSet rs;
+			
+			if ( query.getClass().equals(String.class) ) {
+				PreparedStatement ps = conn.prepareStatement( (String) query );
+				rs = ps.executeQuery();
+			} else {
+				rs = ((PreparedStatement) query).executeQuery();
+			}
 
 			while ( rs.next()) {
 
@@ -531,11 +576,16 @@ public class AdministrationPanel implements Initializable {
 
 		return data;
 	}
+	public void newOffer (ActionEvent event) {
+		newOffer = true;
+		offers_default_data();
+		offers_enableAllControls();
+	}
 	public void editOffer (ActionEvent event) throws ParseException {
 
 		offer_toEdit = offersTable.getSelectionModel().getSelectedItem();
 
-		if ( offer_toEdit != null ) {
+		if ( offer_toEdit != null && !newOffer) {
 
 			offer_name_text.setText(String.valueOf( offer_toEdit.getName() ));
 			offer_req_days_text.setText(String.valueOf(offer_toEdit.getReq_days() ) );
@@ -544,7 +594,7 @@ public class AdministrationPanel implements Initializable {
 			offer_desc_text.setText( offer_toEdit.getDesc_en() );
 
 			if ( offer_toEdit.getDiscount_amount() == 0 ) {
-				offer_dis_am_text.setText( String.valueOf(0) );				
+				offer_dis_am_text.setText( String.valueOf(0) );	
 				offer_dis_per_radio.setSelected(true);
 				offer_dis_per_text.setText( String.valueOf( offer_toEdit.getDiscount_percentage() ) );
 				disableRadioDisAmount(null);
@@ -603,6 +653,10 @@ public class AdministrationPanel implements Initializable {
 
 	}
 	public void saveOffer (ActionEvent event) throws ParseException {
+
+		if (newOffer) {
+			offer_toEdit = new Offer();
+		}
 
 		int temp;
 		Alert alert = new Alert(AlertType.ERROR);	
@@ -677,9 +731,9 @@ public class AdministrationPanel implements Initializable {
 
 		LocalDate dateF = offer_valid_from_date.getValue();
 		LocalDate dateU = offer_valid_until_date.getValue();
-		
+
 		if ( dateF.isBefore( dateU ) || dateF.isEqual( dateU ) ) {
-			
+
 			offer_toEdit.setValid_from( dateF.toString() );
 			offer_toEdit.setValid_until( dateU.toString() );	
 
@@ -729,20 +783,53 @@ public class AdministrationPanel implements Initializable {
 
 		offer_toEdit.setReq_days( Integer.parseInt( offer_req_days_text.getText() ) );
 
-		if ( offer_toEdit.updateOffer() && offer_toEdit.updateDesc_en( offer_desc_text.getText() ) ) {
+		Boolean okay = true;
 
+		if ( newOffer ) {
+			okay = offer_toEdit.updateOffer(false);
+			okay = offer_toEdit.updateDesc_en(false, offer_desc_text.getText() );
+		} else {
+			okay = offer_toEdit.updateOffer(true);
+			okay = offer_toEdit.updateDesc_en(true, offer_desc_text.getText() );
+		}
+
+		if ( okay ) {
 			offers_disableAllControls();
+			newOffer = false;
 			showAllOffers(null);
 
 			alert = new Alert(AlertType.INFORMATION);
 			alert.setContentText("Offer has been successfully saved!");
 			alert.show();
-		
 		} else {
-			
+
 			alert.setContentText("Offer could not be saved!");
 			alert.show();
-			
+
+		}
+	} 		
+	public void cancelOffer (ActionEvent event) {
+		offers_default_data();
+		offers_disableAllControls();
+		newOffer = false;
+	}
+	public void deleteOffer(ActionEvent event){
+		offer_toEdit = offersTable.getSelectionModel().getSelectedItem();
+
+		if ( offer_toEdit != null ) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+
+			alert.setTitle("Confirmation Dialog");
+			alert.setHeaderText("Delete " + offer_toEdit.getName() + "?");
+			alert.setContentText("You can cannot revert this action!");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				offer_toEdit.deleteThisOffer();
+				showAllOffers(null);
+			} else {
+				return;
+			}
 		}
 	}
 
@@ -758,8 +845,30 @@ public class AdministrationPanel implements Initializable {
 		offer_dis_per_text.setDisable(true);
 		offer_dis_per_text.setEditable(false);
 	}
+	private void offers_default_data() {
+		
+		offer_name_text.setText("");
+		offer_valid_from_date.setValue( LocalDate.now() );
+		offer_valid_until_date.setValue( LocalDate.now() );
+		offer_desc_text.setText("");
+		offer_dis_am_text.setText("");
+		offer_dis_am_radio.setSelected(false);
+		offer_dis_per_text.setText("");
+		offer_dis_per_radio.setSelected(false);
+		offer_req_days_text.setText("");
+		
+		offer_one_bed_check.setSelected(false);
+		offer_two_beds_check.setSelected(false);
+		offer_three_beds_check.setSelected(false);
+		offer_fplus_beds_check.setSelected(false);
+		
+		offer_type_stand_check.setSelected(false);
+		offer_type_comf_check.setSelected(false);
+		offer_type_suite_check.setSelected(false);
+		
+	}
 	private void offers_enableAllControls(){
-
+		
 		offer_name_text.setDisable(false);
 		offer_desc_text.setDisable(false);
 		offer_dis_am_radio.setDisable(false);
@@ -780,7 +889,11 @@ public class AdministrationPanel implements Initializable {
 		offer_req_days_text.setEditable(true);
 
 		offer_SAVE_btn.setDisable(false);
-
+		offer_CANCEL_btn.setDisable(false);
+		offer_EDIT_btn.setDisable(true);
+		offer_DELETE_btn.setDisable(true);
+		
+		offersTable.setDisable(true);
 	}
 	private void offers_disableAllControls(){
 
@@ -808,7 +921,11 @@ public class AdministrationPanel implements Initializable {
 		offer_req_days_text.setEditable(false);
 
 		offer_SAVE_btn.setDisable(true);
-
+		offer_CANCEL_btn.setDisable(true);
+		offer_EDIT_btn.setDisable(false);
+		offer_DELETE_btn.setDisable(false);
+		
+		offersTable.setDisable(false);
 	}
 
 

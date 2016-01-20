@@ -1,5 +1,10 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import database.Conn;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Room {
@@ -75,6 +80,23 @@ public class Room {
 	
 	public float getCost(){
 		return cost;
+	}
+	
+	public void deleteThisRoom(){
+		try {
+			Connection conn = Conn.connect();
+			String query = "DELETE FROM `rooms` WHERE `room_id` = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, getRoom_id() );
+			
+			ps.executeUpdate();
+			
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

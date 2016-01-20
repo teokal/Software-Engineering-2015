@@ -14,14 +14,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.mysql.jdbc.Statement;
-
 import database.Conn;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Offer {
-	public Connection conn = Conn.connect();
-
 	private int o_id;
 	private SimpleStringProperty name;
 	public SimpleStringProperty valid_from;
@@ -36,6 +32,23 @@ public class Offer {
 	private int type_suite;
 	private int discount_amount;
 	private int discount_percentage;
+
+	public Offer(){
+		this.o_id = 0;
+		this.name = new SimpleStringProperty("");
+		this.valid_from = new SimpleStringProperty("1970-01-01 00:00:00");
+		this.valid_until = new SimpleStringProperty("1970-01-01 23:59:59");
+		this.req_days = 0;
+		this.one_bed = 0;
+		this.two_beds = 0;
+		this.three_beds = 0;
+		this.fplus_beds = 0;
+		this.type_stand = 0;
+		this.type_comf = 0;
+		this.type_suite = 0;
+		this.discount_amount = 0;
+		this.discount_percentage = 0;
+	}
 
 	public Offer(
 			int o_id,
@@ -78,17 +91,15 @@ public class Offer {
 	}
 
 	public void setValid_from (String s) throws ParseException {
-		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(s + " 00:00:00.0");
-		String newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(date);
-
-		valid_from.set( newDate );
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s + " 00:00:00");
+		String newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+		valid_from = new SimpleStringProperty(newDate) ;
 	}
 
 	public void setValid_until (String s) throws ParseException {
-		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(s + " 00:00:00.0");
-		String newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(date);
-
-		valid_until.set( newDate );
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s + " 00:00:00");
+		String newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+		valid_until = new SimpleStringProperty(newDate) ;
 	}
 
 	public void setReq_days (int  s) {
@@ -235,13 +246,17 @@ public class Offer {
 	public String getDesc_en() {
 		String text = "";
 		try {
-			Statement stmt = (Statement) conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery("Select `lang_en` from offers_lang where `o_id` = " + getO_id() );
+			Connection conn = Conn.connect();
+			String query = "SELECT `lang_en` FROM `offers_lang` WHERE `o_id` = ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, getO_id() );
+			
+			ResultSet rs = ps.executeQuery();
 
 			while ( rs.next()) {
 				text = rs.getString("lang_en"); 
 			}
+			conn.close();
 		} catch (SQLException e) { e.printStackTrace();	}
 
 		return text;
@@ -250,9 +265,11 @@ public class Offer {
 
 		String[] text = new String[4];
 		try {
-			Statement stmt = (Statement) conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery("Select * from offers_lang where `o_id` = " + getO_id() );
+			Connection conn = Conn.connect();
+			String query = "SELECT * FROM `offers_lang` WHERE `o_id` = ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, getO_id() );
+			ResultSet rs = ps.executeQuery(query);
 
 			while ( rs.next()) {
 				text[0] = rs.getString("lang_en"); 
@@ -260,24 +277,32 @@ public class Offer {
 				text[2] = rs.getString("lang_de"); 
 				text[3] = rs.getString("lang_es"); 
 			}
-		} catch (SQLException e) { e.printStackTrace();
-		}
+			conn.close();
+		} catch (SQLException e) { e.printStackTrace();	}
 
 		return text;
 	}
 
-	public boolean updateDesc_en(String s) {
+	public boolean updateDesc_en(Boolean update, String s) {
 
 		int rs = 0;
 
 		try {
-			String updateQuery = "update `offers_lang` set `lang_en` = ? where `o_id` = ?";
-			PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
+			Connection conn = Conn.connect();
+
+			String query = "";
+			if (update) {
+				query = "UPDATE `offers_lang` SET `lang_en` = ? WHERE `o_id` = ?";
+			} else {
+				query = "INSERT INTO `offers_lang`(`o_id`, `lang_en`) VALUES (null, ?)";
+			}
+
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, s );
-			preparedStatement.setInt(2, getO_id() );
+			if (update) preparedStatement.setInt(2, getO_id() );
 
 			rs = preparedStatement.executeUpdate();
-
+			conn.close();
 		} catch (SQLException e) { e.printStackTrace(); }
 
 		if ( rs > 0 ) {
@@ -296,6 +321,7 @@ public class Offer {
 		int rs = 0;
 
 		try {
+			Connection conn = Conn.connect();
 			String updateQuery = "UPDATE `offers_lang` SET "
 					+ "`lang_en` = ?,"
 					+ "`lang_gr` = ?,"
@@ -310,7 +336,7 @@ public class Offer {
 			preparedStatement.setInt(5, getO_id() );
 
 			rs = preparedStatement.executeUpdate();
-
+			conn.close();
 		} catch (SQLException e) { e.printStackTrace(); }
 
 		if ( rs > 0 ) {
@@ -324,19 +350,30 @@ public class Offer {
 		}
 
 	}
-	public boolean updateOffer() throws ParseException{
+	public boolean updateOffer(Boolean update) throws ParseException{
 
 		int rs = 0;
-
-		try {
-			String updateQuery = "UPDATE `easybooksql`.`offers` SET "
+		String query = "";
+		if (update) {
+			query = "UPDATE `easybooksql`.`offers` SET "
 					+ "`name` = ?, `valid_from` = ?, `valid_until` = ?, `required_days` = ?,"
 					+ "`one_bed` = ?, `two_beds` = ?, `three_beds` = ?, `fplus_beds` = ?, "
 					+ "`type_stand` = ?, `type_comf` = ?, `type_suite` = ?, "
 					+ "`discount_amount` = ?, `discount_percentage` = ? "
 					+ "WHERE `o_id` = ?";
+		} else {
+			query = "INSERT `offers`"
+					+"(`o_id`, `name`,`valid_from`,`valid_until`,`required_days`,`one_bed`,`two_beds`,"
+					+"`three_beds`,`fplus_beds`,`type_stand`,`type_comf`,`type_suite`,`discount_amount`,"
+					+ "`discount_percentage`)"
+					+ "VALUES (NULL, ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		}
 
-			PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
+		try {
+			Connection conn = Conn.connect();
+
+
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, getName() );
 			preparedStatement.setString(2, valid_from.getValueSafe() );
 			preparedStatement.setString(3, valid_until.getValueSafe() );
@@ -350,9 +387,10 @@ public class Offer {
 			preparedStatement.setInt(11, getType_suite_edit() );
 			preparedStatement.setInt(12, getDiscount_amount() );
 			preparedStatement.setInt(13, getDiscount_percentage() );
-			preparedStatement.setInt(14, getO_id() );
+			if (update) preparedStatement.setInt(14, getO_id() );
 
 			rs = preparedStatement.executeUpdate();
+			conn.close();
 
 		} catch (SQLException e) { e.printStackTrace(); }
 
@@ -367,5 +405,23 @@ public class Offer {
 		}
 
 	}
+	public void deleteThisOffer(){
+		try {
+			Connection conn = Conn.connect();
+			String query = "DELETE FROM `offers` WHERE `o_id` = ?";
 
+			String query_lang = "DELETE FROM `offers_lang` WHERE `o_id` = ?";
+
+			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps_lang = conn.prepareStatement(query_lang);
+			ps.setInt(1, getO_id() );
+			ps_lang.setInt(1, getO_id() );
+			ps.executeUpdate();
+			ps_lang.executeUpdate();
+
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

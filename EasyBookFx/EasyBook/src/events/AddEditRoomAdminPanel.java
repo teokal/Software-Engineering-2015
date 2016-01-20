@@ -93,9 +93,29 @@ public class AddEditRoomAdminPanel implements Initializable {
 
 			ps.setString(1, room_name.getText() );			
 			ps.setString(2, getSelectedRoomType() );
+			
+			try{
 			ps.setInt(3, Integer.parseInt( numBedsSingle.getText() ) );
-			ps.setInt(4, Integer.parseInt( numBedsSingle.getText() ) );
+			}catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Wrong number of Single Rooms!\nPlease try again!");
+				alert.show();
+				return;
+			}try{
+			ps.setInt(4, Integer.parseInt( numBedsDouble.getText() ) );
+			}catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Wrong number of Double Rooms!\nPlease try again!");
+				alert.show();
+				return;
+			}try{
 			ps.setFloat(5, Float.parseFloat(room_cost.getText() ) );
+			}catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Wrong cost numner!\nPlease try again!");
+				alert.show();
+				return;
+			}
 			if (update) {
 				ps.setInt(6, loadedRoom.getRoom_id() );
 			}

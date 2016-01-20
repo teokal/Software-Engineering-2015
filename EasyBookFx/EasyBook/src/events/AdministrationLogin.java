@@ -36,6 +36,7 @@ public class AdministrationLogin implements Initializable  {
 	private Hyperlink forgot;
 
 	public void submit(ActionEvent event) {
+	
 		String[] result = checkDetails(usernameUser.getText(), passUser.getText() );
 
 		if ( result[0].equals("valid") ) {

@@ -48,124 +48,45 @@ public class AdministrationPanel implements Initializable {
 	}
 
 	@FXML
-	private TableColumn<Book, String> check_in_clmn;
-	@FXML
-	private TableColumn<Book, String> paid_clmn;
-	@FXML
-	private TableColumn<Book, String> name_clmn;
-	@FXML
-	private TableColumn<Book, String> surname_clmn;
-	@FXML
-	private TableColumn<Book, String> check_out_clmn;
-	@FXML
-	private TableColumn<Book, String> tel_clmn;
-	@FXML
-	private TableColumn<Book, String> email_clmn;
-	@FXML
-	private TableColumn<Book, String> idnum_clmn;
-	@FXML
-	private TableColumn<Book, String> persons_clmn;
-	@FXML
-	private TableColumn<Book, String> code_clmn;
-	@FXML
-	private TableColumn<Book, String> room_clmn;
+	private TableColumn<Book, String> check_in_clmn, paid_clmn, name_clmn, surname_clmn, 
+	check_out_clmn,tel_clmn, email_clmn, idnum_clmn,
+	persons_clmn, code_clmn, room_clmn;
 
 	@FXML
-	private TableColumn<Room, Integer> room_name_col;
+	private TableColumn<Room, Integer> room_name_col, single_beds_col, double_beds_col;
 	@FXML
 	private TableColumn<Room, String> type_col;
-	@FXML
-	private TableColumn<Room, Integer> single_beds_col;
-	@FXML
-	private TableColumn<Room, Integer> double_beds_col;
 	@FXML
 	private TableColumn<Room, Float> cost_col;
 
 	@FXML
-	private TableColumn<Offer, String> offer_name_col;
-	@FXML
-	private TableColumn<Offer, String> offer_req_days_col;
-	@FXML
-	private TableColumn<Offer, String> offers_type_stand_col;
-	@FXML
-	private TableColumn<Offer, String> offers_type_comf_col;
-	@FXML
-	private TableColumn<Offer, String> offers_type_suite_col;
-	@FXML
-	private TableColumn<Offer, String> offers_beds_one_col;
-	@FXML
-	private TableColumn<Offer, String> offers_beds_two_col;
-	@FXML
-	private TableColumn<Offer, String> offers_beds_three_col;
-	@FXML
-	private TableColumn<Offer, String> offers_beds_fplus_col;
-	@FXML
-	private TableColumn<Offer, String> offers_disc_per_col;
-	@FXML
-	private TableColumn<Offer, String> offers_disc_am_col;
-	@FXML
-	private TableColumn<Offer, String> offers_valid_from_col;
-	@FXML
-	private TableColumn<Offer, String> offers_valid_until_col;
+	private TableColumn<Offer, String> offer_name_col, offer_req_days_col, 
+		offers_type_stand_col, offers_type_comf_col, offers_type_suite_col, 
+		offers_beds_one_col, offers_beds_two_col, offers_beds_three_col, offers_beds_fplus_col, 
+		offers_disc_per_col, offers_disc_am_col, offers_valid_from_col, offers_valid_until_col;
 
 	@FXML
-	private ToggleGroup categoryTypesRooms;
-	@FXML
-	private ToggleGroup categoryOffers;
-	@FXML
-	private ToggleGroup categoryRadioDatesOffers;
-	@FXML
-	private ToggleGroup categoryBookings;
-	@FXML
-	private ToggleGroup categoryRadioTypeOffers;
-	@FXML
-	private ToggleGroup categoryTypeOptions;
-	@FXML
-	private ToggleGroup categoryIncomeBooksStatistics;
-	@FXML
-	private ToggleGroup categoryBedRooms;
+	private ToggleGroup categoryTypesRooms, categoryOffers, categoryRadioDatesOffers, 
+		categoryBookings,  categoryRadioTypeOffers,  categoryTypeOptions,  
+		categoryIncomeBooksStatistics,  categoryBedRooms;
 
 
 	@FXML
-	private TextField searchBookText;
-	@FXML
-	private TextField searchRoomText;
-	@FXML
-	private TextField offer_name_text;
-	@FXML
-	private TextField offer_req_days_text;
-	@FXML
-	private TextField offer_dis_per_text;
-	@FXML
-	private TextField offer_dis_am_text;
+	private TextField searchBookText, searchRoomText, offer_name_text, 
+		offer_req_days_text, offer_dis_per_text, offer_dis_am_text;
 
 	@FXML
-	private DatePicker offer_valid_from_date;
-	@FXML
-	private DatePicker offer_valid_until_date;
+	private DatePicker offer_valid_from_date, offer_valid_until_date;
 
 	@FXML
-	private RadioButton offer_dis_per_radio;
-	@FXML
-	private RadioButton offer_dis_am_radio;
-
-	@FXML
-	private CheckBox offer_type_stand_check;
-	@FXML
-	private CheckBox offer_type_comf_check;
-	@FXML
-	private CheckBox offer_type_suite_check;
-	@FXML
-	private CheckBox offer_one_bed_check;
-	@FXML
-	private CheckBox offer_two_beds_check;
-	@FXML
-	private CheckBox offer_three_beds_check;
-	@FXML
-	private CheckBox offer_fplus_beds_check;
-
+	private RadioButton offer_dis_per_radio, offer_dis_am_radio;
+	
 	@FXML
 	private TextArea offer_desc_text;
+
+	@FXML
+	private CheckBox offer_type_stand_check, offer_type_comf_check, offer_type_suite_check, 
+		offer_one_bed_check, offer_two_beds_check, offer_three_beds_check, offer_fplus_beds_check;
 
 	@FXML
 	private TableView<Book> bookingsTable;
@@ -175,49 +96,19 @@ public class AdministrationPanel implements Initializable {
 	private TableView<Offer> offersTable;
 
 	@FXML
-	private ToggleButton allBookings;
-	@FXML
-	private ToggleButton completedBookings;
-	@FXML
-	private ToggleButton comingSoonBookings;
-	@FXML
-	private ToggleButton runningBookings;
-	@FXML
-	private ToggleButton allRooms;
-	@FXML
-	private ToggleButton standardRooms;
-	@FXML
-	private ToggleButton comfortRooms;
-	@FXML
-	private ToggleButton suiteRooms;
-	@FXML
-	private ToggleButton rooms_1bed;
-	@FXML
-	private ToggleButton rooms_2beds;
-	@FXML
-	private ToggleButton rooms_3beds;
-	@FXML
-	private ToggleButton rooms_4plusbeds;
+	private ToggleButton allBookings, completedBookings, comingSoonBookings, runningBookings,
+		allRooms, standardRooms, comfortRooms, suiteRooms, 
+		rooms_1bed, rooms_2beds, rooms_3beds,rooms_4plusbeds;
 
 	@FXML
-	private Tab offersTab;
-	@FXML
-	private Tab statisticsTab;
-	@FXML
-	private Tab optionsTab;
+	private Tab offersTab, statisticsTab, optionsTab;
 
 	private ObservableList<Book> bookingList;
 	private ObservableList<Room> roomsList;
 	private ObservableList<Offer> offersList;
 
 	@FXML
-	private Button offer_SAVE_btn;
-	@FXML
-	private Button offer_CANCEL_btn;
-	@FXML
-	private Button offer_EDIT_btn;
-	@FXML
-	private Button offer_DELETE_btn;
+	private Button offer_SAVE_btn, offer_CANCEL_btn, offer_EDIT_btn, offer_DELETE_btn;
 	
 	@FXML
 	private AnchorPane offer_controls;
@@ -378,6 +269,7 @@ public class AdministrationPanel implements Initializable {
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
+		
 
 		if ( room_toEdit != null ) {
 			String newRoomPath = "/application/addRoomGui.fxml";
@@ -385,6 +277,7 @@ public class AdministrationPanel implements Initializable {
 			main.openEditRoomPanel(newRoomPath, "Edit Room" ,room_toEdit);
 		}
 	}
+
 	public void deleteRoom(ActionEvent event){
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
 
@@ -405,6 +298,7 @@ public class AdministrationPanel implements Initializable {
 			}
 		}
 	}
+	
 	public void showAllRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
 		showRoomsOnTable("Select * from rooms");

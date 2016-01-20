@@ -29,11 +29,11 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="passUser" layoutX="60.0" layoutY="147.0" onAction="#submit" prefHeight="40.0" prefWidth="211.0" promptText="Password">
+                  <PasswordField fx:id="passUser" layoutX="59.0" layoutY="155.0" onAction="#submit" prefHeight="40.0" prefWidth="211.0" promptText="Password">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </TextField>
+                  </PasswordField>
                   <Button layoutX="104.0" layoutY="249.0" mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="124.0" style="-fx-background-radius: 20;" text="Submit">
                      <font>
                         <Font name="Times New Roman" size="20.0" />

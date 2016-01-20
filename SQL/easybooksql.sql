@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `easybooksql` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+﻿DROP DATABASE `easybooksql`;
+CREATE DATABASE `easybooksql` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 USE `easybooksql`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
@@ -191,12 +192,13 @@ DROP TABLE IF EXISTS `offers_lang`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `offers_lang` (
-  `o_id` int(11) NOT NULL,
+  `o_id` int(11) NOT NULL AUTO_INCREMENT,
   `lang_en` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
   `lang_gr` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lang_de` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lang_es` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `lang_es` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`o_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-18  6:06:29
+-- Dump completed on 2016-01-20  5:28:31

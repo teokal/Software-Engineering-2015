@@ -12,11 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -90,7 +90,7 @@ public class AddEditRoomAdminPanel implements Initializable {
 			
 			String type = getSelectedRoomType();
 			if (! type.equals("none") ){
-				ps.setString(2, getSelectedRoomType() );
+				ps.setString(2, type );
 			} else {
 				alert.setContentText("Please select room's type!");
 				alert.show();

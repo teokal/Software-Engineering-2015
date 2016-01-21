@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewBookController">
+	<children>
+		<Pane fx:id="stepOnePane" disable="false" layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<Label alignment="CENTER" layoutX="124.0" layoutY="20.0" prefHeight="40.0" prefWidth="517.0" text="Imaginary Hotel">
+					<font>
+						<Font name="Serif Bold Italic" size="36.0" />
+					</font>
+				</Label>
+				<Label alignment="CENTER" layoutX="137.0" layoutY="72.0" prefHeight="28.0" prefWidth="517.0" text="Enjoy your staying, in our paradise!" textAlignment="CENTER">
+					<font>
+						<Font name="Serif Italic" size="24.0" />
+					</font>
+				</Label>
+				<HBox layoutX="135.0" layoutY="110.0" spacing="20.0">
+					<children>
+						<Label prefHeight="50.0" prefWidth="81.0" text="Search for">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<VBox layoutX="78.0" layoutY="146.0">
+							<children>
+								<Label layoutX="85.0" layoutY="146.0" text="Arrive">
+									<font>
+										<Font size="16.0" />
+									</font>
+								</Label>
+								<DatePicker fx:id="checkIn_date" editable="false" layoutX="78.0" layoutY="180.0" prefHeight="25.0" prefWidth="140.0" />
+							</children>
+						</VBox>
+						<VBox layoutX="221.0" layoutY="146.0">
+							<children>
+								<Label layoutX="85.0" layoutY="146.0" text="Departure">
+									<font>
+										<Font size="16.0" />
+									</font>
+								</Label>
+								<DatePicker fx:id="checkOut_date" editable="false" layoutX="78.0" layoutY="180.0" prefHeight="25.0" prefWidth="140.0" />
+							</children>
+						</VBox>
+						<VBox layoutX="407.0" layoutY="148.0">
+							<children>
+								<Label layoutX="342.0" layoutY="148.0" text="People" textAlignment="CENTER">
+									<font>
+										<Font size="16.0" />
+									</font>
+								</Label>
+								<TextField fx:id="numOfPeople" minWidth="10.0" prefHeight="25.0" prefWidth="10.0" promptText="2" text="2" />
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+				<HBox layoutX="135.0" layoutY="174.0" prefHeight="30.0" prefWidth="511.0" spacing="30.0">
+					<children>
+						<Label prefHeight="30.0" prefWidth="81.0" text="Room Type">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</Label>
+						<ToggleButton fx:id="type_stand_toggle" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" selected="true" text="Standard">
+							<font>
+								<Font size="14.0" />
+							</font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="roomTypeToggleCat" />
+                     </toggleGroup>
+						</ToggleButton>
+						<ToggleButton fx:id="type_comf_toggle" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Comfort" toggleGroup="$roomTypeToggleCat">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</ToggleButton>
+						<ToggleButton fx:id="type_suite_toggle" mnemonicParsing="false" prefWidth="100.0" text="Suite" toggleGroup="$roomTypeToggleCat">
+							<font>
+								<Font size="14.0" />
+							</font>
+						</ToggleButton>
+					</children>
+				</HBox>
+				<Separator layoutX="124.0" layoutY="220.0" prefHeight="3.0" prefWidth="517.0" />
+				<Button fx:id="findRooms_btn" layoutX="318.0" layoutY="229.0" mnemonicParsing="false" onAction="#findRooms" prefHeight="50.0" prefWidth="130.0" style="-fx-background-radius: 40px;" text="Find Rooms">
+					<font>
+						<Font size="16.0" />
+					</font>
+				</Button>
+				<Pane fx:id="availableRoomsPane" disable="true" layoutY="279.0" prefHeight="321.0" prefWidth="800.0">
+					<children>
+						<TableView fx:id="availableRoomsTable" layoutX="72.0" layoutY="22.0" prefHeight="222.0" prefWidth="657.0">
+							<columns>
+								<TableColumn fx:id="avRoomName_col" prefWidth="100.0" text="Name" />
+								<TableColumn text="Beds">
+									<columns>
+										<TableColumn fx:id="avRoomSingleBeds_col" prefWidth="45.0" text="Single" />
+										<TableColumn fx:id="avRoomDoubleBeds_col" prefWidth="45.0" text="Double" />
+									</columns>
+								</TableColumn>
+								<TableColumn fx:id="avRoomCostPerDay_col" prefWidth="100.0" text="Cost/Day" />
+								<TableColumn fx:id="avRoomOfferDis_col" prefWidth="100.0" text="Offer Applied" />
+								<TableColumn fx:id="avRoomPrice_col" text="Total Cost" />
+							</columns>
+						</TableView>
+						<Separator layoutX="34.0" layoutY="253.0" prefHeight="3.0" prefWidth="733.0" />
+						<Button fx:id="bookNOW_btn" layoutX="338.0" layoutY="263.0" mnemonicParsing="false" style="-fx-background-radius: 50;" text="Book Now!">
+							<font>
+								<Font size="20.0" />
+							</font>
+						</Button>
+					</children>
+				</Pane>
+			</children>
+		</Pane>
+		<Pane fx:id="stepTwoPane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<Label alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="20.0" prefHeight="38.0" prefWidth="427.0" style="-fx-border-color: black; -fx-border-radius: 20;" text="Additional services for a luxury accomodation" textAlignment="CENTER">
+					<font>
+						<Font name="Serif Regular" size="20.0" />
+					</font>
+				</Label>
+				<HBox layoutX="35.0" layoutY="71.0" spacing="20.0">
+					<children>
+						<VBox layoutX="80.0" layoutY="368.0">
+							<children>
+								<Label layoutX="488.0" layoutY="130.0" text="Title">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<SplitMenuButton layoutX="469.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Mr.">
+									<items>
+										<MenuItem mnemonicParsing="false" text="Mr." />
+										<MenuItem mnemonicParsing="false" text="Ms." />
+										<MenuItem mnemonicParsing="false" text="Mrs." />
+									</items>
+									<font>
+										<Font size="13.0" />
+									</font>
+								</SplitMenuButton>
+							</children>
+						</VBox>
+						<VBox layoutX="176.0" layoutY="368.0">
+							<children>
+								<Label layoutX="507.0" layoutY="140.0" text="First Name">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField layoutX="504.0" layoutY="165.0" prefWidth="110.0" promptText="Name">
+									<font>
+										<Font size="13.0" />
+									</font>
+								</TextField>
+							</children>
+						</VBox>
+						<VBox layoutX="350.0" layoutY="368.0">
+							<children>
+								<Label layoutX="507.0" layoutY="140.0" text="Last Name">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField layoutX="504.0" layoutY="165.0" prefWidth="120.0" promptText="Last Name">
+									<font>
+										<Font size="13.0" />
+									</font>
+								</TextField>
+							</children>
+						</VBox>
+						<VBox>
+							<children>
+								<Label layoutX="68.0" layoutY="445.0" text="ID">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="72.0" promptText="ID code">
+									<font>
+										<Font size="13.0" />
+									</font>
+								</TextField>
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+				<HBox layoutX="37.0" layoutY="140.0" spacing="20.0">
+					<children>
+						<VBox layoutX="82.0" layoutY="443.0">
+							<children>
+								<Label layoutX="68.0" layoutY="445.0" text="Telephone">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="162.0" promptText="0030 -">
+									<font>
+										<Font size="13.0" />
+									</font>
+								</TextField>
+							</children>
+						</VBox>
+						<VBox layoutX="220.0" layoutY="443.0">
+							<children>
+								<Label layoutX="68.0" layoutY="445.0" text="Email">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="243.0" promptText="customer@email.com">
+									<font>
+										<Font size="13.0" />
+									</font>
+								</TextField>
+							</children>
+						</VBox>
+					</children>
+				</HBox>
+				<VBox layoutX="35.0" layoutY="215.0">
+					<children>
+						<Label text="Spice up your staying">
+							<font>
+								<Font size="16.0" />
+							</font>
+						</Label>
+						<Separator prefHeight="1.0" prefWidth="425.0" />
+						<HBox layoutX="81.0" layoutY="168.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Breakfast">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="per person" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="70.0" layoutY="196.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Full Dinner">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="per person" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="89.0" layoutY="227.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" prefHeight="21.0" prefWidth="95.0" text="Pool">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="full-access" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="67.0" layoutY="269.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Hair Salon">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="one time" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="65.0" layoutY="300.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Fitness Center">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="full-access" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="73.0" layoutY="345.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Spa Treatments">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="75.0" text="one time" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="26.0" layoutY="386.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Face &amp; Body Care">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="72.0" text="one time" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+						<HBox layoutX="78.0" layoutY="424.0" spacing="10.0">
+							<children>
+								<CheckBox mnemonicParsing="false" text="Massage Therapies">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</CheckBox>
+								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+									<font>
+										<Font size="15.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="15.0" />
+									</HBox.margin>
+								</Label>
+								<Label prefHeight="21.0" prefWidth="11.0" text="€">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</Label>
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="one/day" HBox.hgrow="ALWAYS">
+									<font>
+										<Font name="System Italic" size="12.0" />
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+						</HBox>
+					</children>
+				</VBox>
+				<VBox layoutX="498.0" layoutY="271.0" prefHeight="217.0" prefWidth="268.0">
+					<children>
+						<Label text="Special Requests">
+							<font>
+								<Font size="16.0" />
+							</font>
+						</Label>
+						<Separator prefHeight="3.0" prefWidth="277.0" />
+						<Label prefHeight="41.0" prefWidth="268.0" text="Special requests cannot be guaranteed, but will do our best to meet your needs and demands." wrapText="true" />
+						<TextArea prefHeight="130.0" prefWidth="268.0" promptText="Text here your needs">
+							<VBox.margin>
+								<Insets top="5.0" />
+							</VBox.margin>
+						</TextArea>
+					</children>
+				</VBox>
+				<Separator layoutX="37.0" layoutY="529.0" prefHeight="3.0" prefWidth="733.0" />
+				<Button cancelButton="true" layoutX="35.0" layoutY="539.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" style="-fx-background-radius: 40px;" text="Back" />
+				<Button alignment="CENTER" layoutX="657.0" layoutY="540.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="109.0" style="-fx-background-radius: 40;" text="Continue" textAlignment="CENTER">
+					<font>
+						<Font size="17.0" />
+					</font>
+				</Button>
+				<HBox layoutX="498.0" layoutY="491.0" prefHeight="25.0" prefWidth="268.0">
+					<children>
+						<Label layoutX="24.0" layoutY="545.0" text="Total Cost:">
+							<font>
+								<Font name="System Bold" size="18.0" />
+							</font>
+							<HBox.margin>
+								<Insets right="20.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="totalCost_txt" alignment="CENTER_RIGHT" layoutX="116.0" layoutY="549.0" prefHeight="25.0" prefWidth="65.0" text="0">
+							<font>
+								<Font name="System Bold" size="18.0" />
+							</font>
+						</Label>
+						<Label layoutX="158.0" layoutY="553.0" text="€">
+							<font>
+								<Font name="System Bold" size="18.0" />
+							</font>
+							<padding>
+								<Insets left="10.0" />
+							</padding>
+						</Label>
+					</children>
+				</HBox>
+				<Accordion layoutX="498.0" layoutY="75.0" prefHeight="181.0" prefWidth="268.0">
+					<panes>
+						<TitledPane animated="false" text="Penalties and Charges">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="76.0" prefWidth="266.0">
+									<children>
+										<Label alignment="TOP_LEFT" layoutX="8.0" layoutY="5.0" prefHeight="76.0" prefWidth="250.0" text="Cancellation Penalties:" wrapText="true">
+											<font>
+												<Font size="13.0" />
+											</font>
+										</Label>
+										<Label layoutY="26.0" text="• 20 days before: 20% penalty">
+											<padding>
+												<Insets left="15.0" />
+											</padding>
+										</Label>
+										<Label layoutY="48.0" text="• Never came: 50% penalty">
+											<padding>
+												<Insets left="15.0" />
+											</padding>
+										</Label>
+									</children>
+								</AnchorPane>
+							</content>
+						</TitledPane>
+						<TitledPane animated="false" layoutX="10.0" layoutY="35.0" prefHeight="103.0" prefWidth="220.0" text="Check In &amp; Check Out Hours ">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="55.0" prefWidth="266.0">
+									<children>
+										<Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="5.0" layoutY="12.0" prefHeight="21.0" prefWidth="250.0" text="• Check-In at 14:00" textAlignment="JUSTIFY" wrapText="true">
+											<font>
+												<Font size="13.0" />
+											</font>
+										</Label>
+										<Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="5.0" layoutY="31.0" prefHeight="21.0" prefWidth="250.0" text="• Check Out until 12:00" textAlignment="JUSTIFY" wrapText="true">
+											<font>
+												<Font size="13.0" />
+											</font>
+										</Label>
+									</children>
+								</AnchorPane>
+							</content>
+						</TitledPane>
+						<TitledPane animated="false" layoutX="10.0" layoutY="60.0" text="Payment Methods">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+									<children>
+										<Label alignment="TOP_LEFT" layoutX="5.0" layoutY="12.0" prefHeight="64.0" prefWidth="253.0" text="You are able to pay using any payment method you want, WITHOUT EXTRA CHARGES!!!" textAlignment="JUSTIFY" wrapText="true">
+											<font>
+												<Font size="13.0" />
+											</font>
+										</Label>
+									</children>
+								</AnchorPane>
+							</content>
+						</TitledPane>
+						<TitledPane animated="false" layoutX="10.0" layoutY="110.0" text="Free parking">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+									<children>
+										<Label alignment="TOP_LEFT" layoutX="5.0" layoutY="12.0" prefHeight="72.0" prefWidth="253.0" text="We offer FREE PARKING 24/7 for our customers on our own private garage!" textAlignment="JUSTIFY" wrapText="true">
+											<font>
+												<Font size="13.0" />
+											</font>
+										</Label>
+									</children>
+								</AnchorPane>
+							</content>
+						</TitledPane>
+					</panes>
+				</Accordion>
+			</children>
+		</Pane>
+	</children>
+</AnchorPane>

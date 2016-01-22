@@ -597,7 +597,7 @@
 								<CheckBox layoutX="189.0" layoutY="100.0" mnemonicParsing="false" text="Mini Bar" />
 							</children>
 						</Group>
-						<Button layoutX="300.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnSaveOpt1" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+						<Button layoutX="300.0" layoutY="69.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -735,7 +735,7 @@
 								</HBox>
 							</children>
 						</VBox>
-						<Button layoutX="460.0" layoutY="235.0" mnemonicParsing="false" onAction="#btnSaveOpt2" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+						<Button layoutX="460.0" layoutY="235.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -781,7 +781,7 @@
                            </font>
                         </RadioButton>
                         <Label layoutX="24.0" layoutY="21.0" text="New User`s Details" />
-                        <Button layoutX="26.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnAddUser" text="ADD">
+                        <Button layoutX="26.0" layoutY="186.0" mnemonicParsing="false" text="ADD">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -803,12 +803,12 @@
                               <TableColumn prefWidth="129.0" text="Type" />
                           </columns>
                         </TableView>
-                        <Button layoutX="515.0" layoutY="187.0" mnemonicParsing="false" onAction="#btnDeleteUser" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
+                        <Button layoutX="515.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button layoutX="604.0" layoutY="187.0" mnemonicParsing="false" onAction="#btnEditUser" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
+                        <Button layoutX="604.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
                            <font>
                               <Font size="14.0" />
                            </font>

@@ -49,7 +49,7 @@ public class NewBookController implements Initializable {
 	private ToggleButton type_stand_toggle, type_comf_toggle, type_suite_toggle;
 
 	@FXML
-	private Button findRooms_btn, bookNOW_btn, btnChange ;
+	private Button findRooms_btn, bookNOW_btn;
 
 	@FXML
 	private TableView<BookingChoices> availableRoomsTable;

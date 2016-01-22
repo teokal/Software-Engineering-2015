@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewBookController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewBookController">
 	<children>
-		<Pane fx:id="stepOnePane" disable="false" layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<Pane fx:id="stepOnePane" disable="false" layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<Label alignment="CENTER" layoutX="124.0" layoutY="20.0" prefHeight="40.0" prefWidth="517.0" text="Imaginary Hotel">
 					<font>
@@ -597,5 +597,393 @@
 				</Accordion>
 			</children>
 		</Pane>
+      <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="41.0" layoutY="44.0">
+               <children>
+                  <Label layoutX="41.0" layoutY="44.0" text="Personal Details">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="41.0" layoutY="63.0" prefHeight="3.0" prefWidth="154.0" />
+                  <HBox layoutX="41.0" layoutY="71.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Check In:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckIn" alignment="CENTER_RIGHT" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="152.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="41.0" layoutY="91.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Check Out:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="41.0" layoutY="111.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckIn1" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="167.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="41.0" layoutY="131.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Last name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut1" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="143.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="41.0" layoutY="151.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="ID:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut11" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="192.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="41.0" layoutY="171.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Phone:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut111" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="164.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="41.0" layoutY="191.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Email:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut1111" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="170.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="299.0" layoutY="44.0">
+               <children>
+                  <Label layoutX="375.0" layoutY="55.0" text="Room Details">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="375.0" layoutY="84.0" prefWidth="200.0" />
+                  <HBox layoutX="406.0" layoutY="85.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Persons:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut2" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="398.0" layoutY="113.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Single Beds:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut3" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="400.0" layoutY="154.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Double Beds:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut4" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="73.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut41" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="93.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="71.0" layoutY="71.0" text="Type:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCheckOut411" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="566.0" layoutY="44.0">
+               <children>
+                  <Label layoutX="381.0" layoutY="134.0" text="Services:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="381.0" layoutY="154.0" prefWidth="200.0" />
+                  <HBox layoutX="381.0" layoutY="157.0">
+                     <children>
+                        <Label layoutX="484.0" layoutY="380.0" prefHeight="20.0" prefWidth="89.0" text="Breakfast:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="576.0" layoutY="382.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="381.0" layoutY="177.0">
+                     <children>
+                        <Label layoutX="479.0" layoutY="415.0" prefHeight="20.0" prefWidth="90.0" text="Full Dinner:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="586.0" layoutY="392.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="381.0" layoutY="197.0">
+                     <children>
+                        <Label layoutX="498.0" layoutY="467.0" prefHeight="20.0" prefWidth="90.0" text="Hair Salon:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="606.0" layoutY="412.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="381.0" layoutY="217.0">
+                     <children>
+                        <Label layoutX="488.0" layoutY="435.0" prefHeight="20.0" prefWidth="90.0" text="Pool:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="381.0" layoutY="237.0">
+                     <children>
+                        <Label layoutX="507.0" layoutY="487.0" prefHeight="20.0" prefWidth="126.0" text="Fitness Center:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="487.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="380.0" layoutY="300.0">
+                     <children>
+                        <Label layoutX="488.0" layoutY="435.0" prefHeight="20.0" prefWidth="126.0" text="Spa Treatments:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="389.0" layoutY="335.0">
+                     <children>
+                        <Label layoutX="488.0" layoutY="435.0" prefHeight="20.0" prefWidth="127.0" text="Face &amp; Body Care:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="389.0" layoutY="376.0">
+                     <children>
+                        <Label layoutX="488.0" layoutY="435.0" prefHeight="20.0" prefWidth="127.0" text="Massage Therapies:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox layoutX="616.0" layoutY="551.0" prefHeight="29.0" prefWidth="170.0" style="-fx-border-color: black; -fx-border-radius: 10;">
+               <children>
+                  <Label alignment="CENTER" layoutX="33.0" layoutY="227.0" prefHeight="27.0" prefWidth="100.0" text="Total Cost:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblCost" alignment="CENTER" layoutX="165.0" layoutY="232.0" prefHeight="27.0" prefWidth="52.0" text="0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="293.0" layoutY="246.0" text="€">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="294.0" layoutY="504.0">
+               <children>
+                  <Label layoutX="41.0" layoutY="253.0" text="Booking Code: ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="156.0" layoutY="255.0" prefHeight="20.0" prefWidth="94.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label layoutX="47.0" layoutY="219.0" />
+            <Button layoutX="15.0" layoutY="547.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" style="-fx-background-radius: 20;" text="Back">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <VBox layoutX="287.0" layoutY="317.0">
+               <children>
+                  <Label layoutX="41.0" layoutY="290.0" text="Please choose pyament method">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutX="41.0" layoutY="324.0">
+                     <children>
+                        <RadioButton layoutX="41.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Cash">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="paymentRadio" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton layoutX="112.0" layoutY="326.0" mnemonicParsing="false" text="Easy Bank" toggleGroup="$paymentRadio">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button layoutX="339.0" layoutY="378.0" mnemonicParsing="false" style="-fx-background-radius: 20;" text="Confirm">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Separator layoutX="15.0" layoutY="530.0" prefHeight="3.0" prefWidth="780.0" />
+         </children>
+      </Pane>
 	</children>
 </AnchorPane>

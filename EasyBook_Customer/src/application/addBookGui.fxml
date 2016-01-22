@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewBookController">
 	<children>
-		<Pane fx:id="stepOnePane" disable="false" layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<Pane fx:id="stepOnePane" disable="false" layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<Label alignment="CENTER" layoutX="124.0" layoutY="20.0" prefHeight="40.0" prefWidth="517.0" text="Imaginary Hotel">
 					<font>
@@ -96,7 +96,7 @@
 						<Font size="16.0" />
 					</font>
 				</Button>
-				<Pane fx:id="availableRoomsPane" disable="true" layoutY="279.0" prefHeight="321.0" prefWidth="800.0">
+				<Pane fx:id="availableRoomsPane" disable="true" layoutY="279.0" prefHeight="260.0" prefWidth="800.0">
 					<children>
 						<TableView fx:id="availableRoomsTable" layoutX="72.0" layoutY="22.0" prefHeight="222.0" prefWidth="657.0">
 							<columns>
@@ -120,6 +120,7 @@
 						</Button>
 					</children>
 				</Pane>
+            <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#btnChange" text="Change your Booking" />
 			</children>
 		</Pane>
 		<Pane fx:id="stepTwoPane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -597,7 +598,7 @@
 				</Accordion>
 			</children>
 		</Pane>
-      <Pane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox layoutX="41.0" layoutY="44.0">
                <children>

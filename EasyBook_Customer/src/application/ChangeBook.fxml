@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="90.0" layoutY="67.0">
+         <children>
+            <Label layoutX="47.0" layoutY="60.0" prefHeight="37.0" prefWidth="108.0" text="Booking Code: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField layoutX="170.0" layoutY="54.0" promptText="Insert the code">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox layoutX="90.0" layoutY="113.0">
+         <children>
+            <Label layoutX="47.0" layoutY="60.0" prefHeight="37.0" prefWidth="108.0" text="Email:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField layoutX="170.0" layoutY="54.0" promptText="Email">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <RadioButton layoutX="90.0" layoutY="182.0" mnemonicParsing="false" text="Edit Book">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="editCancelBook" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="268.0" layoutY="182.0" mnemonicParsing="false" text="Cancel Book" toggleGroup="$editCancelBook">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </RadioButton>
+      <Button layoutX="90.0" layoutY="224.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="308.0" text="Submit">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="156.0" layoutY="8.0" text="Manage your booking">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="94.0" layoutY="39.0" prefHeight="4.0" prefWidth="300.0" />
+   </children>
+</Pane>

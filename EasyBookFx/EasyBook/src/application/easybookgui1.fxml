@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TableColumn?>
 
-<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<tabs>
 		<Tab id="bookings" text="Bookings">
 			<content>
@@ -583,7 +583,7 @@
 								</ToggleButton>
 							</children>
 						</Group>
-						<Group>
+						<Group layoutX="10.0">
 							<children>
 								<CheckBox layoutX="189.0" layoutY="25.0" mnemonicParsing="false" text="LCD TV" />
 								<CheckBox layoutX="122.0" layoutY="50.0" mnemonicParsing="false" text="Fridge" />
@@ -597,21 +597,12 @@
 								<CheckBox layoutX="189.0" layoutY="100.0" mnemonicParsing="false" text="Mini Bar" />
 							</children>
 						</Group>
-						<Button layoutX="368.0" layoutY="69.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+						<Button layoutX="300.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnSaveOpt1" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Button>
-						<Separator layoutX="270.0" layoutY="22.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
-						<Group layoutX="-150.0" layoutY="2.0">
-							<children>
-								<CheckBox layoutX="437.0" layoutY="60.0" mnemonicParsing="false" text="2 Bed" />
-								<CheckBox layoutX="437.0" layoutY="90.0" mnemonicParsing="false" text="3 BEd" />
-								<CheckBox layoutX="437.0" layoutY="30.0" mnemonicParsing="false" text="1 Bed" />
-								<CheckBox layoutX="437.0" layoutY="120.0" mnemonicParsing="false" text="4 Bed" />
-							</children>
-						</Group>
-						<Separator layoutX="26.0" layoutY="171.0" prefHeight="0.0" prefWidth="738.0" />
+						<Separator layoutX="280.0" layoutY="22.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
 						<VBox layoutX="13.0" layoutY="202.0">
 							<children>
 								<VBox layoutX="26.0" layoutY="202.0">
@@ -624,11 +615,11 @@
 													</font>
 												</Label>
 												<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-												<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-													<items>
-														<MenuItem mnemonicParsing="false" text="€" />
-													</items>
-												</SplitMenuButton>
+                                    <Label text="€">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
 											</children>
 										</HBox>
 										<HBox layoutX="33.0" layoutY="234.0" spacing="10.0">
@@ -639,11 +630,11 @@
 													</font>
 												</Label>
 												<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-												<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-													<items>
-														<MenuItem mnemonicParsing="false" text="€" />
-													</items>
-												</SplitMenuButton>
+                                    <Label text="€">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
 											</children>
 										</HBox>
 										<HBox layoutX="33.0" layoutY="268.0" spacing="10.0">
@@ -654,11 +645,11 @@
 													</font>
 												</Label>
 												<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-												<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-													<items>
-														<MenuItem mnemonicParsing="false" text="€" />
-													</items>
-												</SplitMenuButton>
+                                    <Label text="€">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
 											</children>
 										</HBox>
 									</children>
@@ -671,16 +662,16 @@
 											</font>
 										</Label>
 										<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="61.0" />
-										<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-											<items>
-												<MenuItem mnemonicParsing="false" text="€" />
-											</items>
-										</SplitMenuButton>
+                              <Label text="€">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
 									</children>
 								</HBox>
 							</children>
 						</VBox>
-						<VBox layoutX="277.0" layoutY="202.0">
+						<VBox layoutX="220.0" layoutY="205.0">
 							<children>
 								<HBox layoutX="283.0" layoutY="220.0" spacing="10.0">
 									<children>
@@ -690,11 +681,11 @@
 											</font>
 										</Label>
 										<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-										<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-											<items>
-												<MenuItem mnemonicParsing="false" text="€" />
-											</items>
-										</SplitMenuButton>
+                              <Label text="€">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
 									</children>
 								</HBox>
 								<HBox layoutX="287.0" layoutY="245.0" spacing="10.0">
@@ -705,11 +696,11 @@
 											</font>
 										</Label>
 										<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-										<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-											<items>
-												<MenuItem mnemonicParsing="false" text="€" />
-											</items>
-										</SplitMenuButton>
+                              <Label text="€">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
 									</children>
 								</HBox>
 								<HBox layoutX="283.0" layoutY="273.0" spacing="10.0">
@@ -720,11 +711,11 @@
 											</font>
 										</Label>
 										<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-										<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-											<items>
-												<MenuItem mnemonicParsing="false" text="€" />
-											</items>
-										</SplitMenuButton>
+                              <Label text="€">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
 									</children>
 								</HBox>
 								<HBox layoutX="288.0" layoutY="316.0" spacing="10.0">
@@ -735,21 +726,96 @@
 											</font>
 										</Label>
 										<TextField layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-										<SplitMenuButton layoutX="183.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="€">
-											<items>
-												<MenuItem mnemonicParsing="false" text="€" />
-											</items>
-										</SplitMenuButton>
+                              <Label text="€">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
 									</children>
 								</HBox>
 							</children>
 						</VBox>
-						<Button layoutX="567.0" layoutY="235.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+						<Button layoutX="460.0" layoutY="235.0" mnemonicParsing="false" onAction="#btnSaveOpt2" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</Button>
+                  <Separator layoutX="114.0" layoutY="22.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
 						<Separator layoutX="26.0" layoutY="332.0" prefHeight="0.0" prefWidth="738.0" />
+						<Separator layoutX="26.0" layoutY="171.0" prefHeight="0.0" prefWidth="738.0" />
+                  <Pane layoutY="338.0" prefHeight="237.0" prefWidth="800.0">
+                     <children>
+                        <TextField layoutX="26.0" layoutY="50.0" promptText="Name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="26.0" layoutY="100.0" promptText="Surname">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="26.0" layoutY="150.0" promptText="Email">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField layoutX="214.0" layoutY="100.0" promptText="Password">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </PasswordField>
+                        <TextField layoutX="212.0" layoutY="50.0" promptText="Username">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <RadioButton layoutX="222.0" layoutY="155.0" mnemonicParsing="false" text="Admin">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton layoutX="309.0" layoutY="155.0" mnemonicParsing="false" text="User">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <Label layoutX="24.0" layoutY="21.0" text="New User`s Details" />
+                        <Button layoutX="26.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnAddUser" text="ADD">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Separator layoutX="24.0" layoutY="40.0" prefHeight="4.0" prefWidth="360.0" />
+                        <Button layoutX="88.0" layoutY="186.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="113.0" text="Cancel">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <TextField layoutX="535.0" layoutY="23.0" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <TableView layoutX="474.0" layoutY="65.0" prefHeight="108.0" prefWidth="260.0">
+                          <columns>
+                            <TableColumn prefWidth="81.0" text="Name" />
+                            <TableColumn prefWidth="86.0" text="Surname" />
+                              <TableColumn prefWidth="91.0" text="Type" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="515.0" layoutY="187.0" mnemonicParsing="false" onAction="#btnDeleteUser" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="604.0" layoutY="187.0" mnemonicParsing="false" onAction="#btnEditUser" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
 					</children>
 				</AnchorPane>
 			</content>

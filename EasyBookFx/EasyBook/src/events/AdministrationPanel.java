@@ -21,6 +21,7 @@ import database.Conn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -38,6 +39,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class AdministrationPanel implements Initializable {
@@ -133,6 +135,34 @@ public class AdministrationPanel implements Initializable {
 			statisticsTab.setDisable(true);
 			optionsTab.setDisable(true);
 		}
+		
+		bookingsTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+		            //editBooking(null);                   
+		        }
+		    }
+		});
+		
+		roomsTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+		            editRoom(null);                   
+		        }
+		    }
+		});
+		
+		offersTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					editOffer(null);                  
+		        }
+		    }
+		});
+		
 	}
 
 	/* Bookings TAB */
@@ -273,7 +303,7 @@ public class AdministrationPanel implements Initializable {
 		if ( room_toEdit != null ) {
 			String newRoomPath = "/application/addRoomGui.fxml";
 			Main main = new Main();
-			main.openEditRoomPanel(newRoomPath, "Edit Room" ,room_toEdit);
+			main.openEditRoomPanel(newRoomPath, "Edit Room" , room_toEdit, this);
 		}
 	}
 
@@ -474,7 +504,7 @@ public class AdministrationPanel implements Initializable {
 		offers_default_data();
 		offers_enableAllControls();
 	}
-	public void editOffer (ActionEvent event) throws ParseException {
+	public void editOffer (ActionEvent event) {
 
 		offer_toEdit = offersTable.getSelectionModel().getSelectedItem();
 
@@ -482,8 +512,14 @@ public class AdministrationPanel implements Initializable {
 
 			offer_name_text.setText(String.valueOf( offer_toEdit.getName() ));
 			offer_req_days_text.setText(String.valueOf(offer_toEdit.getReq_days() ) );
-			offer_valid_from_date.setValue( (LocalDate) offer_toEdit.getValid_from_edit() );
-			offer_valid_until_date.setValue( (LocalDate) offer_toEdit.getValid_until_edit() );
+			
+			try {
+				offer_valid_from_date.setValue( (LocalDate) offer_toEdit.getValid_from_edit() );
+				offer_valid_until_date.setValue( (LocalDate) offer_toEdit.getValid_until_edit() );
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
 			offer_desc_text.setText( offer_toEdit.getDesc_en() );
 
 			if ( offer_toEdit.getDiscount_amount() == 0 ) {

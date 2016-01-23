@@ -3,10 +3,12 @@ package application;
 import events.AddEditRoomAdminPanel;
 import events.AdministrationPanel;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class Main extends Application {
@@ -58,7 +60,7 @@ public class Main extends Application {
 		
 	}
 	
-	public Room openEditRoomPanel(String path, String title, Room room) {
+	public Room openEditRoomPanel(String path, String title, Room room, AdministrationPanel o) {
 		
 		try {
 			Stage primaryStage = new Stage();
@@ -68,11 +70,17 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			AddEditRoomAdminPanel panel = fxmlLoader.<AddEditRoomAdminPanel>getController();
-			panel.loadRoom(room);
+			panel.loadRoom(room, o);
 			
 			primaryStage.setTitle(title);
 			primaryStage.setScene(scene); 
 			primaryStage.show();
+			
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		              o.showAllRooms(null);
+		          }
+		      });        
 
 		} catch(Exception e) {
 			e.printStackTrace();

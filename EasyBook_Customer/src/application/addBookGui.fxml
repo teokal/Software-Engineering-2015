@@ -120,7 +120,7 @@
 						</Button>
 					</children>
 				</Pane>
-            <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" text="Change your Booking" />
+            <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#changeBooking" text="Change your Booking" />
 			</children>
 		</Pane>
 		<Pane fx:id="stepTwoPane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

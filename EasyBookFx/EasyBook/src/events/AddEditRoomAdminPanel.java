@@ -33,9 +33,11 @@ public class AddEditRoomAdminPanel implements Initializable {
 
 	private Room loadedRoom;
 	private boolean update = false;
+	
+	AdministrationPanel o;
 
-	public void loadRoom(Room room) {
-
+	public void loadRoom(Room room, AdministrationPanel o) {
+		this.o = o;
 		loadedRoom = room;
 		update = true;
 
@@ -120,6 +122,7 @@ public class AddEditRoomAdminPanel implements Initializable {
 			
 			int rs = ps.executeUpdate();
 			if (rs != 0 ){
+				this.o.showAllRooms(null);
 				Window window = panelTitle.getScene().getWindow();
 				if (window instanceof Stage){
 					((Stage) window).close();

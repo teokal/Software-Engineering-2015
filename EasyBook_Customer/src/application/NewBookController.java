@@ -11,28 +11,39 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import database.Conn;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
 
 public class NewBookController implements Initializable {
 
@@ -76,6 +87,60 @@ public class NewBookController implements Initializable {
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private ObservableList<BookingChoices> bookingChoicesList;
 
+	public void changeBooking(ActionEvent event) {
+		
+		Dialog<Pair<String, String>> dialog = new Dialog<>();
+		dialog.setTitle("Edit your booking");
+		dialog.setHeaderText("Please enter below your booking's details to continue");
+
+		ButtonType submitBtn = new ButtonType("Continue", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().add(submitBtn);
+
+		GridPane grid = new GridPane();
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(20, 150, 10, 10));
+
+		TextField bookingID = new TextField();
+		bookingID.setPromptText("Booking ID");
+		TextField email = new TextField();
+		email.setPromptText("name@domain.com");
+		RadioButton editBookingRadio = new RadioButton("Edit Booking");
+		ToggleGroup pickAction = new ToggleGroup();
+		editBookingRadio.setToggleGroup( pickAction );
+		RadioButton cancelBookingRadio = new RadioButton("Cancel Booking");
+		cancelBookingRadio.setToggleGroup( pickAction );
+
+		grid.add(new Label("Booking ID:"), 0, 0);
+		grid.add(bookingID, 1, 0);
+		grid.add(new Label("Email:"), 0, 1);
+		grid.add(email, 1, 1);
+		grid.add(editBookingRadio, 0, 2);
+		grid.add(cancelBookingRadio, 1, 2);
+
+		Node submitButton = dialog.getDialogPane().lookupButton(submitBtn);
+		submitButton.setDisable(true);
+
+		bookingID.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (! email.getText().trim().isEmpty() ) {
+				submitButton.setDisable( newValue.trim().isEmpty() );
+			}
+		});
+		email.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (! bookingID.getText().trim().isEmpty() ) {
+				submitButton.setDisable( newValue.trim().isEmpty() );
+			}
+		});
+
+		dialog.getDialogPane().setContent(grid);
+		
+		// Request focus on the bookingID field by default.
+		Platform.runLater(() -> bookingID.requestFocus());
+
+		dialog.showAndWait();
+
+	}
+	
 	public void findRooms(ActionEvent event){
 
 		Alert alert = new Alert(AlertType.ERROR);

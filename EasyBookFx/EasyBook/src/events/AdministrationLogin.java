@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -32,6 +33,8 @@ public class AdministrationLogin implements Initializable  {
 	private TextField usernameUser, passUser;
 	@FXML
 	private Hyperlink forgot;
+	@FXML
+	private Button submitBtn;
 
 	public void submit(ActionEvent event) {
 	
@@ -134,6 +137,19 @@ public class AdministrationLogin implements Initializable  {
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		submitBtn.setDisable(true);
+
+		usernameUser.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (! passUser.getText().trim().isEmpty() ) {
+				submitBtn.setDisable( newValue.trim().isEmpty() );
+			}
+		});
+		passUser.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (! usernameUser.getText().trim().isEmpty() ) {
+				submitBtn.setDisable( newValue.trim().isEmpty() );
+			}
+		});
 		
 		forgot.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override

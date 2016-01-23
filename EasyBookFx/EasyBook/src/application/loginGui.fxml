@@ -34,7 +34,7 @@
                         <Font size="18.0" />
                      </font>
                   </PasswordField>
-                  <Button layoutX="104.0" layoutY="249.0" mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="124.0" style="-fx-background-radius: 20;" text="Submit">
+                  <Button fx:id="submitBtn" layoutX="104.0" layoutY="249.0" mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="124.0" style="-fx-background-radius: 20;" text="Submit">
                      <font>
                         <Font name="Times New Roman" size="20.0" />
                      </font>

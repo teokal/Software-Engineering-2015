@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 
@@ -30,6 +31,8 @@ public class Main extends Application {
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle(title);
+			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UTILITY);
 			primaryStage.setScene(scene); 
 			primaryStage.show();
 
@@ -51,6 +54,8 @@ public class Main extends Application {
 			scene.getStylesheets().add( getClass().getResource("application.css").toExternalForm() );
 			
 			primaryStage.setTitle("EasyBook - Integrated Booking System");
+			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UTILITY);
 			primaryStage.setScene(scene); 
 			primaryStage.show();
 
@@ -73,6 +78,8 @@ public class Main extends Application {
 			panel.loadRoom(room, o);
 			
 			primaryStage.setTitle(title);
+			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UTILITY);
 			primaryStage.setScene(scene); 
 			primaryStage.show();
 			

@@ -17,6 +17,16 @@ public class BookingChoices {
 	private SimpleStringProperty offer_name = new SimpleStringProperty("none");
 	
 	private float booking_total;
+	private float extrasCost;
+	
+	private String BookerTitle;
+	private String BookerName;
+	private String BookerSurname;
+	private String BookerIDNum;
+	private String BookerTel;
+	private String BookerEmail;
+	
+	private String bookingID;
 	
 	public BookingChoices(BookingChoices bChoice) {
 		this.setRoom_id( bChoice.getRoom_id() );
@@ -163,6 +173,70 @@ public class BookingChoices {
 
 	public void setBooking_total(float booking_total) {
 		this.booking_total = booking_total;
+	}
+
+	public float getExtrasCost() {
+		return extrasCost;
+	}
+
+	public void setExtrasCost(float extrasCost) {
+		this.extrasCost = extrasCost;
+	}
+
+	public String getBookerTitle() {
+		return BookerTitle;
+	}
+
+	public void setBookerTitle(String bookerTitle) {
+		BookerTitle = bookerTitle;
+	}
+
+	public String getBookerName() {
+		return BookerName;
+	}
+
+	public void setBookerName(String bookerName) {
+		BookerName = bookerName;
+	}
+
+	public String getBookerSurname() {
+		return BookerSurname;
+	}
+
+	public void setBookerSurname(String bookerSurname) {
+		BookerSurname = bookerSurname;
+	}
+
+	public String getBookerIDNum() {
+		return BookerIDNum;
+	}
+
+	public void setBookerIDNum(String bookerIDNum) {
+		BookerIDNum = bookerIDNum;
+	}
+
+	public String getBookerTel() {
+		return BookerTel;
+	}
+
+	public void setBookerTel(String bookerTel) {
+		BookerTel = bookerTel;
+	}
+
+	public String getBookerEmail() {
+		return BookerEmail;
+	}
+
+	public void setBookerEmail(String bookerEmail) {
+		BookerEmail = bookerEmail;
+	}
+
+	public String getBookingID() {
+		return bookingID;
+	}
+
+	public void setBookingID(String bookingID) {
+		this.bookingID = bookingID;
 	}
 
 }

@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,17 +13,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.pdfbox.exceptions.COSVisitorException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import database.Conn;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -32,113 +43,146 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 public class NewBookController implements Initializable {
 
 	@FXML
-	private Pane stepOnePane, stepTwoPane, availableRoomsPane;
-
+	private Pane stepOnePane, stepTwoPane, stepThreePane, availableRoomsPane;
 	@FXML
 	private DatePicker checkIn_date, checkOut_date;
-
 	@FXML
-	private TextField numOfPeople;
-
+	private TextField numOfPeople, nameTxt,sNameTxt, idTxt, telTxt, emailTxt;
 	@FXML
 	private ToggleButton type_stand_toggle, type_comf_toggle, type_suite_toggle;
-
 	@FXML
-	private Button findRooms_btn, bookNOW_btn;
-
+	private ToggleGroup roomTypeToggleCat, paymentRadio;
+	@FXML
+	private Button findRooms_btn, bookNOW_btn, confirm_btn;
 	@FXML
 	private TableView<BookingChoices> availableRoomsTable;
-
 	@FXML
 	private TableColumn<BookingChoices, Integer> avRoomSingleBeds_col, avRoomDoubleBeds_col;
-
 	@FXML
 	private TableColumn<BookingChoices, String> avRoomName_col, avRoomOfferDis_col;
-
 	@FXML
 	private TableColumn<BookingChoices, Float> avRoomPrice_col, avRoomCostPerDay_col;
-
 	@FXML
-	private Label totalCost_txt;
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-	}
-
+	private Label totalCost_txt, totalCostLbl, breakfastLbl, fullDinnerLbl, poolLbl, hairSalonLbl, 
+			fitnessCenterLbl, spaTreatmentsLbl, faceBodyCareLbl, massageTherapiesLbl,
+			checkInLbl, checkOutLbl, bookerNameLbl, bookerSurnameLbl,
+			bookerIDLbl, bookerTelLbl, bookerEmailLbl,
+			numPersonsLbl, numSingleBedsLbl, numDoubleBedsLbl, roomNameLbl, roomTypeLbl,
+			previewBreakfastLbl, previewFullDinnerLbl, previewHairSalonLbl,
+			previewPoolLbl, previewFitnessLbl, previewSpaLbl, previewFaceBodyLbl,previewMassageLbl,
+			paymentLbl, bookingCodeLbl;
+	@FXML
+	private CheckBox breakfastCkBx, fullDinnerCkBx, poolCkBx, hairSalonCkBx, 
+			fitnessCenterCkBx, spaTreatmentsCkBx, faceBodyCareCkBx, massageTherapiesCkBx;
+	@FXML
+	private SplitMenuButton titleTxt;
+	@FXML
+	private HBox totalCostHBox, bookingCodeHBox;
+	
 	private String searchFrom, searchUntil, searchRoomType;
-	private Integer searchNumOfPerson;
+	private int searchNumOfPerson, searchNumOfDays;
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private ObservableList<BookingChoices> bookingChoicesList;
-
-	public void changeBooking(ActionEvent event) {
+	private float extrasCost;
+	private BookingChoices choosed;
+	private Stage pStage;
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		Dialog<Pair<String, String>> dialog = new Dialog<>();
-		dialog.setTitle("Edit your booking");
-		dialog.setHeaderText("Please enter below your booking's details to continue");
-
-		ButtonType submitBtn = new ButtonType("Continue", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().add(submitBtn);
-
-		GridPane grid = new GridPane();
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
-
-		TextField bookingID = new TextField();
-		bookingID.setPromptText("Booking ID");
-		TextField email = new TextField();
-		email.setPromptText("name@domain.com");
-		RadioButton editBookingRadio = new RadioButton("Edit Booking");
-		ToggleGroup pickAction = new ToggleGroup();
-		editBookingRadio.setToggleGroup( pickAction );
-		RadioButton cancelBookingRadio = new RadioButton("Cancel Booking");
-		cancelBookingRadio.setToggleGroup( pickAction );
-
-		grid.add(new Label("Booking ID:"), 0, 0);
-		grid.add(bookingID, 1, 0);
-		grid.add(new Label("Email:"), 0, 1);
-		grid.add(email, 1, 1);
-		grid.add(editBookingRadio, 0, 2);
-		grid.add(cancelBookingRadio, 1, 2);
-
-		Node submitButton = dialog.getDialogPane().lookupButton(submitBtn);
-		submitButton.setDisable(true);
-
-		bookingID.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (! email.getText().trim().isEmpty() ) {
-				submitButton.setDisable( newValue.trim().isEmpty() );
-			}
-		});
-		email.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (! bookingID.getText().trim().isEmpty() ) {
-				submitButton.setDisable( newValue.trim().isEmpty() );
-			}
-		});
-
-		dialog.getDialogPane().setContent(grid);
+		checkIn_date.setValue( LocalDate.now() );
 		
-		// Request focus on the bookingID field by default.
-		Platform.runLater(() -> bookingID.requestFocus());
-
-		dialog.showAndWait();
-
+		final Callback<DatePicker, DateCell> disableDaysBeforeNow = 
+				new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item.isBefore(
+								LocalDate.now() )
+								) {
+							setDisable(true);
+							setStyle("-fx-background-color: #ffc0cb;");
+						}
+					}
+				};
+			}
+		};
+		
+		final Callback<DatePicker, DateCell> disableDaysBeforeCheckIn = 
+				new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item.isBefore(
+								checkIn_date.getValue() )
+								) {
+							setDisable(true);
+							setStyle("-fx-background-color: #ffc0cb;");
+						}
+					}
+				};
+			}
+		};
+		
+		checkIn_date.setDayCellFactory(disableDaysBeforeNow);
+		checkOut_date.setDayCellFactory(disableDaysBeforeCheckIn);
+		
+		EventHandler<ActionEvent> eh = new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		        if (event.getSource() instanceof CheckBox) {
+		            updateExtras();
+		            totalCost_txt.setText( String.valueOf( choosed.getBooking_total() + extrasCost ) );
+		        }
+		    }
+		};
+		
+		breakfastCkBx.setOnAction(eh);
+		fullDinnerCkBx.setOnAction(eh);
+		poolCkBx.setOnAction(eh);
+		hairSalonCkBx.setOnAction(eh);
+		fitnessCenterCkBx.setOnAction(eh);
+		spaTreatmentsCkBx.setOnAction(eh);
+		faceBodyCareCkBx.setOnAction(eh);
+		massageTherapiesCkBx.setOnAction(eh);
+		
+		setCostsToExtras();
+		
+		stepThreePane.setVisible(false);
+		stepTwoPane.setVisible(false);
+		stepOnePane.setVisible(true);
+	}
+	public NewBookController (Stage pStage) {
+		this.pStage = pStage;
 	}
 	
 	public void findRooms(ActionEvent event){
@@ -155,7 +199,11 @@ public class NewBookController implements Initializable {
 				date = dateFormatter.parse(dateI.toString() + " 14:00:00");
 				searchFrom = dateFormatter.format(date);
 
-				date = dateFormatter.parse(dateO.toString() + " 12:00:00");
+				if ( dateI.isEqual( dateO ) ) {
+					date = dateFormatter.parse(dateO.toString() + " 23:59:59");
+				} else {
+					date = dateFormatter.parse(dateO.toString() + " 12:00:00");
+				}
 				searchUntil = dateFormatter.format(date);	
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -190,27 +238,6 @@ public class NewBookController implements Initializable {
 		}
 
 		showRoomsWithDetailsOnTable();
-	}
-
-	public String getSelectedRoomType() {
-		if ( type_comf_toggle.isSelected() == true ) {
-			return "Comfort";
-		} else if ( type_stand_toggle.isSelected() == true ) {
-			return "Standard";
-		} else if ( type_suite_toggle.isSelected() == true ) {
-			return "Suite";
-		} else {
-			return "none";
-		}
-	}
-	public String getSQLRoomType() {
-		if ( searchRoomType.equals("Comfort") ) {
-			return "`type_comf`";
-		} else if ( searchRoomType.equals("Standard") ) {
-			return "`type_stand`";
-		} else {
-			return "`type_suite`";
-		} 
 	}
 	public void showRoomsWithDetailsOnTable() {
 
@@ -260,9 +287,9 @@ public class NewBookController implements Initializable {
 			Date dayUntil = dateFormatter.parse( searchUntil );
 			Date dayFrom = dateFormatter.parse( searchFrom );
 			long diff = TimeUnit.DAYS.convert(dayUntil.getTime() - dayFrom.getTime(), TimeUnit.MILLISECONDS);
-			int numDays = ((int) diff) + 1;
+			searchNumOfDays = ((int) diff) + 1;
 
-			logger.info("**Number of staying days: " + numDays );
+			logger.info("**Number of staying days: " + searchNumOfDays );
 
 			String offersQuery = "SELECT `o_id`,`name`,`one_bed`,`two_beds`,`three_beds`,`fplus_beds`,"
 					+ "`discount_amount`,`discount_percentage` FROM `offers` "
@@ -273,7 +300,7 @@ public class NewBookController implements Initializable {
 
 			ps = conn.prepareStatement(offersQuery);
 
-			ps.setInt(1, numDays );
+			ps.setInt(1, searchNumOfDays );
 			ps.setString(2, searchFrom );
 			ps.setString(3, searchUntil );
 
@@ -318,10 +345,10 @@ public class NewBookController implements Initializable {
 
 							if ( offers.getInt("discount_amount") != 0 ) {
 								bChoice2.setDiscount_show( offers.getString("name") + "(-" + offers.getInt("discount_amount") + "€)" );
-								bChoice2.setBooking_total( bChoice2.getRoom_cost() * numDays  - bChoice2.getDiscount_amount() );
+								bChoice2.setBooking_total( bChoice2.getRoom_cost() * searchNumOfDays  - bChoice2.getDiscount_amount() );
 							} else {
 								bChoice2.setDiscount_show( offers.getString("name") + "(-" + offers.getInt("discount_percentage") + "%)" );
-								bChoice2.setBooking_total( bChoice2.getRoom_cost() * numDays * (100 - bChoice2.getDiscount_percentage() )/100 );
+								bChoice2.setBooking_total( bChoice2.getRoom_cost() * searchNumOfDays * (100 - bChoice2.getDiscount_percentage() )/100 );
 							}
 
 							list.add( bChoice2 );
@@ -329,7 +356,8 @@ public class NewBookController implements Initializable {
 					}
 				
 				} else {
-					bChoice.setBooking_total( bChoice.getRoom_cost() * numDays );
+					logger.info( ++i + " "+ bChoice.getRoom_name() );
+					bChoice.setBooking_total( bChoice.getRoom_cost() * searchNumOfDays );
 					list.add( bChoice );
 				}
 				
@@ -347,4 +375,281 @@ public class NewBookController implements Initializable {
 		return data;
 
 	}
+	public void backToStepOne (ActionEvent event){
+		//stepThreePane.setVisible(false);
+		stepTwoPane.setVisible(false);
+		stepOnePane.setVisible(true);
+	}
+	public void selectRoomToBook (ActionEvent event){
+		
+		choosed = availableRoomsTable.getSelectionModel().getSelectedItem();
+		totalCost_txt.setText( String.valueOf( choosed.getBooking_total() ) );
+		stepOnePane.setVisible(false);
+		stepTwoPane.setVisible(true);
+		
+	}
+	public void changeBooking(ActionEvent event) {
+		
+		Dialog<Pair<String, String>> dialog = new Dialog<>();
+		dialog.setTitle("Edit your booking");
+		dialog.setHeaderText("Please enter below your booking's details to continue");
+
+		ButtonType submitBtn = new ButtonType("Continue", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().add(submitBtn);
+
+		GridPane grid = new GridPane();
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(20, 150, 10, 10));
+
+		TextField bookingID = new TextField();
+		bookingID.setPromptText("Booking ID");
+		TextField email = new TextField();
+		email.setPromptText("name@domain.com");
+		RadioButton editBookingRadio = new RadioButton("Edit Booking");
+		ToggleGroup pickAction = new ToggleGroup();
+		editBookingRadio.setToggleGroup( pickAction );
+		RadioButton cancelBookingRadio = new RadioButton("Cancel Booking");
+		cancelBookingRadio.setToggleGroup( pickAction );
+
+		grid.add(new Label("Booking ID:"), 0, 0);
+		grid.add(bookingID, 1, 0);
+		grid.add(new Label("Email:"), 0, 1);
+		grid.add(email, 1, 1);
+		grid.add(editBookingRadio, 0, 2);
+		grid.add(cancelBookingRadio, 1, 2);
+
+		Node submitButton = dialog.getDialogPane().lookupButton(submitBtn);
+		submitButton.setDisable(true);
+
+		bookingID.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (! email.getText().trim().isEmpty() ) {
+				submitButton.setDisable( newValue.trim().isEmpty() );
+			}
+		});
+		email.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (! bookingID.getText().trim().isEmpty() ) {
+				submitButton.setDisable( newValue.trim().isEmpty() );
+			}
+		});
+
+		dialog.getDialogPane().setContent(grid);
+		
+		// Request focus on the bookingID field by default.
+		Platform.runLater(() -> bookingID.requestFocus());
+		dialog.showAndWait();
+
+	}
+	public String getSelectedRoomType() {
+		if ( type_comf_toggle.isSelected() == true ) {
+			return "Comfort";
+		} else if ( type_stand_toggle.isSelected() == true ) {
+			return "Standard";
+		} else if ( type_suite_toggle.isSelected() == true ) {
+			return "Suite";
+		} else {
+			return "none";
+		}
+	}
+	public String getSQLRoomType() {
+		if ( searchRoomType.equals("Comfort") ) {
+			return "`type_comf`";
+		} else if ( searchRoomType.equals("Standard") ) {
+			return "`type_stand`";
+		} else {
+			return "`type_suite`";
+		} 
+	}
+	
+	private void setCostsToExtras() {
+
+		try {
+			Connection conn = Conn.connect();
+			String query = "SELECT * FROM `extras`";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();breakfastLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();fullDinnerLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();poolLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();hairSalonLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();fitnessCenterLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();spaTreatmentsLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();faceBodyCareLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			rs.next();massageTherapiesLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void backToStepTwo (ActionEvent event){
+		stepThreePane.setVisible(false);
+		stepTwoPane.setVisible(true);
+		//stepOnePane.setVisible(false);
+	}
+	protected void updateExtras() {
+		extrasCost = 0;
+		float curCost = 0;
+		Logger logger = Logger.getLogger("application");
+		logger.setLevel(Level.INFO);
+		
+		if ( breakfastCkBx.isSelected() ) {
+			curCost = Float.parseFloat( breakfastLbl.getText() ) * searchNumOfPerson * searchNumOfDays;
+			logger.log(Level.INFO, "Breakfast: " + curCost + " -> " + breakfastLbl.getText() + " x " + searchNumOfPerson + "person x " + searchNumOfDays + " days");
+        	extrasCost += curCost;
+        	previewBreakfastLbl.setText("YES");
+        } else { previewBreakfastLbl.setText("NO"); }
+		if ( fullDinnerCkBx.isSelected() ) {
+			curCost = Float.parseFloat( fullDinnerLbl.getText() ) * searchNumOfPerson * searchNumOfDays;
+			logger.info("FullDinner: " + curCost + " -> " + fullDinnerLbl.getText() + " x " + searchNumOfPerson + " person x " + searchNumOfDays + " days");
+        	extrasCost += curCost;
+        	previewFullDinnerLbl.setText("YES");
+        } else { previewFullDinnerLbl.setText("NO"); }
+		if ( poolCkBx.isSelected() ) {
+			curCost = Float.parseFloat( poolLbl.getText() ) * searchNumOfPerson;
+			logger.info("Pool: " + curCost + " -> " + poolLbl.getText() + " x " + searchNumOfPerson + " person");
+        	extrasCost += curCost;
+    		previewPoolLbl.setText("YES");
+        } else { previewPoolLbl.setText("NO"); }
+		if ( hairSalonCkBx.isSelected() ) {
+			curCost = Float.parseFloat( hairSalonLbl.getText() );
+			logger.info("HairSalon: " + curCost + " -> " + hairSalonLbl.getText() );
+        	extrasCost += curCost;
+    		previewHairSalonLbl.setText("YES");
+        } else { previewHairSalonLbl.setText("NO"); }
+		if ( fitnessCenterCkBx.isSelected() ) {
+			curCost = Float.parseFloat( fitnessCenterLbl.getText() ) * searchNumOfPerson;
+			logger.info("Fitness Center: " + curCost + " -> " + fitnessCenterLbl.getText() + " x " + searchNumOfPerson + " person");
+        	extrasCost += curCost;
+        	previewFitnessLbl.setText("YES");
+        } else { previewFitnessLbl.setText("NO"); }
+		if ( spaTreatmentsCkBx.isSelected() ) {
+			curCost = Float.parseFloat( spaTreatmentsLbl.getText() );
+			logger.info("Spa Treatments: " + curCost + " -> " + spaTreatmentsLbl.getText() );
+        	extrasCost += curCost;
+        	previewSpaLbl.setText("YES");
+        } else { previewSpaLbl.setText("NO"); }
+		if ( faceBodyCareCkBx.isSelected() ) {
+			curCost = Float.parseFloat( faceBodyCareLbl.getText() ) * searchNumOfPerson;
+			logger.info("Face & Body Care: " + curCost + " -> " + faceBodyCareLbl.getText() + " x " + searchNumOfPerson + " person");
+        	extrasCost += curCost;
+    		previewFaceBodyLbl.setText("YES");
+        } else { previewFaceBodyLbl.setText("NO"); }
+		if ( massageTherapiesCkBx.isSelected() ) {
+			curCost = Float.parseFloat( massageTherapiesLbl.getText() ) * searchNumOfPerson;
+			logger.info("Massage Therapies: " + curCost + " -> " + massageTherapiesLbl.getText() + " x " + searchNumOfPerson + " person");
+        	extrasCost += curCost;
+    		previewMassageLbl.setText("YES");
+        } else { previewMassageLbl.setText("NO"); }
+		
+		choosed.setExtrasCost( extrasCost );
+	}
+	public void proceedToPaymentMethod(){
+		Alert alert = new Alert(AlertType.ERROR);
+		if ( 	nameTxt.getText().trim().equals("") ||
+				sNameTxt.getText().trim().equals("") ||
+				idTxt.getText().trim().equals("") ||
+				telTxt.getText().trim().equals("") ||
+				!validateEmail( emailTxt.getText() ) 
+			) {
+			
+			alert.setContentText("Please check that you have filled all fields properly!");
+			alert.show();
+			return;
+		}
+		
+		choosed.setBookerTitle( titleTxt.getText() );
+		choosed.setBookerName( nameTxt.getText() );
+		choosed.setBookerSurname( sNameTxt.getText() );
+		choosed.setBookerIDNum( idTxt.getText() );
+		choosed.setBookerTel( telTxt.getText() );
+		choosed.setBookerEmail( emailTxt.getText() );
+		
+		stepTwoPane.setVisible(false);
+		prepareThirdPane();
+		stepThreePane.setVisible(true);
+	}
+	public static boolean validateEmail(String emailStr) {
+		//Found it here: http://stackoverflow.com/questions/8204680/java-regex-email#answer-8204716
+		Pattern VALID_EMAIL_ADDRESS_REGEX = 
+				Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+		
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+		return matcher.find();
+	}
+
+	private void prepareThirdPane() {
+		checkInLbl.setText( searchFrom);
+		checkOutLbl.setText( searchUntil );
+		bookerNameLbl.setText( choosed.getBookerName() );
+		bookerSurnameLbl.setText( choosed.getBookerSurname() );
+		bookerIDLbl.setText( choosed.getBookerIDNum() );
+		bookerTelLbl.setText( choosed.getBookerTel() );
+		bookerEmailLbl.setText( choosed.getBookerEmail() );
+		numPersonsLbl.setText( String.valueOf( searchNumOfPerson ) );
+		numSingleBedsLbl.setText( String.valueOf( choosed.getSingle_beds() ) );
+		numDoubleBedsLbl.setText( String.valueOf( choosed.getSingle_beds() ) );
+		roomNameLbl.setText( choosed.getRoom_name() );
+		roomTypeLbl.setText( choosed.getRoom_type() );	
+		
+		totalCostLbl.setText( String.valueOf( choosed.getBooking_total() + choosed.getExtrasCost() ) );
+		
+		totalCostHBox.setVisible(true);
+		paymentLbl.setVisible(true);
+		confirm_btn.setVisible(true);
+		bookingCodeHBox.setVisible(false);
+		bookingCodeLbl.setText("");
+	}
+	
+	public void completeBooking(ActionEvent event) {
+		
+		
+		totalCostHBox.setVisible(false);
+		paymentLbl.setVisible(false);
+		confirm_btn.setVisible(false);
+		bookingCodeHBox.setVisible(true);
+		bookingCodeLbl.setText("CODE");
+	}
+	
+
+	private void generatePDF(){
+		try {
+			String fileName = "myBooking.pdf";
+			PDDocument doc = new PDDocument();
+			PDPage page = new PDPage(PDPage.PAGE_SIZE_A4);
+	        PDFont font = PDType1Font.HELVETICA;
+			
+			PDPageContentStream content = new PDPageContentStream(doc, page);
+
+			content.setFont(font, 12);
+			content.beginText();
+			content.moveTextPositionByAmount(50, 100);
+			content.drawString("Imaginary Hotel");
+			content.endText();
+			content.close();
+			
+			doc.addPage(page);
+			doc.save(fileName);
+			
+			FileChooser fileChooser = new FileChooser();
+			  
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+            fileChooser.getExtensionFilters().add(extFilter);
+            
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog( pStage );
+            
+            if(file != null){
+                //SaveFile(Santa_Claus_Is_Coming_To_Town, file);
+            }
+			
+			doc.close();
+			
+		} catch (COSVisitorException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

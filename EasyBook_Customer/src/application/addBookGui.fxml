@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewBookController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Pane fx:id="stepOnePane" disable="false" layoutX="168.0" layoutY="90.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<Pane fx:id="stepOnePane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<Label alignment="CENTER" layoutX="124.0" layoutY="20.0" prefHeight="40.0" prefWidth="517.0" text="Imaginary Hotel">
 					<font>
@@ -113,7 +113,7 @@
 							</columns>
 						</TableView>
 						<Separator layoutX="34.0" layoutY="253.0" prefHeight="3.0" prefWidth="733.0" />
-						<Button fx:id="bookNOW_btn" layoutX="338.0" layoutY="263.0" mnemonicParsing="false" style="-fx-background-radius: 50;" text="Book Now!">
+						<Button fx:id="bookNOW_btn" layoutX="338.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRoomToBook" style="-fx-background-radius: 50;" text="Book Now!">
 							<font>
 								<Font size="20.0" />
 							</font>
@@ -139,7 +139,7 @@
 										<Font size="15.0" />
 									</font>
 								</Label>
-								<SplitMenuButton layoutX="469.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Mr.">
+								<SplitMenuButton fx:id="titleTxt" layoutX="469.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Mr.">
 									<items>
 										<MenuItem mnemonicParsing="false" text="Mr." />
 										<MenuItem mnemonicParsing="false" text="Ms." />
@@ -158,7 +158,7 @@
 										<Font size="15.0" />
 									</font>
 								</Label>
-								<TextField layoutX="504.0" layoutY="165.0" prefWidth="110.0" promptText="Name">
+								<TextField fx:id="nameTxt" layoutX="504.0" layoutY="165.0" prefWidth="110.0" promptText="Name">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -172,7 +172,7 @@
 										<Font size="15.0" />
 									</font>
 								</Label>
-								<TextField layoutX="504.0" layoutY="165.0" prefWidth="120.0" promptText="Last Name">
+								<TextField fx:id="sNameTxt" layoutX="504.0" layoutY="165.0" prefWidth="120.0" promptText="Last Name">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -186,7 +186,7 @@
 										<Font size="15.0" />
 									</font>
 								</Label>
-								<TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="72.0" promptText="ID code">
+								<TextField fx:id="idTxt" layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="72.0" promptText="ID code">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -204,7 +204,7 @@
 										<Font size="15.0" />
 									</font>
 								</Label>
-								<TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="162.0" promptText="0030 -">
+								<TextField fx:id="telTxt" layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="162.0" promptText="0030 -">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -218,7 +218,7 @@
 										<Font size="15.0" />
 									</font>
 								</Label>
-								<TextField layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="243.0" promptText="customer@email.com">
+								<TextField fx:id="emailTxt" layoutX="68.0" layoutY="478.0" prefHeight="29.0" prefWidth="243.0" promptText="customer@email.com">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -237,12 +237,12 @@
 						<Separator prefHeight="1.0" prefWidth="425.0" />
 						<HBox layoutX="81.0" layoutY="168.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Breakfast">
+								<CheckBox fx:id="breakfastCkBx" mnemonicParsing="false" text="Breakfast">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="breakfastLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -254,8 +254,11 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
-								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="per person" HBox.hgrow="ALWAYS">
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="110.0" text="per person per day" HBox.hgrow="ALWAYS">
 									<font>
 										<Font name="System Italic" size="12.0" />
 									</font>
@@ -267,12 +270,12 @@
 						</HBox>
 						<HBox layoutX="70.0" layoutY="196.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Full Dinner">
+								<CheckBox fx:id="fullDinnerCkBx" mnemonicParsing="false" text="Full Dinner">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="fullDinnerLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -284,8 +287,11 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
-								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="per person" HBox.hgrow="ALWAYS">
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="108.0" text="per person per day" HBox.hgrow="ALWAYS">
 									<font>
 										<Font name="System Italic" size="12.0" />
 									</font>
@@ -297,12 +303,12 @@
 						</HBox>
 						<HBox layoutX="89.0" layoutY="227.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" prefHeight="21.0" prefWidth="95.0" text="Pool">
+								<CheckBox fx:id="poolCkBx" mnemonicParsing="false" prefHeight="21.0" prefWidth="95.0" text="Pool">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="poolLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -314,6 +320,9 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
 								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="full-access" HBox.hgrow="ALWAYS">
 									<font>
@@ -327,12 +336,12 @@
 						</HBox>
 						<HBox layoutX="67.0" layoutY="269.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Hair Salon">
+								<CheckBox fx:id="hairSalonCkBx" mnemonicParsing="false" text="Hair Salon">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="hairSalonLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -344,6 +353,9 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
 								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="one time" HBox.hgrow="ALWAYS">
 									<font>
@@ -357,12 +369,12 @@
 						</HBox>
 						<HBox layoutX="65.0" layoutY="300.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Fitness Center">
+								<CheckBox fx:id="fitnessCenterCkBx" mnemonicParsing="false" text="Fitness Center">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="fitnessCenterLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -374,6 +386,9 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
 								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="full-access" HBox.hgrow="ALWAYS">
 									<font>
@@ -387,12 +402,12 @@
 						</HBox>
 						<HBox layoutX="73.0" layoutY="345.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Spa Treatments">
+								<CheckBox fx:id="spaTreatmentsCkBx" mnemonicParsing="false" text="Spa Treatments">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="spaTreatmentsLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -404,6 +419,9 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
 								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="75.0" text="one time" HBox.hgrow="ALWAYS">
 									<font>
@@ -417,12 +435,12 @@
 						</HBox>
 						<HBox layoutX="26.0" layoutY="386.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Face &amp; Body Care">
+								<CheckBox fx:id="faceBodyCareCkBx" mnemonicParsing="false" text="Face &amp; Body Care">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="faceBodyCareLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -434,6 +452,9 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
 								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="72.0" text="one time" HBox.hgrow="ALWAYS">
 									<font>
@@ -447,12 +468,12 @@
 						</HBox>
 						<HBox layoutX="78.0" layoutY="424.0" spacing="10.0">
 							<children>
-								<CheckBox mnemonicParsing="false" text="Massage Therapies">
+								<CheckBox fx:id="massageTherapiesCkBx" mnemonicParsing="false" text="Massage Therapies">
 									<font>
 										<Font size="15.0" />
 									</font>
 								</CheckBox>
-								<Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="27.0" textAlignment="RIGHT">
+								<Label fx:id="massageTherapiesLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="21.0" prefWidth="40.0" textAlignment="RIGHT">
 									<font>
 										<Font size="15.0" />
 									</font>
@@ -464,8 +485,11 @@
 									<font>
 										<Font size="15.0" />
 									</font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
 								</Label>
-								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="66.0" text="one/day" HBox.hgrow="ALWAYS">
+								<Label layoutX="235.0" layoutY="170.0" prefHeight="17.0" prefWidth="110.0" text="per person per day" HBox.hgrow="ALWAYS">
 									<font>
 										<Font name="System Italic" size="12.0" />
 									</font>
@@ -494,8 +518,8 @@
 					</children>
 				</VBox>
 				<Separator layoutX="37.0" layoutY="529.0" prefHeight="3.0" prefWidth="733.0" />
-				<Button cancelButton="true" layoutX="35.0" layoutY="539.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" style="-fx-background-radius: 40px;" text="Back" />
-				<Button alignment="CENTER" layoutX="657.0" layoutY="540.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="109.0" style="-fx-background-radius: 40;" text="Continue" textAlignment="CENTER">
+				<Button cancelButton="true" layoutX="35.0" layoutY="539.0" mnemonicParsing="false" onAction="#backToStepOne" prefHeight="40.0" prefWidth="96.0" style="-fx-background-radius: 40px;" text="Back" />
+				<Button alignment="CENTER" layoutX="657.0" layoutY="540.0" mnemonicParsing="false" onAction="#proceedToPaymentMethod" prefHeight="38.0" prefWidth="109.0" style="-fx-background-radius: 40;" text="Continue" textAlignment="CENTER">
 					<font>
 						<Font size="17.0" />
 					</font>
@@ -510,7 +534,7 @@
 								<Insets right="20.0" />
 							</HBox.margin>
 						</Label>
-						<Label fx:id="totalCost_txt" alignment="CENTER_RIGHT" layoutX="116.0" layoutY="549.0" prefHeight="25.0" prefWidth="65.0" text="0">
+						<Label fx:id="totalCost_txt" alignment="CENTER_RIGHT" layoutX="116.0" layoutY="549.0" prefHeight="25.0" prefWidth="100.0" text="0">
 							<font>
 								<Font name="System Bold" size="18.0" />
 							</font>
@@ -598,7 +622,7 @@
 				</Accordion>
 			</children>
 		</Pane>
-      <Pane prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      	<Pane fx:id="stepThreePane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox layoutX="41.0" layoutY="44.0">
                <children>
@@ -615,7 +639,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckIn" alignment="CENTER_RIGHT" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="152.0">
+                        <Label fx:id="checkInLbl" alignment="CENTER_RIGHT" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="152.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -629,7 +653,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="checkOutLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -643,7 +667,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckIn1" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="167.0">
+                        <Label fx:id="bookerNameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="167.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -657,7 +681,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut1" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="143.0">
+                        <Label fx:id="bookerSurnameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="143.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -671,7 +695,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut11" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="192.0">
+                        <Label fx:id="bookerIDLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="192.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -685,7 +709,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut111" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="164.0">
+                        <Label fx:id="bookerTelLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="164.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -699,7 +723,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut1111" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="170.0">
+                        <Label fx:id="bookerEmailLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="170.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -723,7 +747,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut2" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="numPersonsLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -737,7 +761,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut3" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="numSingleBedsLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -751,7 +775,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut4" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="numDoubleBedsLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -765,7 +789,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut41" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="roomNameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -779,7 +803,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCheckOut411" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="roomTypeLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -803,7 +827,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="576.0" layoutY="382.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewBreakfastLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="576.0" layoutY="382.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -817,7 +841,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="586.0" layoutY="392.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewFullDinnerLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="586.0" layoutY="392.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -831,7 +855,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="606.0" layoutY="412.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewHairSalonLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="606.0" layoutY="412.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -845,7 +869,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewPoolLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -859,7 +883,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="487.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewFitnessLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="487.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -873,7 +897,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewSpaLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -887,7 +911,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewFaceBodyLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -901,7 +925,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
+                        <Label fx:id="previewMassageLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -910,17 +934,23 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox layoutX="616.0" layoutY="551.0" prefHeight="29.0" prefWidth="170.0" style="-fx-border-color: black; -fx-border-radius: 10;">
+            <HBox fx:id="totalCostHBox" alignment="CENTER" layoutX="286.0" layoutY="271.0" prefHeight="29.0" prefWidth="226.0" style="-fx-border-color: black; -fx-border-radius: 10;">
                <children>
                   <Label alignment="CENTER" layoutX="33.0" layoutY="227.0" prefHeight="27.0" prefWidth="100.0" text="Total Cost:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCost" alignment="CENTER" layoutX="165.0" layoutY="232.0" prefHeight="27.0" prefWidth="52.0" text="0">
+                  <Label fx:id="totalCostLbl" alignment="CENTER" layoutX="165.0" layoutY="232.0" prefHeight="27.0" text="0">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
                   <Label layoutX="293.0" layoutY="246.0" text="€">
                      <font>
@@ -929,61 +959,36 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="294.0" layoutY="504.0">
-               <children>
-                  <Label layoutX="41.0" layoutY="253.0" text="Booking Code: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="156.0" layoutY="255.0" prefHeight="20.0" prefWidth="94.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <Label layoutX="47.0" layoutY="219.0" />
-            <Button layoutX="15.0" layoutY="547.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" style="-fx-background-radius: 20;" text="Back">
+            <Label fx:id="paymentLbl" layoutX="180.0" layoutY="320.0" text="Your payment will be processed using secured EasyBank page">
                <font>
                   <Font size="16.0" />
                </font>
-            </Button>
-            <VBox layoutX="287.0" layoutY="317.0">
-               <children>
-                  <Label layoutX="41.0" layoutY="290.0" text="Please choose pyament method">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <HBox layoutX="41.0" layoutY="324.0">
-                     <children>
-                        <RadioButton layoutX="41.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="Cash">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="paymentRadio" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton layoutX="112.0" layoutY="326.0" mnemonicParsing="false" text="Easy Bank" toggleGroup="$paymentRadio">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </RadioButton>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <Button layoutX="339.0" layoutY="378.0" mnemonicParsing="false" style="-fx-background-radius: 20;" text="Confirm">
+            </Label>
+            <Button fx:id="confirm_btn" layoutX="339.0" layoutY="378.0" mnemonicParsing="false" onAction="#completeBooking" style="-fx-background-radius: 20;" text="Confirm">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
+            <HBox fx:id="bookingCodeHBox" alignment="CENTER" layoutX="279.0" layoutY="463.0">
+               <children>
+                  <Label layoutX="41.0" layoutY="253.0" text="Booking Code: ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="bookingCodeLbl" alignment="CENTER" layoutX="156.0" layoutY="255.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <Separator layoutX="15.0" layoutY="530.0" prefHeight="3.0" prefWidth="780.0" />
+            <Button layoutX="15.0" layoutY="547.0" mnemonicParsing="false" onAction="#backToStepTwo" prefHeight="25.0" prefWidth="65.0" style="-fx-background-radius: 20;" text="Back">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
 	</children>

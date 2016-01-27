@@ -1,5 +1,11 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import database.Conn;
 import javafx.beans.property.SimpleStringProperty;
 
 public class BookingChoices {
@@ -251,7 +257,38 @@ public class BookingChoices {
 	}
 	
 	public String[][] prepareData(String from, String to, String numPerson) {
-		String[][] data = new String[17][2];
+		
+		int rowcount = 0;
+		String[] 	extras = new String[2];
+					extras[0] = "none";
+					
+		try {
+
+			Connection conn = Conn.connect();
+			String query = "SELECT `name` "
+					+ "FROM `extras` INNER JOIN `booking_extras` "
+					+ "ON `booking_extras`.`e_id`=`extras`.`e_id` "
+					+ "WHERE `booking_extras`.`b_id`= ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, getBookingID() );
+			ResultSet rs = ps.executeQuery();
+
+			rowcount = 0;
+			int i = 0;
+			if ( rs.last() ) {
+			  rowcount = rs.getRow();
+			  rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+			}
+			extras = new String[rowcount];
+			while ( rs.next() ) {
+				extras[i++] = rs.getString("name");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String[][] data = new String[19 + rowcount ][2];
 		data[0][0] = "*Your details*";
 		data[1][0] = "Full Name: "; 	data[1][1] 	= 	getBookerTitle() + " " 
 														+ getBookerSurname() + " "
@@ -260,18 +297,25 @@ public class BookingChoices {
 		data[3][0] = "Email: "; 		data[3][1] 	= getBookerEmail();
 		data[4][0] = "Telephone: ";		data[4][1] 	= getBookerTel();
 		
-		data[5][0] = " ";			//	data[5][1] = " ";
-		data[6][0] = "*Room Details*";//data[6][1] = " ";
+		data[5][0] = " ";				data[5][1] = " ";
+		data[6][0] = "*Room Details*";	data[6][1] = " ";
 		data[7][0] = "Room Name: ";		data[7][1]	= getRoom_name();
 		data[8][0] = "Room Type: ";		data[8][1]	= getRoom_type();
 		data[9][0] = "Single Beds: ";	data[9][1]	= getSingle_beds() + ", Double Beds: " + getDouble_beds();
 		data[10][0] = " ";				data[11][1] = " ";
 		data[11][0] = "Check-In: "+from;data[11][1] = " Check-Out: " + to;
+		
 		data[12][0] = " ";				data[12][1] = " ";
 		data[13][0] = "*Offer Details* ";
 		data[14][0] = "Offer Applied: ";			data[14][1]	= getOffer_name().toString();
 		data[15][0] = "Offer Discount: ";			data[15][1]	= getDiscount_show().toString();
 		data[16][0] = "Room Name: ";				data[16][1]	= getRoom_name();
+		
+		data[17][0] = " ";							data[17][1] = " ";
+		data[18][0] = "*Extras*";
+		for (int i=0; i<rowcount; i++ ){
+			data[19+i][0] = extras[i];
+		}
 		
 		return data;
 	}

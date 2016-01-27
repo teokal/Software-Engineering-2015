@@ -785,6 +785,7 @@ public class NewBookController implements Initializable {
 			
 		}
 
+	@SuppressWarnings("resource")
 	private boolean generatePDF() {
 		
 		try {

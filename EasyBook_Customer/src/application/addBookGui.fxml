@@ -510,7 +510,7 @@
 						</Label>
 						<Separator prefHeight="3.0" prefWidth="277.0" />
 						<Label prefHeight="41.0" prefWidth="268.0" text="Special requests cannot be guaranteed, but will do our best to meet your needs and demands." wrapText="true" />
-						<TextArea prefHeight="130.0" prefWidth="268.0" promptText="Text here your needs">
+						<TextArea fx:id="commentsBox" prefHeight="130.0" prefWidth="268.0" promptText="Text here your needs">
 							<VBox.margin>
 								<Insets top="5.0" />
 							</VBox.margin>
@@ -984,11 +984,21 @@
                </children>
             </HBox>
             <Separator layoutX="15.0" layoutY="530.0" prefHeight="3.0" prefWidth="780.0" />
-            <Button layoutX="15.0" layoutY="547.0" mnemonicParsing="false" onAction="#backToStepTwo" prefHeight="25.0" prefWidth="65.0" style="-fx-background-radius: 20;" text="Back">
+            <Button fx:id="backToStepTwo_Btn" layoutX="15.0" layoutY="547.0" mnemonicParsing="false" onAction="#backToStepTwo" prefHeight="25.0" prefWidth="65.0" style="-fx-background-radius: 20;" text="Back">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
+            <Label fx:id="bookingFailed" alignment="CENTER" layoutX="52.0" layoutY="303.0" text="✘ Your Booking could not be completed! Please contact us!" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="bookingSuccess" alignment="CENTER" layoutX="103.0" layoutY="303.0" text="✔ Your booking has been completed! Enjoy your staying!" textFill="#08e431" visible="false">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
 	</children>

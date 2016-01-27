@@ -1,5 +1,3 @@
-DROP DATABASE IF EXISTS `easybooksql`;
-CREATE DATABASE `easybooksql` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 USE `easybooksql`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
@@ -17,44 +15,6 @@ USE `easybooksql`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `booked_rooms`
---
-
-DROP TABLE IF EXISTS `booked_rooms`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `booked_rooms` (
-  `book_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `booked_rooms`
---
-
-LOCK TABLES `booked_rooms` WRITE;
-/*!40000 ALTER TABLE `booked_rooms` DISABLE KEYS */;
-INSERT INTO `booked_rooms` VALUES (1,1);
-/*!40000 ALTER TABLE `booked_rooms` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Temporary view structure for view `booked_rooms_and_dates`
---
-
-DROP TABLE IF EXISTS `booked_rooms_and_dates`;
-/*!50001 DROP VIEW IF EXISTS `booked_rooms_and_dates`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `booked_rooms_and_dates` AS SELECT 
- 1 AS `book_id`,
- 1 AS `room_id`,
- 1 AS `check_in`,
- 1 AS `check_out`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `booking_extras`
@@ -75,7 +35,6 @@ CREATE TABLE `booking_extras` (
 
 LOCK TABLES `booking_extras` WRITE;
 /*!40000 ALTER TABLE `booking_extras` DISABLE KEYS */;
-INSERT INTO `booking_extras` VALUES (1,6),(1,7);
 /*!40000 ALTER TABLE `booking_extras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,25 +47,30 @@ DROP TABLE IF EXISTS `bookings`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bookings` (
   `b_id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(15) CHARACTER SET utf8 NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `offer_id` int(11) DEFAULT NULL,
+  `code` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
   `check_in` datetime NOT NULL,
   `check_out` datetime NOT NULL,
+  `numdays` int(11) NOT NULL,
+  `title` varchar(10) CHARACTER SET utf8 NOT NULL,
   `name` varchar(45) CHARACTER SET utf8 NOT NULL,
   `sname` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `idnum` varchar(45) CHARACTER SET utf8 NOT NULL,
   `tel` varchar(45) CHARACTER SET utf8 NOT NULL,
   `email` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `idnum` varchar(45) CHARACTER SET utf8 NOT NULL,
   `payment_method` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `total_cost` decimal(2,0) NOT NULL,
+  `total_cost` decimal(10,2) NOT NULL,
   `paid` varchar(10) CHARACTER SET utf8 NOT NULL DEFAULT 'no',
-  `money_received` decimal(2,0) NOT NULL DEFAULT '0',
+  `money_received` decimal(10,2) NOT NULL DEFAULT '0.00',
   `status` varchar(45) CHARACTER SET utf8 NOT NULL DEFAULT 'pending',
+  `comments` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`b_id`),
   UNIQUE KEY `b_id_UNIQUE` (`b_id`),
   UNIQUE KEY `b_code_UNIQUE` (`code`),
   KEY `check_in_idx` (`check_in`),
   KEY `check_out_idx` (`check_out`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +79,6 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (1,'AVS0234','2015-12-25 14:00:00','2016-01-01 12:00:00','KungFu','Panda','6997003648','vlakas@gmail.com','AA123456','Easy Bank',99,'pending',0,'pending');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,9 +130,10 @@ CREATE TABLE `offers` (
   `type_suite` bit(1) DEFAULT b'0',
   `discount_amount` int(11) DEFAULT '0',
   `discount_percentage` int(11) DEFAULT '0',
+  `lang_en` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`o_id`),
   UNIQUE KEY `o_id_UNIQUE` (`o_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,35 +142,8 @@ CREATE TABLE `offers` (
 
 LOCK TABLES `offers` WRITE;
 /*!40000 ALTER TABLE `offers` DISABLE KEYS */;
-INSERT INTO `offers` VALUES (1,'PreEaster','2016-01-01 00:00:00','2016-01-10 00:00:00',5,'','','','','','','',100,0),(16,'After Xmas','2016-01-01 00:00:00','2016-01-31 00:00:00',2,'','','','','','\0','\0',0,30),(17,'We Celebrate','2016-01-22 00:00:00','2016-02-04 00:00:00',1,'\0','','\0','\0','\0','','\0',0,25),(18,'WeRtheBest','2016-01-29 00:00:00','2016-02-01 00:00:00',0,'\0','','','','','','\0',0,90);
+INSERT INTO `offers` VALUES (1,'PreEaster','2016-01-01 00:00:00','2016-02-26 00:00:00',5,'','','','','','','',100,0,'asdadsa'),(16,'After Xmas','2016-03-08 00:00:00','2016-03-27 00:00:00',2,'','','','','','\0','\0',0,30,'One more offer only for you!'),(17,'We Celebrate','2016-01-22 00:00:00','2016-02-04 00:00:00',1,'\0','','\0','\0','\0','','\0',0,25,'We are celebrating something!'),(18,'WeRtheBest','2016-01-29 00:00:00','2016-02-25 00:00:00',7,'\0','','','','','','\0',0,90,'X-Clusive Offer\n-90% Discount for our Standard Rooms above 7 days bookings');
 /*!40000 ALTER TABLE `offers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `offers_lang`
---
-
-DROP TABLE IF EXISTS `offers_lang`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offers_lang` (
-  `o_id` int(11) NOT NULL AUTO_INCREMENT,
-  `lang_en` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
-  `lang_gr` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lang_de` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lang_es` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`o_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `offers_lang`
---
-
-LOCK TABLES `offers_lang` WRITE;
-/*!40000 ALTER TABLE `offers_lang` DISABLE KEYS */;
-INSERT INTO `offers_lang` VALUES (1,'Enjoy this special offer!',NULL,NULL,NULL),(16,'hjk;,.',NULL,NULL,NULL),(17,'We are celebrating something!',NULL,NULL,NULL),(18,'X-Clusive Offer\n-90% Discount for 3 days',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `offers_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -262,7 +199,7 @@ CREATE TABLE `rooms` (
 
 LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` VALUES (1,'Room 132','Comfort',4,1,85.50),(2,'Room 234','Standard',2,2,129.50),(3,'New York Suite','Suite',1,3,55.00),(5,'Room 23','Standard',1,0,23.00),(6,'Room 43','Standard',0,1,36.00),(7,'Silicon Valley Suite','Suite',0,3,350.00),(9,'New York Suite 2','Suite',1,3,55.00),(10,'Room 3445','Comfort',1,1,23.00);
+INSERT INTO `rooms` VALUES (1,'Room 132','Comfort',4,1,85.50),(2,'Room 234','Standard',2,2,129.50),(3,'New York Suite','Suite',1,3,55.00),(5,'Room 23','Standard',1,0,23.00),(6,'Room 43','Standard',0,1,36.00),(7,'Silicon Valley Suite','Suite',0,3,350.00),(9,'New York Suite 2','Suite',1,3,55.00),(10,'Room 3445','Comfort',0,1,23.00);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,24 +233,6 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'rafsonic','202cb962ac59075b964b07152d234b70','Rafael','Panayiotou',NULL,'admin'),(2,'teokal','ecb811f3c49a41b9a16374cba20cac50','Thodoris','Kalatzis','teo.kal@hotmail.com','admin'),(3,'petrosp','202cb962ac59075b964b07152d234b70','Petros','Papadakos',NULL,'admin'),(4,'user','202cb962ac59075b964b07152d234b70','User','Test','user@easybook.gr','user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Final view structure for view `booked_rooms_and_dates`
---
-
-/*!50001 DROP VIEW IF EXISTS `booked_rooms_and_dates`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `booked_rooms_and_dates` AS select `booked_rooms`.`book_id` AS `book_id`,`booked_rooms`.`room_id` AS `room_id`,`bookings`.`check_in` AS `check_in`,`bookings`.`check_out` AS `check_out` from (`booked_rooms` left join `bookings` on((`bookings`.`b_id` = `booked_rooms`.`book_id`))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -324,4 +243,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-24  4:03:44
+-- Dump completed on 2016-01-27  4:34:38

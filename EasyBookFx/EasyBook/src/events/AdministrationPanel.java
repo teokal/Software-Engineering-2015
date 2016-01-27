@@ -71,7 +71,6 @@ public class AdministrationPanel implements Initializable {
 		categoryBookings,  categoryRadioTypeOffers,  categoryTypeOptions,  
 		categoryIncomeBooksStatistics,  categoryBedRooms;
 
-
 	@FXML
 	private TextField searchBookText, searchRoomText, offer_name_text, 
 		offer_req_days_text, offer_dis_per_text, offer_dis_am_text;
@@ -490,7 +489,8 @@ public class AdministrationPanel implements Initializable {
 						rs.getInt("type_comf"),
 						rs.getInt("type_suite"),
 						rs.getInt("discount_amount"),
-						rs.getInt("discount_percentage") ) ); 
+						rs.getInt("discount_percentage"),
+						rs.getString("lang_en") ) ); 
 			}
 		} catch (SQLException e) { e.printStackTrace();
 		}
@@ -711,15 +711,15 @@ public class AdministrationPanel implements Initializable {
 		}
 
 		offer_toEdit.setReq_days( Integer.parseInt( offer_req_days_text.getText() ) );
+		
+		offer_toEdit.setDesc_en( offer_desc_text.getText() );
 
 		Boolean okay = true;
 
 		if ( newOffer ) {
 			okay = offer_toEdit.updateOffer(false);
-			okay = offer_toEdit.updateDesc_en(false, offer_desc_text.getText() );
 		} else {
 			okay = offer_toEdit.updateOffer(true);
-			okay = offer_toEdit.updateDesc_en(true, offer_desc_text.getText() );
 		}
 
 		if ( okay ) {

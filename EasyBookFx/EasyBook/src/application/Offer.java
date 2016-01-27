@@ -2,7 +2,6 @@ package application;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +31,7 @@ public class Offer {
 	private int type_suite;
 	private int discount_amount;
 	private int discount_percentage;
+	private String lang_en;
 
 	public Offer(){
 		this.o_id = 0;
@@ -48,6 +48,7 @@ public class Offer {
 		this.type_suite = 0;
 		this.discount_amount = 0;
 		this.discount_percentage = 0;
+		this.lang_en = "";
 	}
 
 	public Offer(
@@ -64,7 +65,8 @@ public class Offer {
 			int type_comf,
 			int type_suite,
 			int discount_amount,
-			int discount_percentage
+			int discount_percentage,
+			String lang_en
 			){
 		this.o_id = o_id;
 		this.name = new SimpleStringProperty(name);
@@ -80,6 +82,7 @@ public class Offer {
 		this.type_suite = type_suite;
 		this.discount_amount = discount_amount;
 		this.discount_percentage = discount_percentage;
+		this.lang_en = lang_en;
 	}
 
 	public void setO_id (int  s) {
@@ -141,7 +144,9 @@ public class Offer {
 	public void setDiscount_percentage (int  s) {
 		discount_percentage = s;
 	}
-
+	public void setDesc_en(String s) {
+		lang_en = s;
+	}
 
 	public int getO_id () {
 		return o_id;
@@ -244,112 +249,9 @@ public class Offer {
 	}
 
 	public String getDesc_en() {
-		String text = "";
-		try {
-			Connection conn = Conn.connect();
-			String query = "SELECT `lang_en` FROM `offers_lang` WHERE `o_id` = ?";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setInt(1, getO_id() );
-			
-			ResultSet rs = ps.executeQuery();
-
-			while ( rs.next()) {
-				text = rs.getString("lang_en"); 
-			}
-			conn.close();
-		} catch (SQLException e) { e.printStackTrace();	}
-
-		return text;
-	}
-	public String[] getDesc_allLangs() {
-
-		String[] text = new String[4];
-		try {
-			Connection conn = Conn.connect();
-			String query = "SELECT * FROM `offers_lang` WHERE `o_id` = ?";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setInt(1, getO_id() );
-			ResultSet rs = ps.executeQuery(query);
-
-			while ( rs.next()) {
-				text[0] = rs.getString("lang_en"); 
-				text[1] = rs.getString("lang_gr"); 
-				text[2] = rs.getString("lang_de"); 
-				text[3] = rs.getString("lang_es"); 
-			}
-			conn.close();
-		} catch (SQLException e) { e.printStackTrace();	}
-
-		return text;
+		return lang_en;
 	}
 
-	public boolean updateDesc_en(Boolean update, String s) {
-
-		int rs = 0;
-
-		try {
-			Connection conn = Conn.connect();
-
-			String query = "";
-			if (update) {
-				query = "UPDATE `offers_lang` SET `lang_en` = ? WHERE `o_id` = ?";
-			} else {
-				query = "INSERT INTO `offers_lang`(`o_id`, `lang_en`) VALUES (null, ?)";
-			}
-
-			PreparedStatement preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, s );
-			if (update) preparedStatement.setInt(2, getO_id() );
-
-			rs = preparedStatement.executeUpdate();
-			conn.close();
-		} catch (SQLException e) { e.printStackTrace(); }
-
-		if ( rs > 0 ) {
-			return true;
-		} else {
-			Logger logger = Logger.getLogger("offers");
-			logger.setLevel(Level.SEVERE);
-			logger.info("Problem updating english description!");
-
-			return false;
-		}
-
-	}
-	public boolean updateDescriptions(String s_en, String s_gr, String s_de, String s_es) {
-
-		int rs = 0;
-
-		try {
-			Connection conn = Conn.connect();
-			String updateQuery = "UPDATE `offers_lang` SET "
-					+ "`lang_en` = ?,"
-					+ "`lang_gr` = ?,"
-					+ "`lang_de` = ?,"
-					+ "`lang_es` = ?,"
-					+ " WHERE `o_id` = ?";
-			PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
-			preparedStatement.setString(1, s_en );
-			preparedStatement.setString(2, s_gr );
-			preparedStatement.setString(3, s_de );
-			preparedStatement.setString(4, s_es );
-			preparedStatement.setInt(5, getO_id() );
-
-			rs = preparedStatement.executeUpdate();
-			conn.close();
-		} catch (SQLException e) { e.printStackTrace(); }
-
-		if ( rs > 0 ) {
-			return true;
-		} else {
-			Logger logger = Logger.getLogger("offers");
-			logger.setLevel(Level.SEVERE);
-			logger.info("Problem updating descriptions!");
-
-			return false;
-		}
-
-	}
 	public boolean updateOffer(Boolean update) throws ParseException{
 
 		int rs = 0;
@@ -359,19 +261,18 @@ public class Offer {
 					+ "`name` = ?, `valid_from` = ?, `valid_until` = ?, `required_days` = ?,"
 					+ "`one_bed` = ?, `two_beds` = ?, `three_beds` = ?, `fplus_beds` = ?, "
 					+ "`type_stand` = ?, `type_comf` = ?, `type_suite` = ?, "
-					+ "`discount_amount` = ?, `discount_percentage` = ? "
+					+ "`discount_amount` = ?, `discount_percentage` = ?, `lang_en` = ? "
 					+ "WHERE `o_id` = ?";
 		} else {
 			query = "INSERT `offers`"
-					+"(`o_id`, `name`,`valid_from`,`valid_until`,`required_days`,`one_bed`,`two_beds`,"
+					+"(`name`,`valid_from`,`valid_until`,`required_days`,`one_bed`,`two_beds`,"
 					+"`three_beds`,`fplus_beds`,`type_stand`,`type_comf`,`type_suite`,`discount_amount`,"
-					+ "`discount_percentage`)"
-					+ "VALUES (NULL, ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "`discount_percentage`, `lang_en`)"
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		}
 
 		try {
 			Connection conn = Conn.connect();
-
 
 			PreparedStatement preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, getName() );
@@ -387,7 +288,8 @@ public class Offer {
 			preparedStatement.setInt(11, getType_suite_edit() );
 			preparedStatement.setInt(12, getDiscount_amount() );
 			preparedStatement.setInt(13, getDiscount_percentage() );
-			if (update) preparedStatement.setInt(14, getO_id() );
+			preparedStatement.setString(14, getDesc_en() );
+			if (update) preparedStatement.setInt(15, getO_id() );
 
 			rs = preparedStatement.executeUpdate();
 			conn.close();
@@ -410,14 +312,9 @@ public class Offer {
 			Connection conn = Conn.connect();
 			String query = "DELETE FROM `offers` WHERE `o_id` = ?";
 
-			String query_lang = "DELETE FROM `offers_lang` WHERE `o_id` = ?";
-
 			PreparedStatement ps = conn.prepareStatement(query);
-			PreparedStatement ps_lang = conn.prepareStatement(query_lang);
 			ps.setInt(1, getO_id() );
-			ps_lang.setInt(1, getO_id() );
 			ps.executeUpdate();
-			ps_lang.executeUpdate();
 
 			conn.close();
 		} catch (SQLException e) {

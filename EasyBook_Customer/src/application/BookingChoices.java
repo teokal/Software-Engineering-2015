@@ -8,16 +8,16 @@ public class BookingChoices {
 	private int single_beds;
 	private int double_beds;
 	private SimpleStringProperty room_type;
-	private float room_cost;
+	private double room_cost;
+	private double booking_cost;
 	
 	private int o_id;
 	private int discount_amount = 0;
 	private int discount_percentage = 0;
 	private SimpleStringProperty discount_show = new SimpleStringProperty("none");;
 	private SimpleStringProperty offer_name = new SimpleStringProperty("none");
-	
-	private float booking_total;
-	private float extrasCost;
+
+	private double extrasCost;
 	
 	private String BookerTitle;
 	private String BookerName;
@@ -26,7 +26,8 @@ public class BookingChoices {
 	private String BookerTel;
 	private String BookerEmail;
 	
-	private String bookingID;
+	private int bookingID;
+	private String bookingCode;
 	
 	public BookingChoices(BookingChoices bChoice) {
 		this.setRoom_id( bChoice.getRoom_id() );
@@ -43,7 +44,7 @@ public class BookingChoices {
 			int sB, 
 			int dB, 
 			String room_type,
-			Float room_cost ) {
+			double room_cost ) {
 		this.setRoom_id(room_id);
 		this.room_name = new SimpleStringProperty(room_name);
 		this.single_beds = sB;
@@ -146,12 +147,12 @@ public class BookingChoices {
 	}
 
 
-	public float getRoom_cost() {
+	public double getRoom_cost() {
 		return room_cost;
 	}
 
 
-	public void setRoom_cost(float room_cost) {
+	public void setRoom_cost(double room_cost) {
 		this.room_cost = room_cost;
 	}
 
@@ -165,21 +166,23 @@ public class BookingChoices {
 		this.room_id = room_id;
 	}
 
-
-	public float getBooking_total() {
-		return booking_total;
+	public void setBooking_cost ( double booking_cost) {
+		this.booking_cost = booking_cost;
 	}
 
-
-	public void setBooking_total(float booking_total) {
-		this.booking_total = booking_total;
+	public double getBooking_cost () {
+		return booking_cost;
+	}
+	
+	public double getBooking_total() {
+		return (double) (Math.round( ( booking_cost  + extrasCost ) * 100.0 ) / 100.0);
 	}
 
-	public float getExtrasCost() {
+	public double getExtrasCost() {
 		return extrasCost;
 	}
 
-	public void setExtrasCost(float extrasCost) {
+	public void setExtrasCost(double extrasCost) {
 		this.extrasCost = extrasCost;
 	}
 
@@ -231,12 +234,46 @@ public class BookingChoices {
 		BookerEmail = bookerEmail;
 	}
 
-	public String getBookingID() {
+	public int getBookingID() {
 		return bookingID;
 	}
 
-	public void setBookingID(String bookingID) {
+	public void setBookingID(int bookingID) {
 		this.bookingID = bookingID;
+	}
+
+	public String getBookingCode() {
+		return bookingCode;
+	}
+
+	public void setBookingCode(String bookingCode) {
+		this.bookingCode = bookingCode;
+	}
+	
+	public String[][] prepareData(String from, String to, String numPerson) {
+		String[][] data = new String[17][2];
+		data[0][0] = "*Your details*";
+		data[1][0] = "Full Name: "; 	data[1][1] 	= 	getBookerTitle() + " " 
+														+ getBookerSurname() + " "
+														+ getBookerName();
+		data[2][0] = "ID Number: ";		data[2][1] 	= getBookerIDNum();
+		data[3][0] = "Email: "; 		data[3][1] 	= getBookerEmail();
+		data[4][0] = "Telephone: ";		data[4][1] 	= getBookerTel();
+		
+		data[5][0] = " ";			//	data[5][1] = " ";
+		data[6][0] = "*Room Details*";//data[6][1] = " ";
+		data[7][0] = "Room Name: ";		data[7][1]	= getRoom_name();
+		data[8][0] = "Room Type: ";		data[8][1]	= getRoom_type();
+		data[9][0] = "Single Beds: ";	data[9][1]	= getSingle_beds() + ", Double Beds: " + getDouble_beds();
+		data[10][0] = " ";				data[11][1] = " ";
+		data[11][0] = "Check-In: "+from;data[11][1] = " Check-Out: " + to;
+		data[12][0] = " ";				data[12][1] = " ";
+		data[13][0] = "*Offer Details* ";
+		data[14][0] = "Offer Applied: ";			data[14][1]	= getOffer_name().toString();
+		data[15][0] = "Offer Discount: ";			data[15][1]	= getDiscount_show().toString();
+		data[16][0] = "Room Name: ";				data[16][1]	= getRoom_name();
+		
+		return data;
 	}
 
 }

@@ -70,7 +70,7 @@
 								<Font size="14.0" />
 							</font>
 						</Label>
-						<ToggleButton fx:id="type_stand_toggle" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" selected="true" text="Standard">
+						<ToggleButton fx:id="type_stand_toggle" mnemonicParsing="false" onAction="#disableAvRoomsTable" prefHeight="30.0" prefWidth="100.0" selected="true" text="Standard">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -78,12 +78,12 @@
                         <ToggleGroup fx:id="roomTypeToggleCat" />
                      </toggleGroup>
 						</ToggleButton>
-						<ToggleButton fx:id="type_comf_toggle" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Comfort" toggleGroup="$roomTypeToggleCat">
+						<ToggleButton fx:id="type_comf_toggle" mnemonicParsing="false" onAction="#disableAvRoomsTable" prefHeight="30.0" prefWidth="100.0" text="Comfort" toggleGroup="$roomTypeToggleCat">
 							<font>
 								<Font size="14.0" />
 							</font>
 						</ToggleButton>
-						<ToggleButton fx:id="type_suite_toggle" mnemonicParsing="false" prefWidth="100.0" text="Suite" toggleGroup="$roomTypeToggleCat">
+						<ToggleButton fx:id="type_suite_toggle" mnemonicParsing="false" onAction="#disableAvRoomsTable" prefWidth="100.0" text="Suite" toggleGroup="$roomTypeToggleCat">
 							<font>
 								<Font size="14.0" />
 							</font>

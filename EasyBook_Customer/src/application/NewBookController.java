@@ -32,6 +32,8 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import database.Conn;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -160,7 +162,16 @@ public class NewBookController implements Initializable {
 		};
 		
 		checkIn_date.setDayCellFactory(disableDaysBeforeNow);
+		checkIn_date.setOnAction(event -> { disableAvRoomsTable(null); });
+		
 		checkOut_date.setDayCellFactory(disableDaysBeforeCheckIn);
+		checkOut_date.setOnAction(event -> { disableAvRoomsTable(null); });
+		
+		numOfPeople.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable,
+		            String oldValue, String newValue) { disableAvRoomsTable(null); }
+		});
 		
 		EventHandler<ActionEvent> eh = new EventHandler<ActionEvent>() {
 		    @Override
@@ -850,4 +861,7 @@ public class NewBookController implements Initializable {
 		return content;
 	}
 
+	public void disableAvRoomsTable(ActionEvent event){
+		availableRoomsPane.setDisable(true);
+	}
 }

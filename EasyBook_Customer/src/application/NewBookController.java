@@ -651,8 +651,8 @@ public class NewBookController implements Initializable {
 			String query = "INSERT INTO `easybooksql`.`bookings`"
 					+ "(`room_id`,`offer_id`,`check_in`,`check_out`,`numdays`,"
 					+ "`title`,`name`,`sname`,`idnum`,`tel`,`email`,`payment_method`,`total_cost`,"
-					+ "`paid`,`money_received`,`status`, `comments`) VALUES"
-					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "`paid`,`money_received`,`status`, `comments`,`numOfPerson`) VALUES"
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			
@@ -673,6 +673,7 @@ public class NewBookController implements Initializable {
 			ps.setDouble(15, choosed.getBooking_total() );
 			ps.setString(16, "pending" );
 			ps.setString(17, commentsBox.getText() );
+			ps.setInt(18, searchNumOfPerson);
 			
 			int affectedRows = ps.executeUpdate();
 			

@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS `easybooksql`;
+CREATE DATABASE `easybooksql`;
 USE `easybooksql`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
@@ -35,6 +37,7 @@ CREATE TABLE `booking_extras` (
 
 LOCK TABLES `booking_extras` WRITE;
 /*!40000 ALTER TABLE `booking_extras` DISABLE KEYS */;
+INSERT INTO `booking_extras` VALUES (14,1),(14,2),(14,3),(15,1),(15,2),(15,5),(16,1),(16,2),(16,3),(16,4),(16,5),(16,6),(16,7),(16,8),(17,1),(17,3),(17,5);
 /*!40000 ALTER TABLE `booking_extras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,6 +56,7 @@ CREATE TABLE `bookings` (
   `check_in` datetime NOT NULL,
   `check_out` datetime NOT NULL,
   `numdays` int(11) NOT NULL,
+  `numOfPerson` int(10) NOT NULL,
   `title` varchar(10) CHARACTER SET utf8 NOT NULL,
   `name` varchar(45) CHARACTER SET utf8 NOT NULL,
   `sname` varchar(45) CHARACTER SET utf8 NOT NULL,
@@ -70,7 +74,7 @@ CREATE TABLE `bookings` (
   UNIQUE KEY `b_code_UNIQUE` (`code`),
   KEY `check_in_idx` (`check_in`),
   KEY `check_out_idx` (`check_out`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,6 +83,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
+INSERT INTO `bookings` VALUES (17,6,0,'70EFDF2EC9','2016-01-29 14:00:00','2016-02-01 12:00:00',3,2,'Mr.','Petros','Papadakos','AB 12345','697123456','petrosp@hotmail.com','EasyBank',138.10,'paid',138.10,'pending','free wifi');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +138,7 @@ CREATE TABLE `offers` (
   `lang_en` varchar(3000) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`o_id`),
   UNIQUE KEY `o_id_UNIQUE` (`o_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +175,7 @@ CREATE TABLE `room_services` (
 
 LOCK TABLES `room_services` WRITE;
 /*!40000 ALTER TABLE `room_services` DISABLE KEYS */;
-INSERT INTO `room_services` VALUES (6,'Kitchen',1,1,1),(7,'Fridge',0,1,1),(8,'A/C',0,1,1),(9,'Wi-Fi',0,0,1),(10,'Radio',1,1,0),(11,'LCD TV',0,0,0),(12,'Safe',0,0,0),(13,'Fireplace',0,0,0),(14,'Mini Bar',0,0,0),(15,'Jacuzzi',0,0,0);
+INSERT INTO `room_services` VALUES (6,'Kitchen',1,0,1),(7,'Fridge',1,0,0),(8,'A/C',1,0,0),(9,'Wi-Fi',1,0,0),(10,'Radio',1,0,1),(11,'LCD TV',1,1,1),(12,'Safe',1,1,0),(13,'Fireplace',1,1,0),(14,'Mini Bar',0,1,0),(15,'Jacuzzi',0,1,1);
 /*!40000 ALTER TABLE `room_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-27  4:34:38
+-- Dump completed on 2016-01-28 14:10:01

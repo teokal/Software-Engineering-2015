@@ -51,7 +51,7 @@ public class AdministrationPanel implements Initializable {
 	@FXML
 	private TableColumn<Book, String> check_in_clmn, paid_clmn, name_clmn, surname_clmn, 
 	check_out_clmn,tel_clmn, email_clmn, idnum_clmn,
-	persons_clmn, code_clmn, room_clmn;
+	persons_clmn, code_clmn, room_clmn, status_clmn;
 
 	@FXML
 	private TableColumn<Room, Integer> room_name_col, single_beds_col, double_beds_col;
@@ -62,31 +62,34 @@ public class AdministrationPanel implements Initializable {
 
 	@FXML
 	private TableColumn<Offer, String> offer_name_col, offer_req_days_col, 
-		offers_type_stand_col, offers_type_comf_col, offers_type_suite_col, 
-		offers_beds_one_col, offers_beds_two_col, offers_beds_three_col, offers_beds_fplus_col, 
-		offers_disc_per_col, offers_disc_am_col, offers_valid_from_col, offers_valid_until_col;
+	offers_type_stand_col, offers_type_comf_col, offers_type_suite_col, 
+	offers_beds_one_col, offers_beds_two_col, offers_beds_three_col, offers_beds_fplus_col, 
+	offers_disc_per_col, offers_disc_am_col, offers_valid_from_col, offers_valid_until_col;
 
 	@FXML
 	private ToggleGroup categoryTypesRooms, categoryOffers, categoryRadioDatesOffers, 
-		categoryBookings,  categoryRadioTypeOffers,  categoryTypeOptions,  
-		categoryIncomeBooksStatistics,  categoryBedRooms;
+	categoryBookings,  categoryRadioTypeOffers,  categoryTypeOptions, 
+	categoryIncomeBooksStatistics,  categoryBedRooms;
 
 	@FXML
 	private TextField searchBookText, searchRoomText, offer_name_text, 
-		offer_req_days_text, offer_dis_per_text, offer_dis_am_text;
+	offer_req_days_text, offer_dis_per_text, offer_dis_am_text,
+	breakfastTxt, fullDinnerTxt, poolTxt, hairSalonTxt, fitnessTxt, spaTxt, faceBodyTxt,massageTxt;
+
 
 	@FXML
 	private DatePicker offer_valid_from_date, offer_valid_until_date;
 
 	@FXML
 	private RadioButton offer_dis_per_radio, offer_dis_am_radio;
-	
+
 	@FXML
 	private TextArea offer_desc_text;
 
 	@FXML
 	private CheckBox offer_type_stand_check, offer_type_comf_check, offer_type_suite_check, 
-		offer_one_bed_check, offer_two_beds_check, offer_three_beds_check, offer_fplus_beds_check;
+	offer_one_bed_check, offer_two_beds_check, offer_three_beds_check, offer_fplus_beds_check,
+	kitchenCkBx, fridgeCkBx, acCkBx, wifiCkBx, radioCkBx, lcdtvCkBx, safeCkBx, fireplaceCkBx, barCkBx, jacuzziCkBx;
 
 	@FXML
 	private TableView<Book> bookingsTable;
@@ -97,8 +100,9 @@ public class AdministrationPanel implements Initializable {
 
 	@FXML
 	private ToggleButton allBookings, completedBookings, comingSoonBookings, runningBookings,
-		allRooms, standardRooms, comfortRooms, suiteRooms, 
-		rooms_1bed, rooms_2beds, rooms_3beds,rooms_4plusbeds;
+	allRooms, standardRooms, comfortRooms, suiteRooms, 
+	rooms_1bed, rooms_2beds, rooms_3beds,rooms_4plusbeds, 
+	roomServicesTypeComf, roomServicesTypeStand, roomServicesTypeeSuite;
 
 	@FXML
 	private Tab offersTab, statisticsTab, optionsTab;
@@ -109,10 +113,11 @@ public class AdministrationPanel implements Initializable {
 
 	@FXML
 	private Button offer_SAVE_btn, offer_CANCEL_btn, offer_EDIT_btn, offer_DELETE_btn;
-	
+
 	@FXML
 	private AnchorPane offer_controls;
-	
+
+	private Book booking_toEdit;
 	private Offer offer_toEdit;
 	private Room room_toEdit;
 	private String userType;
@@ -134,33 +139,38 @@ public class AdministrationPanel implements Initializable {
 			statisticsTab.setDisable(true);
 			optionsTab.setDisable(true);
 		}
-		
+
 		bookingsTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-		    @Override 
-		    public void handle(MouseEvent event) {
-		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-		            //editBooking(null);                   
-		        }
-		    }
+			@Override 
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					//editBooking(null);                   
+				}
+			}
 		});
-		
+
 		roomsTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-		    @Override 
-		    public void handle(MouseEvent event) {
-		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-		            editRoom(null);                   
-		        }
-		    }
+			@Override 
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					editRoom(null);                   
+				}
+			}
+		});
+
+		offersTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override 
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					editOffer(null);                  
+				}
+			}
 		});
 		
-		offersTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-		    @Override 
-		    public void handle(MouseEvent event) {
-		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					editOffer(null);                  
-		        }
-		    }
-		});
+		roomServicesTypeStand.setSelected(true);
+		selectStandardRoomServices(null);
+
+		fillExtrasCosts();
 		
 	}
 
@@ -170,21 +180,42 @@ public class AdministrationPanel implements Initializable {
 		Main main = new Main();
 		main.openNewPanel(newBookPath, "New Book");
 	}
+	public void cancelBook(ActionEvent event) {
+		booking_toEdit = bookingsTable.getSelectionModel().getSelectedItem();
+
+		if ( booking_toEdit != null ) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+
+			alert.setTitle("Confirmation Dialog");
+			alert.setHeaderText("Are you sure you want to cancel the selected booking?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				if ( booking_toEdit.changeStatus("cancelled") ) {
+					showSuccess("Booking has been cancelled!");
+				} else {
+					showError("Booking could not be cancelled!");
+				}
+				showAllBookings(null);
+			} else {
+				return;
+			}
+		}
+	}
 	public void showAllBookings(ActionEvent event) {
-		showBookingsOnTable("Select * from bookings");
+		showBookingsOnTable("SELECT * FROM `bookings`");
 	}
 	public void showRunning(ActionEvent event) {
-		showBookingsOnTable("Select * from bookings"
-				+ " where ( `check_in` >= concat(curdate(), ' ', curtime()) ) "
-				+ "AND (`check_out` < concat(curdate(), ' ', curtime()) )");
+		showBookingsOnTable("SELECT * FROM `bookings` "
+				+ "WHERE ( ( `check_in` >= concat(curdate(), ' ', curtime()) ) "
+				+ "AND (`check_out` < concat(curdate(), ' ', curtime()) ) ) "
+				+ "OR `status` <> 'completed'");
 	}
 	public void showComingSoon(ActionEvent event) {
-		showBookingsOnTable("Select * from bookings"
-				+ " where `check_in` > concat( curdate(), ' ', curtime() )");
+		showBookingsOnTable("SELECT * FROM `bookings` WHERE `check_in` > concat( curdate(), ' ', curtime() )");
 	}
 	public void showCompleted(ActionEvent event) {
-		showBookingsOnTable("Select * from bookings"
-				+ " where `check_out` <= concat( curdate(), ' ', curtime() )");
+		showBookingsOnTable("SELECT * FROM `bookings` WHERE `status` = 'completed'");
 	}
 
 	public void searchBookFromText(ActionEvent event) {
@@ -205,7 +236,7 @@ public class AdministrationPanel implements Initializable {
 
 			try {
 				Connection conn = Conn.connect();
-				
+
 				PreparedStatement preparedStatement = conn.prepareStatement( query );
 
 				preparedStatement.setString(1, textSearch );
@@ -216,11 +247,9 @@ public class AdministrationPanel implements Initializable {
 				preparedStatement.setString(6, textSearch );
 
 				showBookingsOnTable(preparedStatement);
-				
+
 				conn.close();
 			} catch (SQLException e) { e.printStackTrace(); }
-
-
 		}
 	}
 	public void showBookingsOnTable(Object query) {
@@ -233,13 +262,13 @@ public class AdministrationPanel implements Initializable {
 		tel_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("tel") );
 		email_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("email") );
 		idnum_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("idnum") );
-		room_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("name") );
-		persons_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("paid") );
+		room_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("room_name") );
+		persons_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("numOfPerson") );
 		paid_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("paid") );
+		status_clmn.setCellValueFactory(new PropertyValueFactory<Book, String>("status") );
 
 		bookingList = getBookingsTableData(query);
 		bookingsTable.setItems( bookingList );
-
 
 	}
 	private ObservableList<Book> getBookingsTableData(Object query) {
@@ -249,14 +278,14 @@ public class AdministrationPanel implements Initializable {
 
 		try {
 			Connection conn = Conn.connect();
-			
+
 			if ( query.getClass().equals(String.class) ) {
 				PreparedStatement ps = conn.prepareStatement( (String) query );
 				rs = ps.executeQuery();
 			} else {
 				rs = ((PreparedStatement) query).executeQuery();
 			}
-			
+
 			while (rs.next()) {
 				list.add( new Book(
 						rs.getInt("b_id"), 
@@ -272,11 +301,13 @@ public class AdministrationPanel implements Initializable {
 						rs.getFloat("total_cost"),
 						rs.getString("paid"),
 						rs.getFloat("money_received"),
-						rs.getString("status") ) ); 
+						rs.getString("status"),
+						rs.getInt("room_id"),
+						rs.getInt("numOfPerson"),
+						rs.getString("comments") ) ); 
 			}
 			conn.close();
-		} catch (SQLException e )	{ e.printStackTrace();
-		} catch (ParseException e)	{ e.printStackTrace();	}
+		} catch (SQLException|ParseException e )	{ e.printStackTrace(); }
 
 		ObservableList<Book> data = FXCollections.observableList(list);
 
@@ -297,7 +328,6 @@ public class AdministrationPanel implements Initializable {
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
-		
 
 		if ( room_toEdit != null ) {
 			String newRoomPath = "/application/addRoomGui.fxml";
@@ -305,7 +335,6 @@ public class AdministrationPanel implements Initializable {
 			main.openEditRoomPanel(newRoomPath, "Edit Room" , room_toEdit, this);
 		}
 	}
-
 	public void deleteRoom(ActionEvent event){
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
 
@@ -326,39 +355,39 @@ public class AdministrationPanel implements Initializable {
 			}
 		}
 	}
-	
+
 	public void showAllRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
-		showRoomsOnTable("Select * from rooms");
+		showRoomsOnTable("SELECT * FROM `rooms`");
 	}
 	public void showStandardRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
-		showRoomsOnTable("Select * from rooms where `room_type`='Standard'");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `room_type`='Standard'");
 	}
 	public void showComfortRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
-		showRoomsOnTable("Select * from rooms where `room_type`='Comfort'");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `room_type`='Comfort'");
 	}
 	public void showSuiteRooms(ActionEvent event) {
 		deselectRoomsBedsToggle();
-		showRoomsOnTable("Select * from rooms where `room_type`='Suite'");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `room_type`='Suite'");
 	}
 
 	public void showRooms1Bed(ActionEvent event) {
 		deselectRoomsTypeToggle();
-		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` = 1");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `single_beds` + `double_beds` = 1");
 	}
 	public void showRooms2Beds(ActionEvent event) {
 		deselectRoomsTypeToggle();
-		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` = 2");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `single_beds` + `double_beds` = 2");
 	}
 	public void showRooms3Beds(ActionEvent event) {
 		deselectRoomsTypeToggle();
-		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` = 3");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `single_beds` + `double_beds` = 3");
 	}
 	public void showRooms4plusBeds(ActionEvent event) {
 		deselectRoomsTypeToggle();
-		showRoomsOnTable("Select * from rooms where `single_beds` + `double_beds` >= 4");
+		showRoomsOnTable("SELECT * FROM `rooms` WHERE `single_beds` + `double_beds` >= 4");
 	}
 
 	public void searchRoomFromText(ActionEvent event) {
@@ -395,7 +424,7 @@ public class AdministrationPanel implements Initializable {
 		try {
 			ResultSet rs;
 			Connection conn = Conn.connect();
-			
+
 			if ( query.getClass().equals(String.class) ) {
 				PreparedStatement ps = conn.prepareStatement( (String) query );
 				rs = ps.executeQuery();
@@ -436,7 +465,7 @@ public class AdministrationPanel implements Initializable {
 
 	/* Offers TAB */
 	public void showAllOffers(ActionEvent event) {
-		showOffersOnTable("Select * from offers");
+		showOffersOnTable("SELECT * FROM `offers`");
 	}	
 	public void showOffersOnTable(String query) {
 
@@ -465,7 +494,7 @@ public class AdministrationPanel implements Initializable {
 		try {
 			Connection conn = Conn.connect();
 			ResultSet rs;
-			
+
 			if ( query.getClass().equals(String.class) ) {
 				PreparedStatement ps = conn.prepareStatement( (String) query );
 				rs = ps.executeQuery();
@@ -512,14 +541,14 @@ public class AdministrationPanel implements Initializable {
 
 			offer_name_text.setText(String.valueOf( offer_toEdit.getName() ));
 			offer_req_days_text.setText(String.valueOf(offer_toEdit.getReq_days() ) );
-			
+
 			try {
 				offer_valid_from_date.setValue( (LocalDate) offer_toEdit.getValid_from_edit() );
 				offer_valid_until_date.setValue( (LocalDate) offer_toEdit.getValid_until_edit() );
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 			offer_desc_text.setText( offer_toEdit.getDesc_en() );
 
 			if ( offer_toEdit.getDiscount_amount() == 0 ) {
@@ -577,7 +606,6 @@ public class AdministrationPanel implements Initializable {
 			}
 
 			offers_enableAllControls();
-
 		}
 
 	}
@@ -588,11 +616,9 @@ public class AdministrationPanel implements Initializable {
 		}
 
 		int temp;
-		Alert alert = new Alert(AlertType.ERROR);	
 
 		if ( offer_name_text.getText()== null ||  offer_name_text.getText().trim().isEmpty() ) {
-			alert.setContentText("Offer's title cannot be empty!");
-			alert.show();
+			showError("Offer's title cannot be empty!");
 			return;
 		}
 
@@ -606,12 +632,10 @@ public class AdministrationPanel implements Initializable {
 				}
 
 			} catch ( NumberFormatException e ) {
-				alert.setContentText("Discount percentage cannot contain letters or symbols!");
-				alert.show();
+				showError("Discount percentage cannot contain letters or symbols!");
 				return;
 			} catch ( DataFormatException e ) {
-				alert.setContentText("Discount percentage must be an integer from 1 to 100!");
-				alert.show();
+				showError("Discount percentage must be an integer from 1 to 100!");
 				return;
 			}
 		} else if ( offer_dis_am_radio.isSelected() ) {
@@ -624,12 +648,10 @@ public class AdministrationPanel implements Initializable {
 				}
 
 			} catch ( NumberFormatException e ) {
-				alert.setContentText("Discount amount cannot contain letters or symbols!");
-				alert.show();
+				showError("Discount amount cannot contain letters or symbols!");
 				return;
 			} catch ( DataFormatException e ) {
-				alert.setContentText("Discount amount must be a positive integer!");
-				alert.show();
+				showError("Discount amount must be a positive integer!");
 				return;
 			}
 		}
@@ -644,17 +666,14 @@ public class AdministrationPanel implements Initializable {
 				}
 
 			} catch ( NumberFormatException e ) {
-				alert.setContentText("Required days cannot contain letters or symbols!");
-				alert.show();
+				showError("Required days cannot contain letters or symbols!");
 				return;
 			} catch ( DataFormatException e ) {
-				alert.setContentText("Required days must be 0 or a positive integer!");
-				alert.show();
+				showError("Required days must be 0 or a positive integer!");
 				return;
 			}
 		} else {
-			alert.setContentText("Required days field cannot be empty!\nFor 0 days required, fill 0");
-			alert.show();
+			showError("Required days field cannot be empty!\nFor 0 days required, fill 0");
 			return;
 		}
 
@@ -667,8 +686,7 @@ public class AdministrationPanel implements Initializable {
 			offer_toEdit.setValid_until( dateU.toString() );	
 
 		} else {
-			alert.setContentText("Starting day of the offer cannot be after the Ending day");
-			alert.show();
+			showError("Starting day of the offer cannot be after the Ending day");
 			return;
 		}
 
@@ -711,7 +729,7 @@ public class AdministrationPanel implements Initializable {
 		}
 
 		offer_toEdit.setReq_days( Integer.parseInt( offer_req_days_text.getText() ) );
-		
+
 		offer_toEdit.setDesc_en( offer_desc_text.getText() );
 
 		Boolean okay = true;
@@ -727,14 +745,10 @@ public class AdministrationPanel implements Initializable {
 			newOffer = false;
 			showAllOffers(null);
 
-			alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText("Offer has been successfully saved!");
-			alert.show();
+			showSuccess("Offer has been successfully saved!");
+			offersTable.getSelectionModel().clearSelection();
 		} else {
-
-			alert.setContentText("Offer could not be saved!");
-			alert.show();
-
+			showError("Offer could not be saved!");
 		}
 	} 		
 	public void cancelOffer (ActionEvent event) {
@@ -775,7 +789,7 @@ public class AdministrationPanel implements Initializable {
 		offer_dis_per_text.setEditable(false);
 	}
 	private void offers_default_data() {
-		
+
 		offer_name_text.setText("");
 		offer_valid_from_date.setValue( LocalDate.now() );
 		offer_valid_until_date.setValue( LocalDate.now() );
@@ -785,77 +799,356 @@ public class AdministrationPanel implements Initializable {
 		offer_dis_per_text.setText("");
 		offer_dis_per_radio.setSelected(false);
 		offer_req_days_text.setText("");
-		
+
 		offer_one_bed_check.setSelected(false);
 		offer_two_beds_check.setSelected(false);
 		offer_three_beds_check.setSelected(false);
 		offer_fplus_beds_check.setSelected(false);
-		
+
 		offer_type_stand_check.setSelected(false);
 		offer_type_comf_check.setSelected(false);
 		offer_type_suite_check.setSelected(false);
-		
+
 	}
 	private void offers_enableAllControls(){
-		
-		offer_name_text.setDisable(false);
-		offer_desc_text.setDisable(false);
-		offer_dis_am_radio.setDisable(false);
-		offer_dis_per_radio.setDisable(false);
-		offer_one_bed_check.setDisable(false);
-		offer_two_beds_check.setDisable(false);
-		offer_three_beds_check.setDisable(false);
-		offer_fplus_beds_check.setDisable(false);
-		offer_type_comf_check.setDisable(false);
-		offer_type_stand_check.setDisable(false);
-		offer_type_suite_check.setDisable(false);
-		offer_valid_from_date.setDisable(false);
-		offer_valid_until_date.setDisable(false);
-		offer_req_days_text.setDisable(false);
+		offer_controls.setDisable(false);
 
-		offer_name_text.setEditable(true);
-		offer_desc_text.setEditable(true);
-		offer_req_days_text.setEditable(true);
-
-		offer_SAVE_btn.setDisable(false);
-		offer_CANCEL_btn.setDisable(false);
 		offer_EDIT_btn.setDisable(true);
 		offer_DELETE_btn.setDisable(true);
-		
+
 		offersTable.setDisable(true);
 	}
 	private void offers_disableAllControls(){
+		offer_controls.setDisable(true);
 
-		offer_name_text.setDisable(true);
-		offer_desc_text.setDisable(true);
-		offer_dis_am_radio.setDisable(true);
-		offer_dis_per_radio.setDisable(true);
-		offer_dis_am_text.setDisable(true);
-		offer_dis_per_text.setDisable(true);;
-		offer_one_bed_check.setDisable(true);
-		offer_two_beds_check.setDisable(true);
-		offer_three_beds_check.setDisable(true);
-		offer_fplus_beds_check.setDisable(true);
-		offer_type_comf_check.setDisable(true);
-		offer_type_stand_check.setDisable(true);
-		offer_type_suite_check.setDisable(true);
-		offer_valid_from_date.setDisable(true);
-		offer_valid_until_date.setDisable(true);
-		offer_req_days_text.setDisable(true);
-
-		offer_name_text.setEditable(false);
-		offer_desc_text.setEditable(false);
-		offer_dis_am_text.setEditable(false);
-		offer_dis_per_text.setEditable(false);
-		offer_req_days_text.setEditable(false);
-
-		offer_SAVE_btn.setDisable(true);
-		offer_CANCEL_btn.setDisable(true);
 		offer_EDIT_btn.setDisable(false);
 		offer_DELETE_btn.setDisable(false);
-		
+
 		offersTable.setDisable(false);
 	}
 
+	/* Options TAB */
+	/* Room Services Section */
+	public void selectStandardRoomServices(ActionEvent event){
+		selectCheckboxes(0);
+	}
+	public void selectComfortRoomServices(ActionEvent event){
+		selectCheckboxes(1);
+	}
+	public void selectSuiteRoomServices(ActionEvent event){
+		selectCheckboxes(2);
+	}
+
+	private byte[][] getRoomServicesFromDB() {
+		byte[][] data = new byte[0][0];
+
+		try{
+			Connection conn = Conn.connect();
+			String query = "SELECT * FROM `room_services`";
+			PreparedStatement ps = conn.prepareStatement(query);
+
+			ResultSet rs = ps.executeQuery();
+
+			int rowCount = 0;
+			int i = 0;
+
+			if ( rs.last() ) {
+				rowCount = rs.getRow();
+				rs.beforeFirst();
+			}
+
+			data = new byte[rowCount][3];
+
+			while (rs.next()) {
+				data[ i ][0] = rs.getByte("t_standard");
+				data[ i ][1] = rs.getByte("t_comfort");
+				data[i][2] = rs.getByte("t_suite");
+
+				i++;
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return data;
+	}
+	private void selectCheckboxes(int i) {
+		byte[][] data = getRoomServicesFromDB();
+
+		if ( data[0][i] == 1) {
+			kitchenCkBx.setSelected(true);
+		} else {
+			kitchenCkBx.setSelected(false);
+		}
+
+		if ( data[1][i] == 1) {
+			fridgeCkBx.setSelected(true);
+		} else {
+			fridgeCkBx.setSelected(false);
+		}
+
+		if ( data[2][i] == 1) {
+			acCkBx.setSelected(true);
+		} else {
+			acCkBx.setSelected(false);
+		}
+
+		if ( data[3][i] == 1) {
+			wifiCkBx.setSelected(true);
+		} else {
+			wifiCkBx.setSelected(false);
+		}
+
+		if ( data[4][i] == 1) {
+			radioCkBx.setSelected(true);
+		} else {
+			radioCkBx.setSelected(false);
+		}
+
+		if ( data[5][i] == 1) {
+			lcdtvCkBx.setSelected(true);
+		} else {
+			lcdtvCkBx.setSelected(false);
+		}
+
+		if ( data[6][i] == 1) {
+			safeCkBx.setSelected(true);
+		} else {
+			safeCkBx.setSelected(false);
+		}
+
+		if ( data[7][i] == 1) {
+			fireplaceCkBx.setSelected(true);
+		} else {
+			fireplaceCkBx.setSelected(false);
+		}
+
+		if ( data[8][i] == 1) {
+			barCkBx.setSelected(true);
+		} else {
+			barCkBx.setSelected(false);
+		}
+
+		if ( data[9][i] == 1) {
+			jacuzziCkBx.setSelected(true);
+		} else {
+			jacuzziCkBx.setSelected(false);
+		}
+
+	}
+	public void saveCheckboxes (ActionEvent event) {
+		String cat = "";
+		if (roomServicesTypeStand.isSelected() ) {
+			cat = "t_standard";
+		} else if (roomServicesTypeComf.isSelected() ) {
+			cat = "t_comfort";
+		} else {
+			cat = "t_suite";
+		}
+
+		try {
+			Connection conn = Conn.connect();
+
+
+			String query = "UPDATE `room_services` SET `" + cat + "` = ? WHERE `s_id` = ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+
+			if ( kitchenCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 6);
+			ps.addBatch();
+
+			if ( fridgeCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 7);
+			ps.addBatch();
+
+			if ( acCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 8);
+			ps.addBatch();
+
+			if ( wifiCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 9);
+			ps.addBatch();
+
+			if ( radioCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 10);
+			ps.addBatch();
+
+			if ( lcdtvCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 11);
+			ps.addBatch();
+
+			if ( safeCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 12);
+			ps.addBatch();
+
+			if ( fireplaceCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 13);
+			ps.addBatch();
+
+			if ( barCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 14);
+			ps.addBatch();
+
+			if ( jacuzziCkBx.isSelected() ) {
+				ps.setInt(1, 1);
+			} else {
+				ps.setInt(1, 0);
+			}
+			ps.setInt(2, 15);
+			ps.addBatch();
+
+			ps.executeBatch();
+			showSuccess("Your options have been saved");
+		} catch (SQLException e) {
+			showError("Your options could not be saved!\nTry again later");
+			e.printStackTrace();
+		}
+	}
+
+	/* Extras Section */
+	private Double[] getExtrasFromDB() {
+		Double[] data = new Double[8];
+
+		try{
+			Connection conn = Conn.connect();
+			String query = "SELECT * FROM `extras`";
+			PreparedStatement ps = conn.prepareStatement(query);
+
+			ResultSet rs = ps.executeQuery();
+
+			int i = 0;
+
+			while (rs.next()) {
+				data[i] = rs.getDouble("cost");
+				i++;
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return data;
+	}
+	private void fillExtrasCosts() {
+		Double[] data = getExtrasFromDB();
+
+		breakfastTxt.setText( String.valueOf(data[0] ) );
+		fullDinnerTxt.setText( String.valueOf(data[1] ) );
+		poolTxt.setText( String.valueOf(data[2] ) );
+		hairSalonTxt.setText( String.valueOf(data[3] ) );
+		fitnessTxt.setText( String.valueOf(data[4] ) );
+		spaTxt.setText( String.valueOf(data[5] ) );
+		faceBodyTxt.setText( String.valueOf(data[6] ) );
+		massageTxt.setText( String.valueOf(data[7] ) );
+	}
+	public void saveExtrasCost(ActionEvent event) {
+		
+		boolean notValidFormat = false;
+		boolean problem = false;
+		try{
+			Connection conn = Conn.connect();
+			String query = "UPDATE `extras` SET `cost` = ? WHERE `e_id` = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setDouble(1, Double.parseDouble(breakfastTxt.getText() ) );
+			ps.setInt(2, 1);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(fullDinnerTxt.getText() ) );
+			ps.setInt(2, 2);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(poolTxt.getText() ) );
+			ps.setInt(2, 3);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(hairSalonTxt.getText() ) );
+			ps.setInt(2, 4);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(fitnessTxt.getText() ) );
+			ps.setInt(2, 5);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(spaTxt.getText() ) );
+			ps.setInt(2, 6);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(faceBodyTxt.getText() ) );
+			ps.setInt(2, 7);
+			ps.addBatch();
+			ps.setDouble(1, Double.parseDouble(massageTxt.getText() ) );
+			ps.setInt(2, 8);
+			ps.addBatch();
+			
+			ps.executeBatch();
+			
+			conn.close();
+		} catch (SQLException e) { problem = true; e.printStackTrace();
+		} catch (NumberFormatException e) { notValidFormat = true;}
+		
+		if (problem) {
+			showError("Extras' costs could not be updated");
+		} else if (notValidFormat) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Please check that values are in correct format");
+			alert.setContentText("Use only numbers and use dot (.) as decimal separator! (e.g. instead of 3,14 use 3.14)");
+			alert.showAndWait();
+			return;
+		} else {
+			showSuccess("Changes were saved!");
+			fillExtrasCosts();
+		}
+	}
+
+	/* Users Section */
+
+	/* Alert functions for whole class*/
+	private void showSuccess(String s) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText(s);
+		alert.showAndWait();
+		return;
+	}
+	private void showError(String s) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setHeaderText(s);
+		alert.showAndWait();
+		return;
+	}
 
 }

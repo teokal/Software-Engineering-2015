@@ -1,9 +1,16 @@
 package application;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import database.Conn;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Book {
@@ -21,7 +28,9 @@ public class Book {
 	private SimpleStringProperty  paid;
 	private float money_received;
 	private SimpleStringProperty  status;
-	
+	private int room_id;	
+	private int numOfPerson;
+	private String comments;
 
 	public Book( 
 			int b_id, 
@@ -37,7 +46,10 @@ public class Book {
 			float total_cost, 
 			String  paid, 
 			float money_received, 
-			String  status) throws ParseException {
+			String  status,
+			int room_id,
+			int numOfPerson,
+			String comments) throws ParseException {
 		this.b_id = b_id;
 		this.code = new SimpleStringProperty(code);
 		this.check_in = new SimpleStringProperty(check_in); 
@@ -52,6 +64,10 @@ public class Book {
 		this.paid = new SimpleStringProperty(paid); 
 		this.money_received = money_received; 
 		this.status = new SimpleStringProperty(status);
+		this.room_id = room_id;
+		this.numOfPerson = numOfPerson;
+		this.comments = comments;
+		
 	}
 
 	public void setB_id (int s) {
@@ -173,5 +189,53 @@ public class Book {
 	public String getStatus () {
 		return status.get();
 	}
+	
+	public int getRoom_id () {
+		return room_id;
+	}
+	
+	public int getNumOfPerson () {
+		return numOfPerson;
+	}
+	
+	public String getRoom_name(){
+		
+		try {
+			Connection conn = Conn.connect();
+			String query = "SELECT `room_name` FROM `rooms` WHERE `room_id`=?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setInt(1, getRoom_id() );
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()){
+				String name = rs.getString("room_name");
+				return name;
+			}
+			
+		} catch (SQLException e) {
+			Logger logger = Logger.getLogger("database");
+			logger.setLevel(Level.INFO);
+			logger.info("Error retrieving room's name for booking "+ getCode() );
+			e.printStackTrace();
+		}
+		return "Room Deleted";
+	}
 
+	public boolean changeStatus(String newStatus) {
+		try{
+			Connection conn = Conn.connect();
+			String query = "UPDATE `bookings` SET `status`= ? WHERE `b_id` = ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setString(1, newStatus);
+			ps.setInt(2, getB_id() );
+			
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<Pane fx:id="stepOnePane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
@@ -624,115 +624,115 @@
 		</Pane>
       	<Pane fx:id="stepThreePane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox layoutX="41.0" layoutY="44.0">
+            <VBox layoutX="15.0" layoutY="44.0" prefHeight="163.0" prefWidth="248.0">
                <children>
                   <Label layoutX="41.0" layoutY="44.0" text="Personal Details">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Separator layoutX="41.0" layoutY="63.0" prefHeight="3.0" prefWidth="154.0" />
-                  <HBox layoutX="41.0" layoutY="71.0" spacing="20.0">
+                  <Separator layoutX="41.0" layoutY="63.0" prefHeight="3.0" prefWidth="120.0" />
+                  <HBox layoutX="41.0" layoutY="71.0" prefHeight="20.0" prefWidth="113.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Check In:">
+                        <Label layoutX="71.0" layoutY="71.0" prefHeight="20.0" prefWidth="77.0" text="Check In:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="checkInLbl" alignment="CENTER_RIGHT" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="152.0">
+                        <Label fx:id="checkInLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="150.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="13.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="41.0" layoutY="91.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Check Out:">
+                        <Label layoutX="71.0" layoutY="71.0" prefHeight="20.0" prefWidth="77.0" text="Check Out:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="checkOutLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="checkOutLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="150.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="13.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="41.0" layoutY="111.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Name:">
+                        <Label layoutX="71.0" layoutY="71.0" prefHeight="20.0" prefWidth="77.0" text="Name:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="bookerNameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="167.0">
+                        <Label fx:id="bookerNameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="135.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="41.0" layoutY="131.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Last name:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="77.0" text="Last name:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="bookerSurnameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="143.0">
+                        <Label fx:id="bookerSurnameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="135.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="41.0" layoutY="151.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="ID:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="77.0" text="ID:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="bookerIDLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="192.0">
+                        <Label fx:id="bookerIDLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="135.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="41.0" layoutY="171.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Phone:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="77.0" text="Phone:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="bookerTelLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="164.0">
+                        <Label fx:id="bookerTelLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="135.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="41.0" layoutY="191.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Email:">
+                        <Label layoutX="71.0" layoutY="71.0" prefHeight="20.0" prefWidth="77.0" text="Email:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="bookerEmailLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="170.0">
+                        <Label fx:id="bookerEmailLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="135.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox layoutX="299.0" layoutY="44.0">
+            <VBox layoutX="279.0" layoutY="44.0">
                <children>
                   <Label layoutX="375.0" layoutY="55.0" text="Room Details">
                      <font>
@@ -740,79 +740,79 @@
                      </font>
                   </Label>
                   <Separator layoutX="375.0" layoutY="84.0" prefWidth="200.0" />
-                  <HBox layoutX="406.0" layoutY="85.0" spacing="20.0">
+                  <HBox layoutX="406.0" layoutY="85.0" prefWidth="88.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Persons:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="85.0" text="Persons:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <Label fx:id="numPersonsLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="398.0" layoutY="113.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Single Beds:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="85.0" text="Single Beds:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <Label fx:id="numSingleBedsLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="400.0" layoutY="154.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Double Beds:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="85.0" text="Double Beds:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <Label fx:id="numDoubleBedsLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="73.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Name:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="85.0" text="Name:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="roomNameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
+                        <Label fx:id="roomNameLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="150.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="93.0" spacing="20.0">
                      <children>
-                        <Label layoutX="71.0" layoutY="71.0" text="Type:">
+                        <Label layoutX="71.0" layoutY="71.0" prefWidth="85.0" text="Type:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <Label fx:id="roomTypeLbl" layoutX="137.0" layoutY="71.0" prefHeight="20.0" prefWidth="140.0">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox layoutX="566.0" layoutY="44.0">
+            <VBox layoutX="560.0" layoutY="44.0">
                <children>
                   <Label layoutX="381.0" layoutY="134.0" text="Services:">
                      <font>
@@ -829,7 +829,7 @@
                         </Label>
                         <Label fx:id="previewBreakfastLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="576.0" layoutY="382.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -843,7 +843,7 @@
                         </Label>
                         <Label fx:id="previewFullDinnerLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="586.0" layoutY="392.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -857,7 +857,7 @@
                         </Label>
                         <Label fx:id="previewHairSalonLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="606.0" layoutY="412.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -871,7 +871,7 @@
                         </Label>
                         <Label fx:id="previewPoolLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -885,7 +885,7 @@
                         </Label>
                         <Label fx:id="previewFitnessLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="487.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -899,7 +899,7 @@
                         </Label>
                         <Label fx:id="previewSpaLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -913,7 +913,7 @@
                         </Label>
                         <Label fx:id="previewFaceBodyLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -927,7 +927,7 @@
                         </Label>
                         <Label fx:id="previewMassageLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="596.0" layoutY="402.0" prefHeight="20.0" prefWidth="36.0" text="NO" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Courier New" size="14.0" />
                            </font>
                         </Label>
                      </children>

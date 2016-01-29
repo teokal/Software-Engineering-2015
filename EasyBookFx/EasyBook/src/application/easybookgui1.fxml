@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.embed.swing.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.web.*?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TableColumn?>
 
-<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<tabs>
 		<Tab id="bookings" text="Bookings">
 			<content>
@@ -76,7 +77,7 @@
 								</Group>
 								<Button layoutX="108.0" layoutY="908.0" mnemonicParsing="false" text="Edit" />
 								<TextField layoutX="52.0" layoutY="871.0" />
-								<Button layoutX="66.0" layoutY="472.0" mnemonicParsing="false" style="-fx-background-radius: 15;" onAction="#cancelBook" text="Delete">
+								<Button layoutX="66.0" layoutY="472.0" mnemonicParsing="false" onAction="#cancelBook" style="-fx-background-radius: 15;" text="Delete">
 									<font>
 										<Font size="16.0" />
 									</font>
@@ -552,7 +553,17 @@
 										</Group>
 									</children>
 								</AnchorPane>
-								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="546.0" />
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="569.0" prefWidth="546.0">
+                           <children>
+                              <LineChart fx:id="lineChart" layoutX="23.0" layoutY="58.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children></AnchorPane>
 							</items>
 						</SplitPane>
 					</children>
@@ -565,7 +576,7 @@
 					<children>
 						<Group>
 							<children>
-								<ToggleButton fx:id="roomServicesTypeComf" layoutX="26.0" layoutY="69.0" mnemonicParsing="false" prefWidth="70.0" onAction="#selectComfortRoomServices" text="Comfort">
+								<ToggleButton fx:id="roomServicesTypeComf" layoutX="26.0" layoutY="69.0" mnemonicParsing="false" onAction="#selectComfortRoomServices" prefWidth="70.0" text="Comfort">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -573,12 +584,12 @@
 										<ToggleGroup fx:id="categoryTypeOptions" />
 									</toggleGroup>
 								</ToggleButton>
-								<ToggleButton fx:id="roomServicesTypeSuite" layoutX="26.0" layoutY="112.0" mnemonicParsing="false" prefWidth="70.0" onAction="#selectSuiteRoomServices" text="Suite" toggleGroup="$categoryTypeOptions">
+								<ToggleButton fx:id="roomServicesTypeSuite" layoutX="26.0" layoutY="112.0" mnemonicParsing="false" onAction="#selectSuiteRoomServices" prefWidth="70.0" text="Suite" toggleGroup="$categoryTypeOptions">
 									<font>
 										<Font size="13.0" />
 									</font>
 								</ToggleButton>
-								<ToggleButton fx:id="roomServicesTypeStand" layoutX="26.0" layoutY="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" onAction="#selectStandardRoomServices"  text="Standard" toggleGroup="$categoryTypeOptions">
+								<ToggleButton fx:id="roomServicesTypeStand" layoutX="26.0" layoutY="25.0" mnemonicParsing="false" onAction="#selectStandardRoomServices" prefHeight="25.0" prefWidth="70.0" text="Standard" toggleGroup="$categoryTypeOptions">
 									<font>
 										<Font size="13.0" />
 									</font>
@@ -599,7 +610,7 @@
 								<CheckBox fx:id="barCkBx" layoutX="189.0" layoutY="100.0" mnemonicParsing="false" text="Mini Bar" />
 							</children>
 						</Group>
-						<Button fx:id="roomServices_SAVE_btn" layoutX="300.0" layoutY="69.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" onAction="#saveCheckboxes" text="Save">
+						<Button fx:id="roomServices_SAVE_btn" layoutX="300.0" layoutY="69.0" mnemonicParsing="false" onAction="#saveCheckboxes" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
 							<font>
 								<Font size="14.0" />
 							</font>
@@ -737,7 +748,7 @@
 								</HBox>
 							</children>
 						</VBox>
-						<Button fx:id="extras_SAVE_btn" layoutX="460.0" layoutY="235.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" onAction="#saveExtrasCost" text="Save">
+						<Button fx:id="extras_SAVE_btn" layoutX="460.0" layoutY="235.0" mnemonicParsing="false" onAction="#saveExtrasCost" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
 							<font>
 								<Font size="14.0" />
 							</font>

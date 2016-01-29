@@ -88,7 +88,7 @@
 				</Button>
 				<Pane fx:id="availableRoomsPane" disable="true" layoutY="279.0" prefHeight="260.0" prefWidth="800.0">
 					<children>
-						<TableView fx:id="availableRoomsTable" layoutX="72.0" layoutY="22.0" prefHeight="222.0" prefWidth="657.0">
+						<TableView fx:id="availableRoomsTable" layoutX="72.0" layoutY="10.0" prefHeight="195.0" prefWidth="657.0">
 							<columns>
 								<TableColumn fx:id="avRoomName_col" prefWidth="100.0" text="Name" />
 								<TableColumn text="Beds">
@@ -108,14 +108,14 @@
       								<Font size="20.0" />
       							</font>
       						</Button>
+                  <Label fx:id="lbl" layoutX="260.0" layoutY="215.0" prefHeight="30.0" prefWidth="278.0">
+                     <font>
+                        <Font name="Garamond" size="12.0" />
+                     </font>
+                  </Label>
 					</children>
 				</Pane>
             <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#changeBooking" text="Change your Booking" />
-            <Label fx:id="lbl" layoutX="555.0" layoutY="541.0" prefHeight="41.0" prefWidth="212.0" text="LED TV">
-               <font>
-                  <Font name="Garamond" size="12.0" />
-               </font>
-            </Label>
 			</children>
 		</Pane>
 		<Pane fx:id="stepTwoPane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Pane fx:id="stepOnePane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<Pane fx:id="stepOnePane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
 				<Label alignment="CENTER" layoutX="124.0" layoutY="20.0" prefHeight="40.0" prefWidth="517.0" text="Imaginary Hotel">
 					<font>
@@ -24,13 +24,8 @@
 						<Font name="Serif Italic" size="24.0" />
 					</font>
 				</Label>
-				<HBox layoutX="135.0" layoutY="110.0" spacing="20.0">
+				<HBox layoutX="186.0" layoutY="110.0" spacing="20.0">
 					<children>
-						<Label prefHeight="50.0" prefWidth="81.0" text="Search for">
-							<font>
-								<Font size="14.0" />
-							</font>
-						</Label>
 						<VBox layoutX="78.0" layoutY="146.0">
 							<children>
 								<Label layoutX="85.0" layoutY="146.0" text="Arrive">
@@ -63,13 +58,8 @@
 						</VBox>
 					</children>
 				</HBox>
-				<HBox layoutX="135.0" layoutY="174.0" prefHeight="30.0" prefWidth="511.0" spacing="30.0">
+				<HBox layoutX="190.0" layoutY="176.0" prefHeight="30.0" prefWidth="360.0" spacing="30.0">
 					<children>
-						<Label prefHeight="30.0" prefWidth="81.0" text="Room Type">
-							<font>
-								<Font size="14.0" />
-							</font>
-						</Label>
 						<ToggleButton fx:id="type_stand_toggle" mnemonicParsing="false" onAction="#disableAvRoomsTable" prefHeight="30.0" prefWidth="100.0" selected="true" text="Standard">
 							<font>
 								<Font size="14.0" />
@@ -113,14 +103,19 @@
 							</columns>
 						</TableView>
 						<Separator layoutX="34.0" layoutY="253.0" prefHeight="3.0" prefWidth="733.0" />
-						<Button fx:id="bookNOW_btn" layoutX="338.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRoomToBook" style="-fx-background-radius: 50;" text="Book Now!">
-							<font>
-								<Font size="20.0" />
-							</font>
-						</Button>
+      						<Button fx:id="bookNOW_btn" layoutX="320.0" layoutY="263.0" mnemonicParsing="false" onAction="#selectRoomToBook" style="-fx-background-radius: 50;" text="Book Now!">
+      							<font>
+      								<Font size="20.0" />
+      							</font>
+      						</Button>
 					</children>
 				</Pane>
             <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#changeBooking" text="Change your Booking" />
+            <Label fx:id="lbl" layoutX="555.0" layoutY="541.0" prefHeight="41.0" prefWidth="212.0" text="LED TV">
+               <font>
+                  <Font name="Garamond" size="12.0" />
+               </font>
+            </Label>
 			</children>
 		</Pane>
 		<Pane fx:id="stepTwoPane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -622,7 +617,7 @@
 				</Accordion>
 			</children>
 		</Pane>
-      	<Pane fx:id="stepThreePane" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      	<Pane fx:id="stepThreePane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox layoutX="15.0" layoutY="44.0" prefHeight="163.0" prefWidth="248.0">
                <children>

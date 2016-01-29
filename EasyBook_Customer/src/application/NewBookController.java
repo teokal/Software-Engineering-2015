@@ -1,5 +1,7 @@
 package application;
 
+import static java.nio.charset.StandardCharsets.*;
+
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
@@ -14,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -95,21 +98,21 @@ public class NewBookController implements Initializable {
 	private TableColumn<BookingChoices, Double> avRoomPrice_col, avRoomCostPerDay_col;
 	@FXML
 	private Label totalCost_txt, totalCostLbl, breakfastLbl, fullDinnerLbl, poolLbl, hairSalonLbl, 
-			fitnessCenterLbl, spaTreatmentsLbl, faceBodyCareLbl, massageTherapiesLbl,
-			checkInLbl, checkOutLbl, bookerNameLbl, bookerSurnameLbl,
-			bookerIDLbl, bookerTelLbl, bookerEmailLbl,
-			numPersonsLbl, numSingleBedsLbl, numDoubleBedsLbl, roomNameLbl, roomTypeLbl,
-			previewBreakfastLbl, previewFullDinnerLbl, previewHairSalonLbl,
-			previewPoolLbl, previewFitnessLbl, previewSpaLbl, previewFaceBodyLbl,previewMassageLbl,
-			paymentLbl, bookingCodeLbl, bookingSuccess, bookingFailed;
+	fitnessCenterLbl, spaTreatmentsLbl, faceBodyCareLbl, massageTherapiesLbl,
+	checkInLbl, checkOutLbl, bookerNameLbl, bookerSurnameLbl,
+	bookerIDLbl, bookerTelLbl, bookerEmailLbl,
+	numPersonsLbl, numSingleBedsLbl, numDoubleBedsLbl, roomNameLbl, roomTypeLbl,
+	previewBreakfastLbl, previewFullDinnerLbl, previewHairSalonLbl,
+	previewPoolLbl, previewFitnessLbl, previewSpaLbl, previewFaceBodyLbl,previewMassageLbl,
+	paymentLbl, bookingCodeLbl, bookingSuccess, bookingFailed;
 	@FXML
 	private CheckBox breakfastCkBx, fullDinnerCkBx, poolCkBx, hairSalonCkBx, 
-			fitnessCenterCkBx, spaTreatmentsCkBx, faceBodyCareCkBx, massageTherapiesCkBx;
+	fitnessCenterCkBx, spaTreatmentsCkBx, faceBodyCareCkBx, massageTherapiesCkBx;
 	@FXML
 	private SplitMenuButton titleTxt;
 	@FXML
 	private HBox totalCostHBox, bookingCodeHBox;
-	
+
 	private String searchFrom, searchUntil, searchRoomType;
 	private int searchNumOfPerson, searchNumOfDays;
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -117,12 +120,12 @@ public class NewBookController implements Initializable {
 	private double extrasCost;
 	private BookingChoices choosed;
 	private Stage pStage;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		checkIn_date.setValue( LocalDate.now() );
-		
+
 		final Callback<DatePicker, DateCell> disableDaysBeforeNow = 
 				new Callback<DatePicker, DateCell>() {
 			@Override
@@ -141,7 +144,7 @@ public class NewBookController implements Initializable {
 				};
 			}
 		};
-		
+
 		final Callback<DatePicker, DateCell> disableDaysBeforeCheckIn = 
 				new Callback<DatePicker, DateCell>() {
 			@Override
@@ -160,29 +163,29 @@ public class NewBookController implements Initializable {
 				};
 			}
 		};
-		
+
 		checkIn_date.setDayCellFactory(disableDaysBeforeNow);
 		checkIn_date.setOnAction(event -> { disableAvRoomsTable(null); });
-		
+
 		checkOut_date.setDayCellFactory(disableDaysBeforeCheckIn);
 		checkOut_date.setOnAction(event -> { disableAvRoomsTable(null); });
-		
+
 		numOfPeople.textProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable,
-		            String oldValue, String newValue) { disableAvRoomsTable(null); }
+			@Override
+			public void changed(ObservableValue<? extends String> observable,
+					String oldValue, String newValue) { disableAvRoomsTable(null); }
 		});
-		
+
 		EventHandler<ActionEvent> eh = new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event) {
-		        if (event.getSource() instanceof CheckBox) {
-		            updateExtras();
-		            totalCost_txt.setText( String.valueOf( choosed.getBooking_total() ) );
-		        }
-		    }
+			@Override
+			public void handle(ActionEvent event) {
+				if (event.getSource() instanceof CheckBox) {
+					updateExtras();
+					totalCost_txt.setText( String.valueOf( choosed.getBooking_total() ) );
+				}
+			}
 		};
-		
+
 		breakfastCkBx.setOnAction(eh);
 		fullDinnerCkBx.setOnAction(eh);
 		poolCkBx.setOnAction(eh);
@@ -191,9 +194,9 @@ public class NewBookController implements Initializable {
 		spaTreatmentsCkBx.setOnAction(eh);
 		faceBodyCareCkBx.setOnAction(eh);
 		massageTherapiesCkBx.setOnAction(eh);
-		
+
 		setCostsToExtras();
-		
+
 		stepThreePane.setVisible(false);
 		stepTwoPane.setVisible(false);
 		stepOnePane.setVisible(true);
@@ -201,7 +204,7 @@ public class NewBookController implements Initializable {
 	public NewBookController (Stage pStage) {
 		this.pStage = pStage;
 	}
-	
+
 	public void findRooms(ActionEvent event){
 
 		Alert alert = new Alert(AlertType.ERROR);
@@ -332,11 +335,11 @@ public class NewBookController implements Initializable {
 						rooms.getString("room_type"),
 						rooms.getDouble("cost")
 						);
-				
+
 				if ( offers.next() ) {
 					offers.previous();
 					while ( offers.next() ) {
-						
+
 						int numBeds = bChoice.getNumberOfBeds();
 						boolean apply = false;
 
@@ -351,7 +354,7 @@ public class NewBookController implements Initializable {
 						}
 
 						if ( apply ) {
-							
+
 							BookingChoices bChoice2 = new BookingChoices(bChoice);
 							logger.info( ++i + " "+ bChoice2.getRoom_name() + " " + offers.getString("name") );
 
@@ -361,7 +364,7 @@ public class NewBookController implements Initializable {
 							bChoice2.setDiscount_percentage( offers.getInt("discount_percentage") );
 
 							if ( offers.getInt("discount_amount") != 0 ) {
-								bChoice2.setDiscount_show( offers.getString("name") + "(-" + offers.getInt("discount_amount") + "€)" );
+								bChoice2.setDiscount_show( offers.getString("name") + "(-" + offers.getInt("discount_amount") + "e)" );
 								bChoice2.setBooking_cost( bChoice2.getRoom_cost() * searchNumOfDays  - bChoice2.getDiscount_amount() );
 							} else {
 								bChoice2.setDiscount_show( offers.getString("name") + "(-" + offers.getInt("discount_percentage") + "%)" );
@@ -371,13 +374,13 @@ public class NewBookController implements Initializable {
 							list.add( bChoice2 );
 						}
 					}
-				
+
 				} else {
 					logger.info( ++i + " "+ bChoice.getRoom_name() );
 					bChoice.setBooking_cost( bChoice.getRoom_cost() * searchNumOfDays );
 					list.add( bChoice );
 				}
-				
+
 				offers.beforeFirst();
 			}
 
@@ -396,7 +399,7 @@ public class NewBookController implements Initializable {
 		//stepThreePane.setVisible(false);
 		stepTwoPane.setVisible(false);
 		stepOnePane.setVisible(true);
-		
+
 		breakfastCkBx.setSelected(false);
 		fullDinnerCkBx.setSelected(false);
 		poolCkBx.setSelected(false);
@@ -405,22 +408,25 @@ public class NewBookController implements Initializable {
 		spaTreatmentsCkBx.setSelected(false);
 		faceBodyCareCkBx.setSelected(false);
 		massageTherapiesCkBx.setSelected(false);
-		
+
 		updateExtras();
 	}
-	
+
 	public void selectRoomToBook (ActionEvent event){
-		
+
 		choosed = availableRoomsTable.getSelectionModel().getSelectedItem();
 		totalCost_txt.setText( String.valueOf( choosed.getBooking_cost() ) );
 		stepOnePane.setVisible(false);
 		stepTwoPane.setVisible(true);
-		
-//		generatePDF();
-		
+
+		setUpValidation(nameTxt);
+		setUpValidation(sNameTxt);
+		setUpValidation(idTxt);
+		setUpValidation(telTxt);
+
 	}
 	public void changeBooking(ActionEvent event) {
-		
+
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
 		dialog.setTitle("Edit your booking");
 		dialog.setHeaderText("Please enter below your booking's details to continue");
@@ -465,7 +471,7 @@ public class NewBookController implements Initializable {
 		});
 
 		dialog.getDialogPane().setContent(grid);
-		
+
 		// Request focus on the bookingID field by default.
 		Platform.runLater(() -> bookingID.requestFocus());
 		dialog.showAndWait();
@@ -491,7 +497,7 @@ public class NewBookController implements Initializable {
 			return "`type_suite`";
 		} 
 	}
-	
+
 	private void setCostsToExtras() {
 
 		try {
@@ -499,7 +505,7 @@ public class NewBookController implements Initializable {
 			String query = "SELECT * FROM `extras`";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
-			
+
 			rs.next();breakfastLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
 			rs.next();fullDinnerLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
 			rs.next();poolLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
@@ -508,13 +514,13 @@ public class NewBookController implements Initializable {
 			rs.next();spaTreatmentsLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
 			rs.next();faceBodyCareLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
 			rs.next();massageTherapiesLbl.setText( String.valueOf( rs.getFloat("cost" ) ) );
-			
+
 			conn.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	public void backToStepTwo (ActionEvent event){
 		stepThreePane.setVisible(false);
@@ -526,90 +532,92 @@ public class NewBookController implements Initializable {
 		double curCost = 0;
 		Logger logger = Logger.getLogger("application");
 		logger.setLevel(Level.INFO);
-		
+
 		if ( breakfastCkBx.isSelected() ) {
 			curCost = Double.parseDouble( breakfastLbl.getText() ) * searchNumOfPerson * searchNumOfDays;
 			logger.log(Level.INFO, "Breakfast: " + curCost + " -> " + breakfastLbl.getText() + " x " + searchNumOfPerson + "person x " + searchNumOfDays + " days");
-        	extrasCost += curCost;
-        	previewBreakfastLbl.setText("YES");
-        } else { previewBreakfastLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewBreakfastLbl.setText("YES");
+		} else { previewBreakfastLbl.setText("NO"); }
 		if ( fullDinnerCkBx.isSelected() ) {
 			curCost = Double.parseDouble( fullDinnerLbl.getText() ) * searchNumOfPerson * searchNumOfDays;
 			logger.info("FullDinner: " + curCost + " -> " + fullDinnerLbl.getText() + " x " + searchNumOfPerson + " person x " + searchNumOfDays + " days");
-        	extrasCost += curCost;
-        	previewFullDinnerLbl.setText("YES");
-        } else { previewFullDinnerLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewFullDinnerLbl.setText("YES");
+		} else { previewFullDinnerLbl.setText("NO"); }
 		if ( poolCkBx.isSelected() ) {
 			curCost = Double.parseDouble( poolLbl.getText() ) * searchNumOfPerson;
 			logger.info("Pool: " + curCost + " -> " + poolLbl.getText() + " x " + searchNumOfPerson + " person");
-        	extrasCost += curCost;
-    		previewPoolLbl.setText("YES");
-        } else { previewPoolLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewPoolLbl.setText("YES");
+		} else { previewPoolLbl.setText("NO"); }
 		if ( hairSalonCkBx.isSelected() ) {
 			curCost = Double.parseDouble( hairSalonLbl.getText() );
 			logger.info("HairSalon: " + curCost + " -> " + hairSalonLbl.getText() );
-        	extrasCost += curCost;
-    		previewHairSalonLbl.setText("YES");
-        } else { previewHairSalonLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewHairSalonLbl.setText("YES");
+		} else { previewHairSalonLbl.setText("NO"); }
 		if ( fitnessCenterCkBx.isSelected() ) {
 			curCost = Double.parseDouble( fitnessCenterLbl.getText() ) * searchNumOfPerson;
 			logger.info("Fitness Center: " + curCost + " -> " + fitnessCenterLbl.getText() + " x " + searchNumOfPerson + " person");
-        	extrasCost += curCost;
-        	previewFitnessLbl.setText("YES");
-        } else { previewFitnessLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewFitnessLbl.setText("YES");
+		} else { previewFitnessLbl.setText("NO"); }
 		if ( spaTreatmentsCkBx.isSelected() ) {
 			curCost = Double.parseDouble( spaTreatmentsLbl.getText() );
 			logger.info("Spa Treatments: " + curCost + " -> " + spaTreatmentsLbl.getText() );
-        	extrasCost += curCost;
-        	previewSpaLbl.setText("YES");
-        } else { previewSpaLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewSpaLbl.setText("YES");
+		} else { previewSpaLbl.setText("NO"); }
 		if ( faceBodyCareCkBx.isSelected() ) {
 			curCost = Double.parseDouble( faceBodyCareLbl.getText() ) * searchNumOfPerson;
 			logger.info("Face & Body Care: " + curCost + " -> " + faceBodyCareLbl.getText() + " x " + searchNumOfPerson + " person");
-        	extrasCost += curCost;
-    		previewFaceBodyLbl.setText("YES");
-        } else { previewFaceBodyLbl.setText("NO"); }
+			extrasCost += curCost;
+			previewFaceBodyLbl.setText("YES");
+		} else { previewFaceBodyLbl.setText("NO"); }
 		if ( massageTherapiesCkBx.isSelected() ) {
 			curCost = Double.parseDouble( massageTherapiesLbl.getText() ) * searchNumOfPerson;
 			logger.info("Massage Therapies: " + curCost + " -> " + massageTherapiesLbl.getText() + " x " + searchNumOfPerson + " person");
-        	extrasCost += curCost;
-    		previewMassageLbl.setText("YES");
-        } else { previewMassageLbl.setText("NO"); }
-		
+			extrasCost += curCost;
+			previewMassageLbl.setText("YES");
+		} else { previewMassageLbl.setText("NO"); }
+
 		choosed.setExtrasCost( extrasCost );
 	}
 	public void proceedToPaymentMethod(){
-		Alert alert = new Alert(AlertType.ERROR);
-		if ( 	nameTxt.getText().trim().equals("") ||
-				sNameTxt.getText().trim().equals("") ||
-				idTxt.getText().trim().equals("") ||
-				telTxt.getText().trim().equals("") ||
-				!validateEmail( emailTxt.getText() ) 
-			) {
-			
-			alert.setContentText("Please check that you have filled all fields properly!");
-			alert.show();
-			return;
-		}
-		
+		boolean problem = false;
+		if ( 	nameTxt.getText().trim().equals("")		) { validate(nameTxt); problem = true; }
+		if (	sNameTxt.getText().trim().equals("")	) { validate(sNameTxt); problem = true; }
+		if (	idTxt.getText().trim().equals("") 		) { validate(idTxt); problem = true; }
+		if (	telTxt.getText().trim().equals("")		) { validate(telTxt); problem = true; }
+		if (	!validateEmail( emailTxt) 				) {	problem = true; }
+
+		if (problem) return;
+
 		choosed.setBookerTitle( titleTxt.getText() );
 		choosed.setBookerName( nameTxt.getText() );
 		choosed.setBookerSurname( sNameTxt.getText() );
 		choosed.setBookerIDNum( idTxt.getText() );
 		choosed.setBookerTel( telTxt.getText() );
 		choosed.setBookerEmail( emailTxt.getText() );
-		
+
 		stepTwoPane.setVisible(false);
 		prepareThirdPane();
 		stepThreePane.setVisible(true);
 	}
-	public static boolean validateEmail(String emailStr) {
+	public static boolean validateEmail(TextField tf) {
 		//Found it here: http://stackoverflow.com/questions/8204680/java-regex-email#answer-8204716
 		Pattern VALID_EMAIL_ADDRESS_REGEX = 
 				Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-		
-		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
-		return matcher.find();
+
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(tf.getText() );
+		ObservableList<String> styleClass = tf.getStyleClass();
+		if ( !matcher.find() ) {
+			if (! styleClass.contains("error")) {  styleClass.add("error"); return false;}
+		} else {
+			styleClass.removeAll(Collections.singleton("error")); return true;                    
+		}
+		return false;
 	}
 
 	private void prepareThirdPane() {
@@ -625,48 +633,48 @@ public class NewBookController implements Initializable {
 		numDoubleBedsLbl.setText( String.valueOf( choosed.getDouble_beds() ) );
 		roomNameLbl.setText( choosed.getRoom_name() );
 		roomTypeLbl.setText( choosed.getRoom_type() );	
-		
+
 		totalCostLbl.setText( String.valueOf( choosed.getBooking_total() ) );
-		
+
 		totalCostHBox.setVisible(true);
 		paymentLbl.setVisible(true);
 		confirm_btn.setVisible(true);
 		bookingCodeHBox.setVisible(false);
 		bookingCodeLbl.setText("");
 	}
-	
+
 	public void completeBooking(ActionEvent event) {
-		
+
 		backToStepTwo_Btn.setVisible(false);
 		totalCostHBox.setVisible(false);
 		paymentLbl.setVisible(false);
 		confirm_btn.setVisible(false);
-		
+
 		if ( insertBookingIntoBatabase() && generatePDF() ) {
 			bookingCodeHBox.setVisible(true);
 			bookingCodeLbl.setText( choosed.getBookingCode() );
-			
+
 			bookingSuccess.setVisible(true);
-			
+
 		} else {
 			bookingFailed.setVisible(true);
 		}
-		
+
 	}
-	
+
 	private boolean insertBookingIntoBatabase() {
-		
+
 		try {
 			Connection conn = Conn.connect();
-			
+
 			String query = "INSERT INTO `easybooksql`.`bookings`"
 					+ "(`room_id`,`offer_id`,`check_in`,`check_out`,`numdays`,"
 					+ "`title`,`name`,`sname`,`idnum`,`tel`,`email`,`payment_method`,`total_cost`,"
 					+ "`paid`,`money_received`,`status`, `comments`,`numOfPerson`) VALUES"
 					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			
+
 			PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			
+
 			ps.setInt(1, choosed.getRoom_id() );
 			ps.setInt(2, choosed.getO_id() );
 			ps.setString(3, searchFrom);
@@ -685,60 +693,60 @@ public class NewBookController implements Initializable {
 			ps.setString(16, "pending" );
 			ps.setString(17, commentsBox.getText() );
 			ps.setInt(18, searchNumOfPerson);
-			
-			int affectedRows = ps.executeUpdate();
-			
-			if (affectedRows == 0) {
-	            throw new SQLException("Creating booking failed! Please try again later.");
-	        }
 
-	        try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-	            if ( generatedKeys.next() ) {
-	            	choosed.setBookingID( generatedKeys.getInt(1) );
-	            	choosed.setBookingCode( hash(String.valueOf( choosed.getBookingID() ) ).substring(0,10).toUpperCase() );
-	            	query = "UPDATE `bookings` SET `code` = ? WHERE `b_id` = ?";
-	            	ps = conn.prepareStatement(query);
-	            	
-	            	ps.setString(1, choosed.getBookingCode() );
+			int affectedRows = ps.executeUpdate();
+
+			if (affectedRows == 0) {
+				throw new SQLException("Creating booking failed! Please try again later.");
+			}
+
+			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+				if ( generatedKeys.next() ) {
+					choosed.setBookingID( generatedKeys.getInt(1) );
+					choosed.setBookingCode( hash(String.valueOf( choosed.getBookingID() ) ).substring(0,10).toUpperCase() );
+					query = "UPDATE `bookings` SET `code` = ? WHERE `b_id` = ?";
+					ps = conn.prepareStatement(query);
+
+					ps.setString(1, choosed.getBookingCode() );
 					ps.setInt(2, choosed.getBookingID() );
-					
+
 					ps.executeUpdate();
-					
+
 					if ( insertExtrasIntoDatabase() ) {
 						return true;
 					}
-	            } else {
-	                throw new SQLException("Creating booking failed, no ID & Code obtained.");
-	            }
-	        }
-			
-			
+				} else {
+					throw new SQLException("Creating booking failed, no ID & Code obtained.");
+				}
+			}
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
-	
+
 	private Boolean insertExtrasIntoDatabase() {
-		
+
 		try {
 			Connection conn = Conn.connect();
 			conn.setAutoCommit(false);
-			
+
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM `booking_extras` WHERE `b_id` = ?");
 			ps.setInt(1, choosed.getBookingID() );
 			ps.executeUpdate();
-			
+
 			String query = "INSERT INTO `booking_extras`(`b_id`, `e_id`) VALUES (?, ?)";
 			ps = conn.prepareStatement(query);
-			
+
 			ps.setInt(1, choosed.getBookingID() );
-			
+
 			if ( breakfastCkBx.isSelected() ) {
 				ps.setInt(2, 1);
 				ps.addBatch();
-	        }
+			}
 			if ( fullDinnerCkBx.isSelected() ) {
 				ps.setInt(2, 2);
 				ps.addBatch();
@@ -767,9 +775,9 @@ public class NewBookController implements Initializable {
 				ps.setInt(2, 8);
 				ps.addBatch();
 			}
-			
+
 			ps.executeBatch();
-			
+
 			conn.commit();
 			conn.close();
 			return true;
@@ -778,36 +786,36 @@ public class NewBookController implements Initializable {
 		}
 		return false;
 	}
-	
+
 	private String hash(String s) {
-			
-			MessageDigest m;
-			BigInteger bi = null;
-			try {
-				
-				m = MessageDigest.getInstance("MD5");
-				m.update( s.getBytes(), 0, s.length() );
-				bi = new BigInteger(1, m.digest() );
-				
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-			
-			return bi.toString(16);
-			
+
+		MessageDigest m;
+		BigInteger bi = null;
+		try {
+
+			m = MessageDigest.getInstance("MD5");
+			m.update( s.getBytes(), 0, s.length() );
+			bi = new BigInteger(1, m.digest() );
+
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 
+		return bi.toString(16);
+
+	}
+	
 	@SuppressWarnings("resource")
 	private boolean generatePDF() {
-		
+
 		try {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setInitialFileName("myBooking_" + choosed.getBookingCode() + ".pdf");
-            fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf") );
-			
+			fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf") );
+
 			PDDocument doc = new PDDocument();
 			PDPage page = new PDPage(PDPage.PAGE_SIZE_A4);
-	        PDFont font = PDType1Font.HELVETICA;
+			PDFont font = PDType1Font.HELVETICA;
 			
 			PDPageContentStream content = new PDPageContentStream(doc, page);
 
@@ -823,25 +831,25 @@ public class NewBookController implements Initializable {
 			content.endText();
 
 			content = printDataOnPdf(content, choosed.prepareData(searchFrom, searchUntil, numOfPeople.getText() ), 760 );
-			
+
 			content.close();
-			
+
 			doc.addPage(page);
 			doc.save( fileChooser.showSaveDialog( pStage ) );
-            
+
 			doc.close();
-			
+
 			return true;
-			
+
 		} catch (COSVisitorException | IOException e) {
 			e.printStackTrace();
 		}
-	
+
 		return false;
 	}
 
 	private PDPageContentStream printDataOnPdf( PDPageContentStream content, String[][] data, int y ) {
-
+		
 		try {
 			for (int i=0; i<data.length; i++ ) {
 				if ( data[i][0] == null && data[i][1] == null) {
@@ -850,10 +858,13 @@ public class NewBookController implements Initializable {
 				}
 				content.beginText();
 				content.moveTextPositionByAmount(30, y);
-				content.drawString( ( data[i][0]!=null?data[i][0]:"" ) + ( data[i][1]!=null?" "+data[i][1]:"") );
+				byte ptext[] = (( data[i][0]!=null?data[i][0]:"" ) + ( data[i][1]!=null?" "+data[i][1]:"")).getBytes("UTF-8"); 
+				String value = new String(ptext, UTF_8); 
+				content.drawString(value);
 				content.endText();
 				y -= 20;
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -863,5 +874,24 @@ public class NewBookController implements Initializable {
 
 	public void disableAvRoomsTable(ActionEvent event){
 		availableRoomsPane.setDisable(true);
+	}
+
+	// http://stackoverflow.com/questions/24231610/javafx-red-border-for-text-field
+	private void setUpValidation(final TextField tf) { 
+		tf.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable,
+					String oldValue, String newValue) {
+				validate(tf);
+			}
+		});
+	}
+	private void validate(TextField tf) {
+		ObservableList<String> styleClass = tf.getStyleClass();
+		if (tf.getText().trim().length()==0) {
+			if (! styleClass.contains("error")) {  styleClass.add("error"); }
+		} else {
+			styleClass.removeAll(Collections.singleton("error"));                    
+		}
 	}
 }

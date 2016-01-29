@@ -57,11 +57,11 @@ CREATE TABLE `bookings` (
   `check_out` datetime NOT NULL,
   `numdays` int(11) NOT NULL,
   `numOfPerson` int(10) NOT NULL,
-  `title` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `name` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `sname` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `idnum` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `tel` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `title` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `sname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `idnum` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `tel` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(45) CHARACTER SET utf8 NOT NULL,
   `payment_method` varchar(45) CHARACTER SET utf8 NOT NULL,
   `total_cost` decimal(10,2) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE `bookings` (
   UNIQUE KEY `b_code_UNIQUE` (`code`),
   KEY `check_in_idx` (`check_in`),
   KEY `check_out_idx` (`check_out`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +83,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (17,6,0,'70EFDF2EC9','2016-01-29 14:00:00','2016-02-01 12:00:00',3,2,'Mr.','Petros','Papadakos','AB 12345','697123456','petrosp@hotmail.com','EasyBank',138.10,'paid',138.10,'pending','free wifi');
+INSERT INTO `bookings` VALUES (17,6,0,'70EFDF2EC9','2016-01-29 14:00:00','2016-02-01 12:00:00',3,2,'Mr.','Petros','Papadakos','AB 12345','697123456','petrosp@hotmail.com','EasyBank',138.10,'paid',138.10,'pending','free wifi'),(30,2,1,'34173CB38F','2016-01-29 14:00:00','2016-02-03 12:00:00',5,2,'Mr.','Θοδωρής','Καλατζής','ΑΙ855498','12343232','email@oifwj.com','EasyBank',604.50,'paid',604.50,'pending',''),(36,1,1,'19CA14E7EA','2016-01-29 14:00:00','2016-02-06 12:00:00',8,2,'Mr.','Θοδωρής','Καλατζής','ΑΙ42342','12312312412','teo.kal@hotmail.com','EasyBank',668.20,'paid',668.20,'pending','');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ DROP TABLE IF EXISTS `extras`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `extras` (
   `e_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `cost` decimal(5,2) NOT NULL,
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_id_UNIQUE` (`e_id`)
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `offers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `offers` (
   `o_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `valid_from` datetime NOT NULL,
   `valid_until` datetime NOT NULL,
   `required_days` int(11) NOT NULL DEFAULT '0',
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `room_services`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `room_services` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_name` varchar(45) NOT NULL,
+  `s_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `t_standard` tinyint(1) NOT NULL DEFAULT '0',
   `t_comfort` tinyint(1) NOT NULL DEFAULT '0',
   `t_suite` tinyint(1) NOT NULL DEFAULT '0',
@@ -188,8 +188,8 @@ DROP TABLE IF EXISTS `rooms`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL AUTO_INCREMENT,
-  `room_name` varchar(45) NOT NULL,
-  `room_type` varchar(45) NOT NULL,
+  `room_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `room_type` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `single_beds` int(11) NOT NULL DEFAULT '0',
   `double_beds` int(11) NOT NULL DEFAULT '0',
   `cost` decimal(10,2) NOT NULL,
@@ -248,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-28 14:10:01
+-- Dump completed on 2016-01-30  1:13:22

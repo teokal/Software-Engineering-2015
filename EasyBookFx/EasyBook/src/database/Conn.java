@@ -19,16 +19,12 @@ public class Conn {
 
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-			conn = DriverManager.getConnection(connectionUrl+connectionDb, connectionUser, connectionPassword);
+			conn = DriverManager.getConnection(connectionUrl+connectionDb + "?useUnicode=yes&characterEncoding=UTF-8", connectionUser, connectionPassword);
 
 			if (conn == null) {
 				Logger logger = Logger.getLogger("database");
 				logger.setLevel(Level.SEVERE);
 				logger.info("Connection could be established");
-//			} else {
-//				Logger logger = Logger.getLogger("database");
-//				logger.setLevel(Level.INFO);
-//				logger.info("Connected to Database!");
 			}
 			return conn;
 		} catch (Exception e) {

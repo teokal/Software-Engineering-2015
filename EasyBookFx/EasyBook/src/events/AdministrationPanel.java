@@ -17,6 +17,7 @@ import application.Book;
 import application.Main;
 import application.Offer;
 import application.Room;
+import application.Statistics;
 import database.Conn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -116,6 +118,9 @@ public class AdministrationPanel implements Initializable {
 
 	@FXML
 	private AnchorPane offer_controls;
+	
+	@FXML
+	private LineChart<String,Number>  lineChart;
 
 	private Book booking_toEdit;
 	private Offer offer_toEdit;
@@ -166,6 +171,8 @@ public class AdministrationPanel implements Initializable {
 				}
 			}
 		});
+		
+		showStatistics();
 		
 		roomServicesTypeStand.setSelected(true);
 		selectStandardRoomServices(null);
@@ -827,6 +834,12 @@ public class AdministrationPanel implements Initializable {
 		offersTable.setDisable(false);
 	}
 
+	/* Statistics TAB */
+	private void showStatistics() {
+		Statistics stat = new Statistics();
+		lineChart = stat.show(lineChart);
+	}
+	
 	/* Options TAB */
 	/* Room Services Section */
 	public void selectStandardRoomServices(ActionEvent event){

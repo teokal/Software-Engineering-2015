@@ -17,26 +17,12 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Statistics extends Application{
 	
-	try {
-		
+	public void whatever(){
 		Connection conn = Conn.connect();
 		String query = "SELECT MONTH(`check_in`) MONTH, COUNT(*) COUNT FROM `bookings` WHERE YEAR(`check_in`)=? GROUP BY MONTH(`check_in`)";
 		int year = 2016;
-		int yearNow, count;
-		PreparedStatement ps = conn.prepareStatement(query);
-
-		ps.setInt(1, year);
 		
-		ResultSet rs = ps.executeQuery();
 		
-		while ( rs.next() ) {
-			yearNow = rs.getInt("MONTH");
-			count = rs.getInt("COUNT");
-		}
-		conn.close();
-
-	} catch (IOException|SQLException e) {
-		e.printStackTrace();
 	}
 	
 	

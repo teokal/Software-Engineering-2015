@@ -331,7 +331,7 @@ public class AdministrationPanel implements Initializable {
 	public void newRoom(ActionEvent event) {
 		String newRoomPath = "/application/addRoomGui.fxml";
 		Main main = new Main();
-		main.openNewPanel(newRoomPath, "New Room");
+		main.openEditRoomPanel(newRoomPath, "New Room", null, this, true);
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
@@ -339,7 +339,7 @@ public class AdministrationPanel implements Initializable {
 		if ( room_toEdit != null ) {
 			String newRoomPath = "/application/addRoomGui.fxml";
 			Main main = new Main();
-			main.openEditRoomPanel(newRoomPath, "Edit Room" , room_toEdit, this);
+			main.openEditRoomPanel(newRoomPath, "Edit Room" , room_toEdit, this, false);
 		}
 	}
 	public void deleteRoom(ActionEvent event){

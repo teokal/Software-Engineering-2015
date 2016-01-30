@@ -35,9 +35,13 @@ public class AddEditRoomAdminPanel implements Initializable {
 	private boolean update = false;
 	
 	AdministrationPanel o;
+	
+	public void setParent(AdministrationPanel o){
+		this.o = o;
+	}
 
 	public void loadRoom(Room room, AdministrationPanel o) {
-		this.o = o;
+		setParent(o);
 		loadedRoom = room;
 		update = true;
 

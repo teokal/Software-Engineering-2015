@@ -62,7 +62,7 @@ public class Main extends Application {
 		
 	}
 	
-	public Room openEditRoomPanel(String path, String title, Room room, AdministrationPanel o) {
+	public Room openEditRoomPanel(String path, String title, Room room, AdministrationPanel o, boolean newRoom) {
 		
 		try {
 			Stage primaryStage = new Stage();
@@ -72,8 +72,12 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			AddEditRoomAdminPanel panel = fxmlLoader.<AddEditRoomAdminPanel>getController();
-			panel.loadRoom(room, o);
-			
+			if (!newRoom) {
+				panel.loadRoom(room, o);
+			} else {
+				panel.setParent(o);
+			}
+
 			primaryStage.setTitle(title);
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene); 

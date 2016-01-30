@@ -808,7 +808,7 @@
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" onInputMethodTextChanged="#SearchUser" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
+                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
                            <font>
                               <Font size="14.0" />
                            </font>

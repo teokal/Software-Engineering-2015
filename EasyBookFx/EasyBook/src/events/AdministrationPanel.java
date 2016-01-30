@@ -1,6 +1,9 @@
 package events;
 
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,6 +46,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import jdk.nashorn.internal.runtime.options.Options;
 
 public class AdministrationPanel implements Initializable {
 
@@ -71,19 +75,20 @@ public class AdministrationPanel implements Initializable {
 	@FXML
 	private ToggleGroup categoryTypesRooms, categoryOffers, categoryRadioDatesOffers, 
 	categoryBookings,  categoryRadioTypeOffers,  categoryTypeOptions, 
-	categoryIncomeBooksStatistics,  categoryBedRooms;
+	categoryIncomeBooksStatistics,  categoryBedRooms, newUser;
 
 	@FXML
 	private TextField searchBookText, searchRoomText, offer_name_text, 
 	offer_req_days_text, offer_dis_per_text, offer_dis_am_text,
-	breakfastTxt, fullDinnerTxt, poolTxt, hairSalonTxt, fitnessTxt, spaTxt, faceBodyTxt,massageTxt;
+	breakfastTxt, fullDinnerTxt, poolTxt, hairSalonTxt, fitnessTxt, spaTxt, 
+	faceBodyTxt,massageTxt, newUserName, newUserSurame, newUserEmail, newUsername, newUserSearch, newUserPass;
 
 
 	@FXML
 	private DatePicker offer_valid_from_date, offer_valid_until_date;
 
 	@FXML
-	private RadioButton offer_dis_per_radio, offer_dis_am_radio;
+	private RadioButton offer_dis_per_radio, offer_dis_am_radio,newUserAdmin, newUserUser;
 
 	@FXML
 	private TextArea offer_desc_text;
@@ -99,6 +104,8 @@ public class AdministrationPanel implements Initializable {
 	private TableView<Room> roomsTable;
 	@FXML
 	private TableView<Offer> offersTable;
+	@FXML
+	private TableView<Options> newUserTable;
 
 	@FXML
 	private ToggleButton allBookings, completedBookings, comingSoonBookings, runningBookings,
@@ -114,19 +121,22 @@ public class AdministrationPanel implements Initializable {
 	private ObservableList<Offer> offersList;
 
 	@FXML
-	private Button offer_SAVE_btn, offer_CANCEL_btn, offer_EDIT_btn, offer_DELETE_btn;
+	private Button offer_SAVE_btn, offer_CANCEL_btn, offer_EDIT_btn, offer_DELETE_btn,
+	newUserAdd, newUserCancel, newUserEdit, newUserDelete;
 
 	@FXML
 	private AnchorPane offer_controls;
 	
 	@FXML
 	private LineChart<String,Number>  lineChart;
+	
 
 	private Book booking_toEdit;
 	private Offer offer_toEdit;
 	private Room room_toEdit;
 	private String userType;
 	private boolean newOffer = false;
+	private boolean update = false;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -616,6 +626,120 @@ public class AdministrationPanel implements Initializable {
 		}
 
 	}
+	
+	private String hash(String s) {
+		
+		MessageDigest m;
+		BigInteger bi = null;
+		try {
+			
+			m = MessageDigest.getInstance("MD5");
+			m.update( s.getBytes(), 0, s.length() );
+			bi = new BigInteger(1, m.digest() );
+			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return bi.toString(16);
+		
+	}
+	
+	/* Users Section */
+	/* New User Details */
+	public void newUserAdd (ActionEvent event) throws ParseException{
+		
+		if ( newUserName.getText()== null ||  newUserName.getText().trim().isEmpty() ) {
+			showError("The name of new user cannot be empty!");
+			return;
+		}if ( newUserSurame.getText()== null ||  newUserSurame.getText().trim().isEmpty() ) {
+			showError("Surname of new user cannot be empty!");
+			return;
+		}if ( newUserEmail.getText()== null ||  newUserEmail.getText().trim().isEmpty() ) {
+			showError("Email of new user cannot be empty!");
+			return;
+		}if ( newUsername.getText()== null ||  newUsername.getText().trim().isEmpty() ) {
+			showError("Username of new user cannot be empty!");
+			return;
+		}if ( newUserPass.getText()== null ||  newUserPass.getText().trim().isEmpty() ) {
+			showError("Password of new user cannot be empty!");
+			return;
+		}if (getSelectedType()== "none"){
+			showError("Please choose user`s mode: Admin or User.");
+		}
+		
+		Connection conn = Conn.connect();
+		
+
+		String query = "";
+		
+		if(update){
+			query = "UPDATE `users` SET "
+					+ "`username` = ?,"
+					+ "`password` = ?,"
+					+ "`name` = ?,"
+					+ "`sname` = ?,"
+					+ "`email` = ? "
+					+ "`user_type` = ? "
+					+ "WHERE `user_id` = ?";
+		} else {
+			query = "INSERT INTO `users`(`username`,`password`,"
+					+ "`name`,`sname`,`email`,`user_type`) "
+					+ "VALUES (?, ?, ?, ?, ?, ?)";
+		}
+		
+		try {   
+				PreparedStatement ps = conn.prepareStatement( query );
+			
+				ps.setString(1, newUsername.getText() );
+				ps.setString(2, hash(newUserPass.getText() ) );
+				ps.setString(3, newUserName.getText() );
+				ps.setString(4, newUserSurame.getText() );
+				ps.setString(5, newUserEmail.getText() );
+				String s=getSelectedType();
+				ps.setString(6, s );
+			
+				int rs = ps.executeUpdate();
+				if (rs != 0 ){
+					showSuccess("New user created!");
+				} else {
+					showError("Could not create new user!");
+				}
+				conn.close();				
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			
+		}
+	}
+	
+	
+		public String getSelectedType() {
+			if ( newUserAdmin.isSelected() == true ) {
+				return "admin";
+			} else if ( newUserUser.isSelected() == true ) {
+				return "user";
+			}  else {
+				return "none";
+			}
+		}
+	
+		public void newUserCancel (ActionEvent event) throws ParseException{
+			newUserName.setText("");
+			newUserPass.setText("");
+			newUserName.setText("");
+			newUserSurame.setText("");
+			newUserEmail.setText("");
+		}
+	
+		public void SearchUser (ActionEvent event){
+			
+			
+		}
+		
+		
 	public void saveOffer (ActionEvent event) throws ParseException {
 
 		if (newOffer) {
@@ -1148,7 +1272,7 @@ public class AdministrationPanel implements Initializable {
 		}
 	}
 
-	/* Users Section */
+	
 
 	/* Alert functions for whole class*/
 	private void showSuccess(String s) {

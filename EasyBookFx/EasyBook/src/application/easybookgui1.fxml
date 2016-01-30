@@ -758,70 +758,73 @@
 						<Separator layoutX="26.0" layoutY="171.0" prefHeight="0.0" prefWidth="738.0" />
                   <Pane layoutY="338.0" prefHeight="237.0" prefWidth="800.0">
                      <children>
-                        <TextField layoutX="26.0" layoutY="50.0" promptText="Name">
+                        <TextField fx:id="newUserName" layoutX="26.0" layoutY="50.0" promptText="Name">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="26.0" layoutY="100.0" promptText="Surname">
+                        <TextField fx:id="newUserSurame" layoutX="26.0" layoutY="100.0" promptText="Surname">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="26.0" layoutY="150.0" promptText="Email">
+                        <TextField fx:id="newUserEmail" layoutX="26.0" layoutY="150.0" promptText="Email">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <PasswordField layoutX="214.0" layoutY="100.0" promptText="Password">
+                        <PasswordField fx:id="newUserPass" layoutX="214.0" layoutY="100.0" promptText="Password">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </PasswordField>
-                        <TextField layoutX="212.0" layoutY="50.0" promptText="Username">
+                        <TextField fx:id="newUsername" layoutX="212.0" layoutY="50.0" promptText="Username">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <RadioButton layoutX="222.0" layoutY="155.0" mnemonicParsing="false" text="Admin">
+                        <RadioButton fx:id="newUserAdmin" layoutX="222.0" layoutY="155.0" mnemonicParsing="false" text="Admin">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="newUser" />
+                           </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="309.0" layoutY="155.0" mnemonicParsing="false" text="User">
+                        <RadioButton fx:id="newUserUser" layoutX="309.0" layoutY="155.0" mnemonicParsing="false" text="User" toggleGroup="$newUser">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </RadioButton>
                         <Label layoutX="24.0" layoutY="21.0" text="New User`s Details" />
-                        <Button layoutX="26.0" layoutY="186.0" mnemonicParsing="false" text="ADD">
+                        <Button layoutX="26.0" layoutY="186.0" mnemonicParsing="false" onAction="#newUserAdd" text="ADD">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
                         <Separator layoutX="24.0" layoutY="40.0" prefHeight="4.0" prefWidth="360.0" />
-                        <Button layoutX="88.0" layoutY="186.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="113.0" text="Cancel">
+                        <Button layoutX="88.0" layoutY="186.0" mnemonicParsing="false" onAction="#newUserCancel" prefHeight="37.0" prefWidth="113.0" text="Cancel">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <TextField layoutX="535.0" layoutY="23.0" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
+                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <TableView layoutX="474.0" layoutY="65.0" prefHeight="108.0" prefWidth="260.0">
+                        <TableView fx:id="newUserTable" layoutX="474.0" layoutY="65.0" prefHeight="108.0" prefWidth="260.0">
                           <columns>
                             <TableColumn prefWidth="130.0" text="Username" />
                               <TableColumn prefWidth="129.0" text="Type" />
                           </columns>
                         </TableView>
-                        <Button layoutX="515.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
+                        <Button fx:id="newUserDelete" layoutX="515.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button layoutX="604.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
+                        <Button fx:id="newUserEidt" layoutX="604.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
                            <font>
                               <Font size="14.0" />
                            </font>

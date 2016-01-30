@@ -341,7 +341,7 @@ public class AdministrationPanel implements Initializable {
 	public void newRoom(ActionEvent event) {
 		String newRoomPath = "/application/addRoomGui.fxml";
 		Main main = new Main();
-		main.openEditRoomPanel(newRoomPath, "New Room", null, this, true);
+		main.openNewPanel(newRoomPath, "New Room");
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();
@@ -716,6 +716,7 @@ public class AdministrationPanel implements Initializable {
 	}
 	
 	
+	
 		public String getSelectedType() {
 			if ( newUserAdmin.isSelected() == true ) {
 				return "admin";
@@ -734,12 +735,6 @@ public class AdministrationPanel implements Initializable {
 			newUserEmail.setText("");
 		}
 	
-		public void SearchUser (ActionEvent event){
-			
-			
-		}
-		
-		
 	public void saveOffer (ActionEvent event) throws ParseException {
 
 		if (newOffer) {

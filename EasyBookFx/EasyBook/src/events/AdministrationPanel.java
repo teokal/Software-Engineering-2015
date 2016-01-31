@@ -150,11 +150,8 @@ public class AdministrationPanel implements Initializable {
 	private Room room_toEdit;
 	private String userType;
 	private boolean newOffer = false;
-<<<<<<< HEAD
 	private boolean showIncome = true;
-=======
 	private boolean update = false;
->>>>>>> origin/master
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -368,7 +365,7 @@ public class AdministrationPanel implements Initializable {
 	public void newRoom(ActionEvent event) {
 		String newRoomPath = "/application/addRoomGui.fxml";
 		Main main = new Main();
-		main.openNewPanel(newRoomPath, "New Room");
+		main.openEditRoomPanel(newRoomPath, "Edit Room" , null, this, true);
 	}
 	public void editRoom(ActionEvent event) {
 		room_toEdit = roomsTable.getSelectionModel().getSelectedItem();

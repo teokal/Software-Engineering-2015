@@ -35,13 +35,20 @@ public class AdministrationLogin implements Initializable  {
 	private Hyperlink forgot;
 	@FXML
 	private Button submitBtn;
+	
+	public String userType;
+	private Main main;
+	
+	public AdministrationLogin(Main main){
+		this.main = main;
+	}
 
 	public void submit(ActionEvent event) {
 	
 		String[] result = checkDetails(usernameUser.getText(), passUser.getText() );
 
 		if ( result[0].equals("valid") ) {
-			
+			main.typeUser = result[1];
 			Main main = new Main();
 			main.openEasyBookGUIAdminPanel( result[1] );
 			

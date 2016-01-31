@@ -42,6 +42,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -90,6 +91,8 @@ public class AdministrationPanel implements Initializable {
 	breakfastTxt, fullDinnerTxt, poolTxt, hairSalonTxt, fitnessTxt, spaTxt, 
 	faceBodyTxt,massageTxt, newUserName, newUserSurame, newUserEmail, newUsername, newUserSearch, newUserPass;
 
+	@FXML
+	private Label cancellationsLbl;
 
 	@FXML
 	private DatePicker offer_valid_from_date, offer_valid_until_date;
@@ -117,20 +120,18 @@ public class AdministrationPanel implements Initializable {
 	private TableColumn<Options, String> showUsersTable_col,showUsersType_col;
 
 	@FXML
-	private ToggleButton allBookings, completedBookings, comingSoonBookings, runningBookings,
+	private ToggleButton allBookings, completedBookings, comingSoonBookings, runningBookings, cancelledBookings,
 	allRooms, standardRooms, comfortRooms, suiteRooms, 
 	rooms_1bed, rooms_2beds, rooms_3beds,rooms_4plusbeds, 
 	roomServicesTypeComf, roomServicesTypeStand, roomServicesTypeeSuite;
 
 	@FXML
-	private Tab offersTab, statisticsTab, optionsTab;
+	public Tab offersTab, statisticsTab, optionsTab;
 
 	private ObservableList<Book> bookingList;
 	private ObservableList<Room> roomsList;
 	private ObservableList<Offer> offersList;
 
-	
-	
 	@FXML
 	private Button offer_SAVE_btn, offer_CANCEL_btn, offer_EDIT_btn, offer_DELETE_btn,
 	newUserAdd, newUserCancel, newUserEdit, newUserDelete;
@@ -217,9 +218,8 @@ public class AdministrationPanel implements Initializable {
 
 	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
-		String newBookPath = "/application/addBookGui.fxml";
 		Main main = new Main();
-		main.openNewPanel(newBookPath, "New Book");
+		main.openBookPanel(true);
 	}
 	public void cancelBook(ActionEvent event) {
 		booking_toEdit = bookingsTable.getSelectionModel().getSelectedItem();
@@ -244,19 +244,21 @@ public class AdministrationPanel implements Initializable {
 		}
 	}
 	public void showAllBookings(ActionEvent event) {
-		showBookingsOnTable("SELECT * FROM `bookings`");
+		showBookingsOnTable("SELECT * FROM `bookings` WHERE `status` <> 'cancelled'");
 	}
 	public void showRunning(ActionEvent event) {
-		showBookingsOnTable("SELECT * FROM `bookings` "
-				+ "WHERE ( ( `check_in` >= concat(curdate(), ' ', curtime()) ) "
-				+ "AND (`check_out` < concat(curdate(), ' ', curtime()) ) ) "
-				+ "OR `status` <> 'completed'");
+		showBookingsOnTable("SELECT * FROM `bookings` WHERE `status` = 'running'");
 	}
 	public void showComingSoon(ActionEvent event) {
-		showBookingsOnTable("SELECT * FROM `bookings` WHERE `check_in` > concat( curdate(), ' ', curtime() )");
+		showBookingsOnTable("SELECT * FROM `bookings` "
+				+ "WHERE (`check_in` > concat( curdate(), ' ', curtime() ) ) "
+				+ "AND (`status` <> 'cancelled')");
 	}
 	public void showCompleted(ActionEvent event) {
 		showBookingsOnTable("SELECT * FROM `bookings` WHERE `status` = 'completed'");
+	}
+	public void showCancelled(ActionEvent event) {
+		showBookingsOnTable("SELECT * FROM `bookings` WHERE `status` = 'cancelled'");
 	}
 
 	public void searchBookFromText(ActionEvent event) {
@@ -310,6 +312,7 @@ public class AdministrationPanel implements Initializable {
 
 		bookingList = getBookingsTableData(query);
 		bookingsTable.setItems( bookingList );
+		numOfCancelations();
 
 	}
 	private ObservableList<Book> getBookingsTableData(Object query) {
@@ -797,8 +800,6 @@ public class AdministrationPanel implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			
 			
 			//usersList = getOffersTableData(query);
 		   //newUserTable.setItems(listUsers,listPass);
@@ -1447,5 +1448,19 @@ public class AdministrationPanel implements Initializable {
 		alert.showAndWait();
 		return;
 	}
+	private void numOfCancelations(){
+		try{
+			Connection conn = Conn.connect();
+			String query = "SELECT COUNT(*) FROM `bookings` WHERE `status` = 'cancelled'";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
 
+			rs.next();
+			cancellationsLbl.setText(rs.getString(1));
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

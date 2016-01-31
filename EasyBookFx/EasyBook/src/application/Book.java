@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import database.Conn;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Book {
 	private int b_id;
@@ -24,9 +27,9 @@ public class Book {
 	private SimpleStringProperty  email;
 	private SimpleStringProperty  idnum;
 	private SimpleStringProperty  payment_method;
-	private float total_cost;
+	private double total_cost;
 	private SimpleStringProperty  paid;
-	private float money_received;
+	private double money_received;
 	private SimpleStringProperty  status;
 	private int room_id;	
 	private int numOfPerson;
@@ -110,7 +113,7 @@ public class Book {
 		payment_method.set(s);
 	}
 
-	public void setTotal_cost (float s) {
+	public void setTotal_cost (double s) {
 		total_cost = s;
 	}
 
@@ -118,7 +121,7 @@ public class Book {
 		paid.set(s);
 	}
 
-	public void setMoney_received (float s) {
+	public void setMoney_received (double s) {
 		money_received = s;
 	}
 
@@ -174,7 +177,7 @@ public class Book {
 		return payment_method.get();
 	}
 
-	public float getTotal_cost () {
+	public double getTotal_cost () {
 		return total_cost;
 	}
 
@@ -182,7 +185,7 @@ public class Book {
 		return paid.get();
 	}
 
-	public float getMoney_received () {
+	public double getMoney_received () {
 		return money_received;
 	}
 
@@ -223,6 +226,8 @@ public class Book {
 	}
 
 	public boolean changeStatus(String newStatus) {
+		if ( newStatus.equals("cancelled") ) {cancelPenalty(); }
+		
 		try{
 			Connection conn = Conn.connect();
 			String query = "UPDATE `bookings` SET `status`= ? WHERE `b_id` = ?";
@@ -236,6 +241,39 @@ public class Book {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	private void cancelPenalty(){
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date dayFrom = null, dayNow = null; 
+		try {
+			dayFrom = dateFormatter.parse( getCheck_in() );
+			dayNow = new Date();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		long diff = TimeUnit.DAYS.convert(dayFrom.getTime() - dayNow.getTime(), TimeUnit.MILLISECONDS);
+		int numOfDays = ((int) diff) + 1;
+		
+		if (numOfDays < 20){
+			setTotal_cost( getTotal_cost() * 0.2 );
+		} else if ( numOfDays == 0) {
+			setTotal_cost( getTotal_cost() * 0.5 );
+		}
+		
+		try{
+			Connection conn = Conn.connect();
+			String query = "UPDATE `bookings` SET `total_cost`= ? WHERE `b_id` = ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setDouble(1, getTotal_cost() );
+			ps.setInt(2, getB_id() );
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

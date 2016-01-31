@@ -47,34 +47,39 @@
 									</font>
 								</Button>
 								<Separator layoutX="198.0" layoutY="5.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="11.0" />
-								<Group layoutX="-3.0" layoutY="54.0">
-									<children>
-										<ToggleButton fx:id="runningBookings" layoutX="52.0" layoutY="219.0" mnemonicParsing="false" onAction="#showRunning" prefHeight="25.0" prefWidth="110.0" text="Running">
-											<toggleGroup>
-												<ToggleGroup fx:id="categoryBookings" />
-											</toggleGroup>
-											<font>
-												<Font size="14.0" />
-											</font>
-										</ToggleButton>
-										<ToggleButton fx:id="comingSoonBookings" layoutX="52.0" layoutY="184.0" mnemonicParsing="false" onAction="#showComingSoon" prefHeight="25.0" prefWidth="110.0" text="Coming Soon" toggleGroup="$categoryBookings">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</ToggleButton>
+                        <VBox layoutX="45.0" layoutY="185.0" spacing="7.0">
+                           <children>
 
-										<ToggleButton fx:id="allBookings" layoutX="52.0" layoutY="149.0" mnemonicParsing="false" onAction="#showAllBookings" prefHeight="30.0" prefWidth="110.0" selected="true" text="All Bookings" toggleGroup="$categoryBookings">
+            										<ToggleButton fx:id="allBookings" mnemonicParsing="false" onAction="#showAllBookings" prefHeight="30.0" prefWidth="110.0" selected="true" text="All Bookings">
+											<font>
+												<Font size="14.0" />
+											</font>
+                                 <toggleGroup>
+												<ToggleGroup fx:id="categoryBookings" />
+                                 </toggleGroup>
+										</ToggleButton>
+										<ToggleButton fx:id="runningBookings" mnemonicParsing="false" onAction="#showRunning" prefHeight="25.0" prefWidth="110.0" text="Running" toggleGroup="$categoryBookings">
 											<font>
 												<Font size="14.0" />
 											</font>
 										</ToggleButton>
-										<ToggleButton fx:id="completedBookings" layoutX="52.0" layoutY="254.0" mnemonicParsing="false" onAction="#showCompleted" prefHeight="25.0" prefWidth="110.0" text="Completed" toggleGroup="$categoryBookings">
+										<ToggleButton fx:id="comingSoonBookings" mnemonicParsing="false" onAction="#showComingSoon" prefHeight="25.0" prefWidth="110.0" text="Coming Soon" toggleGroup="$categoryBookings">
 											<font>
 												<Font size="14.0" />
 											</font>
 										</ToggleButton>
-									</children>
-								</Group>
+										<ToggleButton fx:id="completedBookings" mnemonicParsing="false" onAction="#showCompleted" prefHeight="25.0" prefWidth="110.0" text="Completed" toggleGroup="$categoryBookings">
+											<font>
+												<Font size="14.0" />
+											</font>
+										</ToggleButton>
+                              <ToggleButton fx:id="cancelledBookings" mnemonicParsing="false" onAction="#showCancelled" prefHeight="25.0" prefWidth="110.0" text="Cancelled" toggleGroup="$categoryBookings">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </ToggleButton>
+                           </children>
+                        </VBox>
 								<Button layoutX="108.0" layoutY="908.0" mnemonicParsing="false" text="Edit" />
 								<TextField layoutX="52.0" layoutY="871.0" />
 								<Button layoutX="66.0" layoutY="472.0" mnemonicParsing="false" onAction="#cancelBook" style="-fx-background-radius: 15;" text="Delete">
@@ -494,7 +499,7 @@
 														<Font name="System Bold" size="15.0" />
 													</font>
 												</Label>
-												<Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER">
+												<Label fx:id="cancellationsLbl" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER">
 													<font>
 														<Font size="15.0" />
 													</font>

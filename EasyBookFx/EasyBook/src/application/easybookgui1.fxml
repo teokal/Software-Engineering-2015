@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TableColumn?>
 
-<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<tabs>
 		<Tab id="bookings" text="Bookings">
 			<content>
@@ -756,7 +756,7 @@
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" onAction="#SearchNewUser" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
+                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" onAction="#SearchNewUser" onInputMethodTextChanged="#SearchNewUser" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -767,12 +767,17 @@
                               <TableColumn fx:id="showUsersType_col" prefWidth="129.0" text="Type" />
                           </columns>
                         </TableView>
-                        <Button fx:id="newUserDelete" layoutX="515.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
+                        <Button fx:id="newUserDelete" layoutX="480.0" layoutY="187.0" mnemonicParsing="false" onAction="#deleteUsers" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="newUserEidt" layoutX="604.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
+                        <Button fx:id="newUserEidt" layoutX="570.0" layoutY="187.0" mnemonicParsing="false" onAction="#editUsers" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Edit">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="Refresh" layoutX="660.0" layoutY="187.0" mnemonicParsing="false" onAction="#show" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Refresh">
                            <font>
                               <Font size="14.0" />
                            </font>

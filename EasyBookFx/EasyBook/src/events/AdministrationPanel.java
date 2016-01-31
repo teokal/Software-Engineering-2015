@@ -106,6 +106,8 @@ public class AdministrationPanel implements Initializable {
 	private TableView<Offer> offersTable;
 	@FXML
 	private TableView<Options> newUserTable;
+	@FXML
+	private TableColumn<Options, String> showUsersTable_col,showUsersType_col;
 
 	@FXML
 	private ToggleButton allBookings, completedBookings, comingSoonBookings, runningBookings,
@@ -120,6 +122,8 @@ public class AdministrationPanel implements Initializable {
 	private ObservableList<Room> roomsList;
 	private ObservableList<Offer> offersList;
 
+	
+	
 	@FXML
 	private Button offer_SAVE_btn, offer_CANCEL_btn, offer_EDIT_btn, offer_DELETE_btn,
 	newUserAdd, newUserCancel, newUserEdit, newUserDelete;
@@ -715,8 +719,6 @@ public class AdministrationPanel implements Initializable {
 		}
 	}
 	
-	
-	
 		public String getSelectedType() {
 			if ( newUserAdmin.isSelected() == true ) {
 				return "admin";
@@ -734,7 +736,67 @@ public class AdministrationPanel implements Initializable {
 			newUserSurame.setText("");
 			newUserEmail.setText("");
 		}
+		
+		public void SearchNewUser (ActionEvent event){
+			
+			String s = searchRoomText.getText();
 	
+			if (! s.isEmpty() ) {
+	
+				String query = "SELECT * FROM `users` WHERE "
+						+ "`username` LIKE '%" + s + "%'";
+	
+				showUsersTable(query);
+			}
+		}
+		
+		public void showUsersTable (String query){
+		
+			showUsersTable_col.setCellValueFactory(new PropertyValueFactory<Options, String>("username") );
+			showUsersType_col.setCellValueFactory(new PropertyValueFactory<Options, String>("type") );
+			
+		//	List<Users> listUsers = new ArrayList<Users>();
+			
+			Connection conn = Conn.connect();
+			try {
+				PreparedStatement ps = conn.prepareStatement( query );
+				ResultSet rs;
+				
+				rs = ps.executeQuery(query);
+				
+				
+				
+				while ( rs.next() ) {
+				//	listUsers.add( new user(rs.getString("usernmame"),rs.getString("type"));
+	                
+	            }
+	            conn.close();
+				
+			} catch (SQLException e) {
+			
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			
+			
+			//usersList = getOffersTableData(query);
+		   //newUserTable.setItems(listUsers,listPass);
+			
+			
+
+			}
+			
+		
+		
+		
+			
+			
+			
+		
+	
+		
+		
 	public void saveOffer (ActionEvent event) throws ParseException {
 
 		if (newOffer) {

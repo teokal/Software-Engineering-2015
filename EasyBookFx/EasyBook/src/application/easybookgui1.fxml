@@ -808,15 +808,15 @@
                               <Font size="16.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
+                        <TextField fx:id="newUserSearch" layoutX="535.0" layoutY="23.0" onAction="#SearchNewUser" prefHeight="30.0" prefWidth="138.0" promptText="Search User" style="-fx-background-radius: 20;">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
                         <TableView fx:id="newUserTable" layoutX="474.0" layoutY="65.0" prefHeight="108.0" prefWidth="260.0">
                           <columns>
-                            <TableColumn prefWidth="130.0" text="Username" />
-                              <TableColumn prefWidth="129.0" text="Type" />
+                            <TableColumn fx:id="showUsersTable_col" prefWidth="130.0" text="Username" />
+                              <TableColumn fx:id="showUsersType_col" prefWidth="129.0" text="Type" />
                           </columns>
                         </TableView>
                         <Button fx:id="newUserDelete" layoutX="515.0" layoutY="187.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="69.0" style="-fx-background-radius: 20;" text="Delete">

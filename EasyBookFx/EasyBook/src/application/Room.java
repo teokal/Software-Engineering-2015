@@ -3,20 +3,22 @@ package application;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import database.Conn;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Room {
+public class Room { // NOPMD by teoka on 31/1/2016 6:54 μμ
 
-	private int room_id;
-	private SimpleStringProperty  room_name;
-	private SimpleStringProperty room_type;
-	private int single_beds;
-	private int double_beds;
-	private float cost;
+	private int room_id; // NOPMD by teoka on 31/1/2016 7:12 μμ
+	private SimpleStringProperty  room_name; // NOPMD by teoka on 31/1/2016 6:57 μμ
+	private SimpleStringProperty room_type; // NOPMD by teoka on 31/1/2016 6:58 μμ
+	private int single_beds; // NOPMD by teoka on 31/1/2016 7:12 μμ
+	private int double_beds; // NOPMD by teoka on 31/1/2016 7:12 μμ
+	private float cost; // NOPMD by teoka on 31/1/2016 7:12 μμ
 	
-	public Room ( 
+	public Room (  // NOPMD by teoka on 31/1/2016 7:11 μμ
 			int room_id,
 			String room_name,
 			String room_type,
@@ -33,73 +35,84 @@ public class Room {
 		
 	}
 	
-	public void setRoom_id(int s) {
-		room_id = s;
+	// Setting Room ID
+	public void setRoom_id(int room_id) { // NOPMD by teoka on 31/1/2016 7:12 μμ
+		this.room_id = room_id;
 	}
 	
-	public void setRoom_name(String s) {
-		room_name.set(s);
+	// Setting Room Name
+	public void setRoom_name(String room_name) { // NOPMD by teoka on 31/1/2016 7:12 μμ
+		this.room_name.set(room_name);
 	}
 	
-	public void setRoom_type(String s){
-		room_type.set(s);
+	// Setting Room Type
+	public void setRoom_type(String room_type){ // NOPMD by teoka on 31/1/2016 7:10 μμ
+		this.room_type.set(room_type);
 	}
 	
-	public void setSingle_beds(int s){
-		single_beds = s;
+	// Setting Room Number of Single Beds of the Room
+	public void setSingle_beds(int single_beds){ // NOPMD by teoka on 31/1/2016 7:10 μμ
+		this.single_beds = single_beds;
 	}
 	
-	public void setDouble_beds(int s){
-		double_beds = s;
+	// Setting Room Number of Double Beds of the Room
+	public void setDouble_beds(int double_beds){ // NOPMD by teoka on 31/1/2016 7:12 μμ
+		this.double_beds = double_beds;
 	}
 	
-	public void setCost(float s){
-		cost = s;
+	// Setting Room Cost of room per day
+	public void setCost(float cost){ // NOPMD by teoka on 31/1/2016 7:12 μμ
+		this.cost = cost;
 	}
 	
-	public int getRoom_id() {
+	// Getting Room ID
+	public int getRoom_id() { // NOPMD by teoka on 31/1/2016 7:10 μμ
 		return room_id;
 	}
 	
-	public String getRoom_name() {
+	// Getting name of Room
+	public String getRoom_name() { // NOPMD by teoka on 31/1/2016 7:11 μμ
 		return room_name.get();
 	}
 	
-	public String getRoom_type(){
+	// Getting Type of Room
+	public String getRoom_type(){ // NOPMD by teoka on 31/1/2016 7:10 μμ
 		return room_type.get();
 	}
 	
-	public int getSingle_beds() {
-
+	// Getting Number of Single Beds of the Room
+	public int getSingle_beds() { // NOPMD by teoka on 31/1/2016 7:10 μμ
 		return single_beds;
 	}
 	
-	public int getDouble_beds() {
+	// Getting Double Beds of the Room
+	public int getDouble_beds() { // NOPMD by teoka on 31/1/2016 7:10 μμ
 		return double_beds;
 	}
 	
-	public float getCost(){
+	// Getting cost of room per day
+	public float getCost(){ // NOPMD by teoka on 31/1/2016 7:10 μμ
 		return cost;
 	}
 	
-	public void deleteThisRoom(){
+	/* Function to delete this specific room from database */
+	public void deleteThisRoom(){ // NOPMD by teoka on 31/1/2016 6:37 μμ
 		try {
-			Connection conn = Conn.connect();
+			Connection conn = Conn.connect(); // NOPMD by teoka on 31/1/2016 6:55 μμ
 			String query = "DELETE FROM `rooms` WHERE `room_id` = ?";
 			
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setInt(1, getRoom_id() );
+			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, getRoom_id() );
 			
-			ps.executeUpdate();
+			preparedStatement.executeUpdate();
 			
 			conn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getLogger("database");
+			logger.setLevel(Level.SEVERE);
+			logger.info(e.getMessage() );
 		}
 		
 	}
-
-	
-	
 
 }

@@ -130,24 +130,33 @@ public class Main extends Application {
 		return room;
 	}
 	
-	public void openBookPanel( boolean newBook ) {
+	public void openBookPanel(Book book, AdministrationPanel o, boolean newBook ) {
 		
 		try {
-    
 			Stage primaryStage = new Stage();
-			primaryStage = new Stage();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/newGui.fxml"));
-			NewBookController controller = new NewBookController(primaryStage);
-			fxmlLoader.setController(controller);
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/newGui.fxml"));     
 			
-			Scene scene = new Scene( (Parent)fxmlLoader.load() );
-			
+			Parent root = (Parent)fxmlLoader.load();      
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setTitle("Imaginary Hotel - Enjoy your staying in our paradise!");
-			primaryStage.setResizable(false);
+			NewBookController panel = fxmlLoader.<NewBookController>getController();
+			if (!newBook) {
+				panel.loadBook(book, o);
+				primaryStage.setTitle("Edit Book");
+			} else {
+				panel.setParent(o);
+				primaryStage.setTitle("New Book");
+			}
 
-			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.setScene(scene); 
 			primaryStage.show();
+			
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		              o.showAllRooms(null);
+		          }
+		      });
 
 		} catch(Exception e) {
 			e.printStackTrace();

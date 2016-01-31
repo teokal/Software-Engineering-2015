@@ -31,7 +31,7 @@ public class Book {
 	private SimpleStringProperty  paid;
 	private double money_received;
 	private SimpleStringProperty  status;
-	private int room_id;	
+	private int room_id;
 	private int numOfPerson;
 	private String comments;
 
@@ -46,9 +46,9 @@ public class Book {
 			String  email, 
 			String  idnum, 
 			String  payment_method, 
-			float total_cost, 
+			double total_cost, 
 			String  paid, 
-			float money_received, 
+			double money_received, 
 			String  status,
 			int room_id,
 			int numOfPerson,
@@ -202,9 +202,9 @@ public class Book {
 	}
 	
 	public String getRoom_name(){
-		
+		Connection conn = Conn.connect();
 		try {
-			Connection conn = Conn.connect();
+			conn = Conn.connect();
 			String query = "SELECT `room_name` FROM `rooms` WHERE `room_id`=?";
 			PreparedStatement ps = conn.prepareStatement(query);
 			
@@ -221,7 +221,8 @@ public class Book {
 			logger.setLevel(Level.INFO);
 			logger.info("Error retrieving room's name for booking "+ getCode() );
 			e.printStackTrace();
-		}
+
+		} finally { if(conn!=null) { try { conn.close(); } catch (SQLException e) {e.printStackTrace();} } }
 		return "Room Deleted";
 	}
 

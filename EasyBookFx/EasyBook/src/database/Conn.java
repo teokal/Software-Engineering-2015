@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 public class Conn {
 
 	public static Connection connect() {
+		// Creating null Connection to be instanciated later!
 		Connection conn = null;
 
 		String connectionUrl = "jdbc:mysql://localhost:3306/";

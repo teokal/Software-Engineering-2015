@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.NewBookController">
 	<children>
 		<Pane fx:id="stepOnePane" prefHeight="600.0" prefWidth="800.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
@@ -544,8 +544,8 @@
 						</Label>
 					</children>
 				</HBox>
-            <ChoiceBox layoutX="542.0" layoutY="96.0" prefWidth="150.0" />
-            <ChoiceBox layoutX="542.0" layoutY="165.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="paymentStatus" layoutX="542.0" layoutY="96.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="bookingStatus" layoutX="542.0" layoutY="165.0" prefWidth="150.0" />
           
 			</children>
 		</Pane>

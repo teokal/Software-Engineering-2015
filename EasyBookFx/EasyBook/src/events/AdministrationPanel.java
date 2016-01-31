@@ -223,7 +223,15 @@ public class AdministrationPanel implements Initializable {
 	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
 		Main main = new Main();
-		main.openBookPanel(true);
+		main.openBookPanel(null, this, true);
+	}
+	public void editBook(ActionEvent event) {
+		booking_toEdit = bookingsTable.getSelectionModel().getSelectedItem();
+
+		if ( booking_toEdit != null ) {
+			Main main = new Main();
+			main.openBookPanel(null, this, false);
+		}
 	}
 	public void cancelBook(ActionEvent event) {
 		booking_toEdit = bookingsTable.getSelectionModel().getSelectedItem();
@@ -283,9 +291,7 @@ public class AdministrationPanel implements Initializable {
 
 			try {
 				Connection conn = Conn.connect();
-
 				PreparedStatement preparedStatement = conn.prepareStatement( query );
-
 				preparedStatement.setString(1, textSearch );
 				preparedStatement.setString(2, textSearch );
 				preparedStatement.setString(3, textSearch );
@@ -323,9 +329,10 @@ public class AdministrationPanel implements Initializable {
 
 		List<Book> list = new ArrayList<Book>();
 		ResultSet rs;
-
+		
+		Connection conn = null;
 		try {
-			Connection conn = Conn.connect();
+			conn = Conn.connect();
 
 			if ( query.getClass().equals(String.class) ) {
 				PreparedStatement ps = conn.prepareStatement( (String) query );
@@ -355,8 +362,13 @@ public class AdministrationPanel implements Initializable {
 						rs.getString("comments") ) ); 
 			}
 			conn.close();
-		} catch (SQLException|ParseException e )	{ e.printStackTrace(); }
-
+		} catch (SQLException|ParseException e )	{ e.printStackTrace(); 
+		} finally { if(conn!=null) { try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} } }
+		
 		ObservableList<Book> data = FXCollections.observableList(list);
 
 		return data;
@@ -1370,6 +1382,10 @@ public class AdministrationPanel implements Initializable {
 			ps.addBatch();
 
 			ps.executeBatch();
+			
+			ps.close();
+			conn.close();
+			
 			showSuccess("Your options have been saved");
 		} catch (SQLException e) {
 			showError("Your options could not be saved!\nTry again later");
@@ -1490,9 +1506,9 @@ public class AdministrationPanel implements Initializable {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 
-			rs.next();
-			cancellationsLbl.setText(rs.getString(1));
-
+			while (rs.next()) {
+				cancellationsLbl.setText(rs.getString(1));
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();

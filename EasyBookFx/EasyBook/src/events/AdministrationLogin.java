@@ -73,14 +73,14 @@ public class AdministrationLogin implements Initializable  {
 		String[] details = new String[2];
 
 		try {
-			Connection conn = Conn.connect();
+			Connection conn = Conn.connect(); // NOPMD by teoka on 31/1/2016 7:25 μμ
 			String query = "SELECT * FROM users WHERE username = ? AND password = ? LIMIT 1";
 
 			PreparedStatement ps = conn.prepareStatement( query );
 
 			ps.setString(1, u );			
 			ps.setString(2, hash(p) );
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery(); // NOPMD by teoka on 31/1/2016 7:25 μμ
 
 			if ( rs.next() ) {
 				details[0] = "valid";
@@ -89,7 +89,7 @@ public class AdministrationLogin implements Initializable  {
 				details[0] = "unknown";
 				details[1] = ""; 
 			}
-			
+			rs.close();
 			conn.close();
 			
 		} catch (SQLException e) {

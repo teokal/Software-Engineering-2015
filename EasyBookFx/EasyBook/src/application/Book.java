@@ -226,9 +226,7 @@ public class Book {
 		return "Room Deleted";
 	}
 
-	public boolean changeStatus(String newStatus) {
-		if ( newStatus.equals("cancelled") ) {cancelPenalty(); }
-		
+	public boolean changeStatus(String newStatus) {		
 		try{
 			Connection conn = Conn.connect();
 			String query = "UPDATE `bookings` SET `status`= ? WHERE `b_id` = ?";
@@ -243,40 +241,6 @@ public class Book {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}
-	}
-	
-	private void cancelPenalty(){
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date dayFrom = null, dayNow = null; 
-		try {
-			dayFrom = dateFormatter.parse( getCheck_in() );
-			dayNow = new Date();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		long diff = TimeUnit.DAYS.convert(dayFrom.getTime() - dayNow.getTime(), TimeUnit.MILLISECONDS);
-		int numOfDays = ((int) diff) + 1;
-		
-		if (numOfDays < 20){
-			setTotal_cost( getTotal_cost() * 0.2 );
-		} else if ( numOfDays == 0) {
-			setTotal_cost( getTotal_cost() * 0.5 );
-		}
-		
-		try{
-			Connection conn = Conn.connect();
-			String query = "UPDATE `bookings` SET `total_cost`= ? WHERE `b_id` = ?";
-			PreparedStatement ps = conn.prepareStatement(query);
-			
-			ps.setDouble(1, getTotal_cost() );
-			ps.setInt(2, getB_id() );
-			
-			ps.executeUpdate();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 }

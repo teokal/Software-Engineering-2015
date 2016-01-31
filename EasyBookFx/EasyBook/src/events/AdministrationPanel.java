@@ -222,17 +222,10 @@ public class AdministrationPanel implements Initializable {
 
 	/* Bookings TAB */
 	public void newBook(ActionEvent event) {
-		Main main = new Main();
-		main.openBookPanel(null, this, true);
-	}
-	public void editBook(ActionEvent event) {
-		booking_toEdit = bookingsTable.getSelectionModel().getSelectedItem();
-
-		if ( booking_toEdit != null ) {
-			Main main = new Main();
-			main.openBookPanel(null, this, false);
-		}
-	}
+        Main main = new Main();
+        main.openBookPanel(true);
+    }
+	
 	public void cancelBook(ActionEvent event) {
 		booking_toEdit = bookingsTable.getSelectionModel().getSelectedItem();
 

@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="events.ChangeBookPanel" >
 	<children>
 		<Pane fx:id="stepTwoPane" prefHeight="300.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<children>
             <Label layoutX="49.0" layoutY="45.0" prefHeight="310.0" prefWidth="390.0" style="-fx-border-color: black; -fx-border-radius: 55;" />
-            <ChoiceBox layoutX="250.0" layoutY="191.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="paymentStatusCB" layoutX="250.0" layoutY="191.0" prefWidth="150.0" />
             <Label layoutX="182.0" layoutY="55.0" text="Edit booking">
                <font>
                   <Font name="Segoe UI" size="22.0" />
@@ -36,7 +36,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <ChoiceBox layoutX="81.0" layoutY="191.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="bookingStatusCB" layoutX="81.0" layoutY="191.0" prefWidth="150.0" />
             <Separator layoutX="69.0" layoutY="89.0" prefHeight="4.0" prefWidth="347.0" />
           
 			</children>

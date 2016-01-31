@@ -3,6 +3,7 @@ package application;
 import events.AddEditRoomAdminPanel;
 import events.AdministrationLogin;
 import events.AdministrationPanel;
+import events.ChangeBookPanel;
 import events.NewBookController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -130,39 +131,30 @@ public class Main extends Application {
 		return room;
 	}
 	
-	public void openBookPanel(Book book, AdministrationPanel o, boolean newBook ) {
-		
-		try {
-			Stage primaryStage = new Stage();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/newGui.fxml"));     
-			
-			Parent root = (Parent)fxmlLoader.load();      
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			NewBookController panel = fxmlLoader.<NewBookController>getController();
-			if (!newBook) {
-				panel.loadBook(book, o);
-				primaryStage.setTitle("Edit Book");
-			} else {
-				panel.setParent(o);
-				primaryStage.setTitle("New Book");
-			}
-
-			primaryStage.setResizable(false);
-			primaryStage.setScene(scene); 
-			primaryStage.show();
-			
-			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		          public void handle(WindowEvent we) {
-		              o.showAllRooms(null);
-		          }
-		      });
-
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+	public void openBookPanel( boolean newBook ) {
+	       
+        try {
+   
+            Stage primaryStage = new Stage();
+            primaryStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/addBookGui.fxml"));
+            NewBookController controller = new NewBookController(primaryStage);
+            fxmlLoader.setController(controller);
+           
+            Scene scene = new Scene( (Parent)fxmlLoader.load() );
+           
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            primaryStage.setTitle("Imaginary Hotel - Enjoy your staying in our paradise!");
+            primaryStage.setResizable(false);
+ 
+            primaryStage.setScene(scene);
+            primaryStage.show();
+ 
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+       
+    }
 	
 	public static void main(String[] args) {
 		launch(args);

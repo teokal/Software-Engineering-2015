@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<Pane fx:id="stepTwoPane" prefHeight="300.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+            <Label layoutX="49.0" layoutY="45.0" prefHeight="310.0" prefWidth="390.0" style="-fx-border-color: black; -fx-border-radius: 55;" />
+            <ChoiceBox layoutX="250.0" layoutY="191.0" prefWidth="150.0" />
+            <Label layoutX="182.0" layoutY="55.0" text="Edit booking">
+               <font>
+                  <Font name="Segoe UI" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="101.0" layoutY="153.0" text="Booking Status:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="269.0" layoutY="153.0" text="Payment Status:">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="84.0" layoutY="259.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="316.0" text="Save">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <ChoiceBox layoutX="81.0" layoutY="191.0" prefWidth="150.0" />
+            <Separator layoutX="69.0" layoutY="89.0" prefHeight="4.0" prefWidth="347.0" />
+          
+			</children>
+		</Pane>
+	</children>
+</AnchorPane>

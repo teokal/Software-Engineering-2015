@@ -55,6 +55,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class AdministrationPanel implements Initializable {
 
@@ -126,7 +127,7 @@ public class AdministrationPanel implements Initializable {
 	roomServicesTypeComf, roomServicesTypeStand, roomServicesTypeeSuite;
 
 	@FXML
-	public Tab offersTab, statisticsTab, optionsTab;
+	public Tab bookingsTab, roomsTab, offersTab, statisticsTab, optionsTab;
 
 	private ObservableList<Book> bookingList;
 	private ObservableList<Room> roomsList;
@@ -139,6 +140,8 @@ public class AdministrationPanel implements Initializable {
 
 	@FXML
 	private AnchorPane offer_controls;
+	
+	@FXML private Pane newUserPane, servicesSection;
 	
 	@FXML
 	private ChoiceBox<String> monthFromCB, monthUntilCB, yearCB;
@@ -164,13 +167,18 @@ public class AdministrationPanel implements Initializable {
 			showAllOffers(null);
 
 			offers_disableAllControls();
+			bookingsTab.setDisable(true);
+			roomsTab.setDisable(true);
+			servicesSection.setDisable(true);
+			
 		} else if ( userType.equals("user") ){
 			showAllBookings(null);
 			showAllRooms(null);
 
 			offersTab.setDisable(true);
 			statisticsTab.setDisable(true);
-			optionsTab.setDisable(true);
+			newUserPane.setDisable(true);
+			
 		}
 
 		bookingsTable.setOnMousePressed(new EventHandler<MouseEvent>() {

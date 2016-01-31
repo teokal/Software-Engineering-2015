@@ -15,7 +15,7 @@
 
 <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<tabs>
-		<Tab id="bookings" text="Bookings">
+		<Tab id="bookings" fx:id="bookingsTab" text="Bookings">
 			<content>
 				<AnchorPane prefHeight="200.0" prefWidth="200.0">
 					<children>
@@ -95,11 +95,6 @@
 										<TextField fx:id="searchBookText" alignment="CENTER" layoutX="30.0" layoutY="350.0" onAction="#searchBookFromText" promptText="Search a book" />
 									</children>
 								</Group>
-								<Button layoutX="66.0" layoutY="415.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="68.0" style="-fx-background-radius: 15;" text="Edit">
-									<font>
-										<Font size="16.0" />
-									</font>
-								</Button>
 
 
 							</children>
@@ -108,7 +103,7 @@
 				</AnchorPane>
 			</content>
 		</Tab>
-		<Tab id="rooms" text="Rooms">
+		<Tab id="rooms" fx:id="roomsTab" text="Rooms">
 			<content>
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 					<children>
@@ -522,189 +517,193 @@
 			<content>
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 					<children>
-						<Group>
-							<children>
-								<ToggleButton fx:id="roomServicesTypeComf" layoutX="26.0" layoutY="69.0" mnemonicParsing="false" onAction="#selectComfortRoomServices" prefWidth="70.0" text="Comfort">
-									<font>
-										<Font size="13.0" />
-									</font>
-									<toggleGroup>
-										<ToggleGroup fx:id="categoryTypeOptions" />
-									</toggleGroup>
-								</ToggleButton>
-								<ToggleButton fx:id="roomServicesTypeSuite" layoutX="26.0" layoutY="112.0" mnemonicParsing="false" onAction="#selectSuiteRoomServices" prefWidth="70.0" text="Suite" toggleGroup="$categoryTypeOptions">
-									<font>
-										<Font size="13.0" />
-									</font>
-								</ToggleButton>
-								<ToggleButton fx:id="roomServicesTypeStand" layoutX="26.0" layoutY="25.0" mnemonicParsing="false" onAction="#selectStandardRoomServices" prefHeight="25.0" prefWidth="70.0" text="Standard" toggleGroup="$categoryTypeOptions">
-									<font>
-										<Font size="13.0" />
-									</font>
-								</ToggleButton>
-							</children>
-						</Group>
-						<Group layoutX="10.0">
-							<children>
-								<CheckBox fx:id="lcdtvCkBx" layoutX="189.0" layoutY="25.0" mnemonicParsing="false" text="LCD TV" />
-								<CheckBox fx:id="fridgeCkBx" layoutX="122.0" layoutY="50.0" mnemonicParsing="false" text="Fridge" />
-								<CheckBox fx:id="radioCkBx" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" text="Radio" />
-								<CheckBox fx:id="safeCkBx" layoutX="189.0" layoutY="50.0" mnemonicParsing="false" text="Safe" />
-								<CheckBox fx:id="kitchenCkBx" layoutX="122.0" layoutY="25.0" mnemonicParsing="false" text="Kitchen" />
-								<CheckBox fx:id="jacuzziCkBx" layoutX="189.0" layoutY="125.0" mnemonicParsing="false" text="Jacuzzi" />
-								<CheckBox fx:id="wifiCkBx" layoutX="122.0" layoutY="100.0" mnemonicParsing="false" text="Wi-Fi" />
-								<CheckBox fx:id="acCkBx" layoutX="122.0" layoutY="75.0" mnemonicParsing="false" text="A/C" />
-								<CheckBox fx:id="fireplaceCkBx" layoutX="189.0" layoutY="75.0" mnemonicParsing="false" text="Fireplace" />
-								<CheckBox fx:id="barCkBx" layoutX="189.0" layoutY="100.0" mnemonicParsing="false" text="Mini Bar" />
-							</children>
-						</Group>
-						<Button fx:id="roomServices_SAVE_btn" layoutX="300.0" layoutY="69.0" mnemonicParsing="false" onAction="#saveCheckboxes" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
-							<font>
-								<Font size="14.0" />
-							</font>
-						</Button>
-						<Separator layoutX="280.0" layoutY="22.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
-						<VBox layoutX="13.0" layoutY="202.0">
-							<children>
-								<VBox layoutX="26.0" layoutY="202.0">
-									<children>
-										<HBox layoutX="33.0" layoutY="202.0" spacing="10.0">
-											<children>
-												<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Breakfast">
-													<font>
-														<Font size="14.0" />
-													</font>
-												</Label>
-												<TextField fx:id="breakfastTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                  <Pane fx:id="servicesSection" layoutX="13.0" layoutY="22.0">
+                     <children>
+      						<Group layoutX="-6.0" layoutY="-11.0">
+      							<children>
+      								<ToggleButton fx:id="roomServicesTypeComf" layoutX="26.0" layoutY="69.0" mnemonicParsing="false" onAction="#selectComfortRoomServices" prefWidth="70.0" text="Comfort">
+      									<font>
+      										<Font size="13.0" />
+      									</font>
+      									<toggleGroup>
+      										<ToggleGroup fx:id="categoryTypeOptions" />
+      									</toggleGroup>
+      								</ToggleButton>
+      								<ToggleButton fx:id="roomServicesTypeSuite" layoutX="26.0" layoutY="112.0" mnemonicParsing="false" onAction="#selectSuiteRoomServices" prefWidth="70.0" text="Suite" toggleGroup="$categoryTypeOptions">
+      									<font>
+      										<Font size="13.0" />
+      									</font>
+      								</ToggleButton>
+      								<ToggleButton fx:id="roomServicesTypeStand" layoutX="26.0" layoutY="25.0" mnemonicParsing="false" onAction="#selectStandardRoomServices" prefHeight="25.0" prefWidth="70.0" text="Standard" toggleGroup="$categoryTypeOptions">
+      									<font>
+      										<Font size="13.0" />
+      									</font>
+      								</ToggleButton>
+      							</children>
+      						</Group>
+      						<Group layoutX="-6.0" layoutY="-11.0">
+      							<children>
+      								<CheckBox fx:id="lcdtvCkBx" layoutX="189.0" layoutY="25.0" mnemonicParsing="false" text="LCD TV" />
+      								<CheckBox fx:id="fridgeCkBx" layoutX="122.0" layoutY="50.0" mnemonicParsing="false" text="Fridge" />
+      								<CheckBox fx:id="radioCkBx" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" text="Radio" />
+      								<CheckBox fx:id="safeCkBx" layoutX="189.0" layoutY="50.0" mnemonicParsing="false" text="Safe" />
+      								<CheckBox fx:id="kitchenCkBx" layoutX="122.0" layoutY="25.0" mnemonicParsing="false" text="Kitchen" />
+      								<CheckBox fx:id="jacuzziCkBx" layoutX="189.0" layoutY="125.0" mnemonicParsing="false" text="Jacuzzi" />
+      								<CheckBox fx:id="wifiCkBx" layoutX="122.0" layoutY="100.0" mnemonicParsing="false" text="Wi-Fi" />
+      								<CheckBox fx:id="acCkBx" layoutX="122.0" layoutY="75.0" mnemonicParsing="false" text="A/C" />
+      								<CheckBox fx:id="fireplaceCkBx" layoutX="189.0" layoutY="75.0" mnemonicParsing="false" text="Fireplace" />
+      								<CheckBox fx:id="barCkBx" layoutX="189.0" layoutY="100.0" mnemonicParsing="false" text="Mini Bar" />
+      							</children>
+      						</Group>
+      						<Button fx:id="roomServices_SAVE_btn" layoutX="285.0" layoutY="56.0" mnemonicParsing="false" onAction="#saveCheckboxes" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+      							<font>
+      								<Font size="14.0" />
+      							</font>
+      						</Button>
+      						<Separator layoutX="267.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
+      						<VBox layoutY="180.0">
+      							<children>
+      								<VBox layoutX="26.0" layoutY="202.0">
+      									<children>
+      										<HBox layoutX="33.0" layoutY="202.0" spacing="10.0">
+      											<children>
+      												<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Breakfast">
+      													<font>
+      														<Font size="14.0" />
+      													</font>
+      												</Label>
+      												<TextField fx:id="breakfastTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                          <Label text="€">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+      											</children>
+      										</HBox>
+      										<HBox layoutX="33.0" layoutY="234.0" spacing="10.0">
+      											<children>
+      												<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Full Dinner">
+      													<font>
+      														<Font size="14.0" />
+      													</font>
+      												</Label>
+      												<TextField fx:id="fullDinnerTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                          <Label text="€">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+      											</children>
+      										</HBox>
+      										<HBox layoutX="33.0" layoutY="268.0" spacing="10.0">
+      											<children>
+      												<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Pool">
+      													<font>
+      														<Font size="14.0" />
+      													</font>
+      												</Label>
+      												<TextField fx:id="poolTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                          <Label text="€">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+      											</children>
+      										</HBox>
+      									</children>
+      								</VBox>
+      								<HBox layoutX="13.0" layoutY="290.0" spacing="10.0">
+      									<children>
+      										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="69.0" text="Hair Salon">
+      											<font>
+      												<Font size="14.0" />
+      											</font>
+      										</Label>
+      										<TextField fx:id="hairSalonTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="61.0" />
                                     <Label text="€">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-											</children>
-										</HBox>
-										<HBox layoutX="33.0" layoutY="234.0" spacing="10.0">
-											<children>
-												<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Full Dinner">
-													<font>
-														<Font size="14.0" />
-													</font>
-												</Label>
-												<TextField fx:id="fullDinnerTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+      									</children>
+      								</HBox>
+      							</children>
+      						</VBox>
+      						<VBox layoutX="207.0" layoutY="183.0">
+      							<children>
+      								<HBox layoutX="283.0" layoutY="220.0" spacing="10.0">
+      									<children>
+      										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="117.0" text="Fitness Centre">
+      											<font>
+      												<Font size="14.0" />
+      											</font>
+      										</Label>
+      										<TextField fx:id="fitnessTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
                                     <Label text="€">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-											</children>
-										</HBox>
-										<HBox layoutX="33.0" layoutY="268.0" spacing="10.0">
-											<children>
-												<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="70.0" text="Pool">
-													<font>
-														<Font size="14.0" />
-													</font>
-												</Label>
-												<TextField fx:id="poolTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+      									</children>
+      								</HBox>
+      								<HBox layoutX="287.0" layoutY="245.0" spacing="10.0">
+      									<children>
+      										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Spa Treatments">
+      											<font>
+      												<Font size="14.0" />
+      											</font>
+      										</Label>
+      										<TextField fx:id="spaTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
                                     <Label text="€">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-											</children>
-										</HBox>
-									</children>
-								</VBox>
-								<HBox layoutX="13.0" layoutY="290.0" spacing="10.0">
-									<children>
-										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="69.0" text="Hair Salon">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</Label>
-										<TextField fx:id="hairSalonTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="61.0" />
-                              <Label text="€">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-									</children>
-								</HBox>
-							</children>
-						</VBox>
-						<VBox layoutX="220.0" layoutY="205.0">
-							<children>
-								<HBox layoutX="283.0" layoutY="220.0" spacing="10.0">
-									<children>
-										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="117.0" text="Fitness Centre">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</Label>
-										<TextField fx:id="fitnessTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-                              <Label text="€">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-									</children>
-								</HBox>
-								<HBox layoutX="287.0" layoutY="245.0" spacing="10.0">
-									<children>
-										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Spa Treatments">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</Label>
-										<TextField fx:id="spaTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-                              <Label text="€">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-									</children>
-								</HBox>
-								<HBox layoutX="283.0" layoutY="273.0" spacing="10.0">
-									<children>
-										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Face &amp; Body Care">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</Label>
-										<TextField fx:id="faceBodyTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-                              <Label text="€">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-									</children>
-								</HBox>
-								<HBox layoutX="288.0" layoutY="316.0" spacing="10.0">
-									<children>
-										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Massage Therapies">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</Label>
-										<TextField fx:id="massageTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
-                              <Label text="€">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-									</children>
-								</HBox>
-							</children>
-						</VBox>
-						<Button fx:id="extras_SAVE_btn" layoutX="460.0" layoutY="235.0" mnemonicParsing="false" onAction="#saveExtrasCost" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
-							<font>
-								<Font size="14.0" />
-							</font>
-						</Button>
-                  <Separator layoutX="114.0" layoutY="22.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
-						<Separator layoutX="26.0" layoutY="332.0" prefHeight="0.0" prefWidth="738.0" />
-						<Separator layoutX="26.0" layoutY="171.0" prefHeight="0.0" prefWidth="738.0" />
-                  <Pane layoutY="338.0" prefHeight="237.0" prefWidth="800.0">
+      									</children>
+      								</HBox>
+      								<HBox layoutX="283.0" layoutY="273.0" spacing="10.0">
+      									<children>
+      										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Face &amp; Body Care">
+      											<font>
+      												<Font size="14.0" />
+      											</font>
+      										</Label>
+      										<TextField fx:id="faceBodyTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                    <Label text="€">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+      									</children>
+      								</HBox>
+      								<HBox layoutX="288.0" layoutY="316.0" spacing="10.0">
+      									<children>
+      										<Label layoutX="33.0" layoutY="204.0" prefHeight="20.0" prefWidth="118.0" text="Massage Therapies">
+      											<font>
+      												<Font size="14.0" />
+      											</font>
+      										</Label>
+      										<TextField fx:id="massageTxt" layoutX="108.0" layoutY="202.0" prefHeight="25.0" prefWidth="60.0" />
+                                    <Label text="€">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+      									</children>
+      								</HBox>
+      							</children>
+      						</VBox>
+      						<Button fx:id="extras_SAVE_btn" layoutX="447.0" layoutY="213.0" mnemonicParsing="false" onAction="#saveExtrasCost" prefHeight="34.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Save">
+      							<font>
+      								<Font size="14.0" />
+      							</font>
+      						</Button>
+                        <Separator layoutX="101.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="0.0" />
+      						<Separator layoutX="13.0" layoutY="310.0" prefHeight="0.0" prefWidth="738.0" />
+      						<Separator layoutX="13.0" layoutY="149.0" prefHeight="0.0" prefWidth="738.0" visible="false" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="newUserPane" layoutY="338.0" prefHeight="237.0" prefWidth="800.0">
                      <children>
                         <TextField fx:id="newUserName" layoutX="26.0" layoutY="50.0" promptText="Name">
                            <font>

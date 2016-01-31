@@ -127,6 +127,13 @@ public class AddEditRoomAdminPanel implements Initializable {
 			int rs = ps.executeUpdate();
 			if (rs != 0 ){
 				this.o.showAllRooms(null);
+				alert.setAlertType(AlertType.INFORMATION);
+				if (update) {
+					alert.setContentText("Room has been updated!");
+				} else {
+					alert.setContentText("Room has been created!");
+				}
+				alert.show();
 				Window window = panelTitle.getScene().getWindow();
 				if (window instanceof Stage){
 					((Stage) window).close();

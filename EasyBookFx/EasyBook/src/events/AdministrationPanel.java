@@ -5,9 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -19,6 +23,8 @@ import application.Offer;
 import application.Room;
 import application.Statistics;
 import database.Conn;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +37,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -120,6 +127,9 @@ public class AdministrationPanel implements Initializable {
 	private AnchorPane offer_controls;
 	
 	@FXML
+	private ChoiceBox<String> monthFromCB, monthUntilCB, yearCB;
+	
+	@FXML
 	private LineChart<String,Number>  lineChart;
 
 	private Book booking_toEdit;
@@ -127,6 +137,7 @@ public class AdministrationPanel implements Initializable {
 	private Room room_toEdit;
 	private String userType;
 	private boolean newOffer = false;
+	private boolean showIncome = true;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -172,7 +183,16 @@ public class AdministrationPanel implements Initializable {
 			}
 		});
 		
+		/* STATISTICS */
+		fillYearDropdownMenu();
+		fillMonthsDropdownMenus();
+		
+		yearCB.getSelectionModel().selectedItemProperty().addListener( new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> source, String oldValue, String newValue) {			    {
+				fillMonthsDropdownMenus(); }}});
+		
 		showStatistics();
+		/* STATISTICS END */
 		
 		roomServicesTypeStand.setSelected(true);
 		selectStandardRoomServices(null);
@@ -835,9 +855,92 @@ public class AdministrationPanel implements Initializable {
 	}
 
 	/* Statistics TAB */
+	public void toggleIncomeBoolean(ActionEvent event) {
+		showIncome = !showIncome;
+		showStatistics();
+	}
+	private void fillYearDropdownMenu(){
+		try {
+			Connection conn = Conn.connect();
+			String query = "SELECT DISTINCT YEAR(`check_in`) YEAR FROM `bookings`";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			
+			yearCB.setItems(FXCollections.observableArrayList());
+			while( rs.next() ) {
+				yearCB.getItems().add(rs.getString("YEAR"));
+			}
+			yearCB.getSelectionModel().selectLast();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void fillMonthsDropdownMenus(){
+		try {
+			
+			monthFromCB.getItems().clear();
+			monthUntilCB.getItems().clear();
+			
+			ChangeListener<String>  CBListener = new ChangeListener<String>() {
+				public void changed(ObservableValue<? extends String> source, String oldValue, String newValue) {			    {
+					showStatistics();}}};
+					
+			Connection conn = Conn.connect();
+			String query = "SELECT DISTINCT MONTH(`check_in`) MONTH FROM `bookings` WHERE YEAR(`check_in`)= ?";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, Integer.parseInt( yearCB.getValue() ) );
+			ResultSet rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				monthFromCB.getItems().add(rs.getInt("MONTH")-1, new DateFormatSymbols().getMonths()[ rs.getInt("MONTH")-1 ] );
+				monthUntilCB.getItems().add(rs.getInt("MONTH")-1, new DateFormatSymbols().getMonths()[ rs.getInt("MONTH")-1 ] );
+			}
+			
+			monthFromCB.getSelectionModel().selectFirst();
+			monthUntilCB.getSelectionModel().selectFirst();
+			
+			showStatistics();
+					
+			monthFromCB.getSelectionModel().selectedItemProperty().addListener(CBListener);
+			monthUntilCB.getSelectionModel().selectedItemProperty().addListener(CBListener);
+			
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void showStatistics() {
 		Statistics stat = new Statistics();
-		lineChart = stat.show(lineChart);
+		
+		try {
+			
+			Date date = new SimpleDateFormat("MMMM").parse( monthFromCB.getValue() );
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			int fromCB = cal.get(Calendar.MONTH);
+	
+			date = new SimpleDateFormat("MMMM").parse( monthUntilCB.getValue() );
+			cal.setTime(date);
+			int untilCB = cal.get(Calendar.MONTH);
+			
+			if (untilCB < fromCB) {
+				showError("Select month after Starting Month of Statistics!");
+				return;
+			}
+			else {			
+				lineChart = stat.showStatsForMonthsOfYear(lineChart, 
+						fromCB, untilCB, Integer.parseInt(yearCB.getValue() ), showIncome );
+			}
+		} catch (ParseException e) { e.printStackTrace(); 
+		} catch (NullPointerException e) { 
+			// When changing year, due to changeListener of monthFromCB & monthUntilCB
+			// it gives NullPointerException error.
+		}
+		
 	}
 	
 	/* Options TAB */

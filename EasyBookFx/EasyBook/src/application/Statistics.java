@@ -1,7 +1,6 @@
 package application;
 
 import javafx.application.Application;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
@@ -9,51 +8,57 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormatSymbols;
 
 import database.Conn;
-import javafx.beans.property.SimpleStringProperty;
 
 public class Statistics extends Application{
 	
-	public void whatever(){
-		Connection conn = Conn.connect();
-		String query = "SELECT MONTH(`check_in`) MONTH, COUNT(*) COUNT FROM `bookings` WHERE YEAR(`check_in`)=? GROUP BY MONTH(`check_in`)";
-		int year = 2016;
+	public LineChart<String, Number> showStatsForMonthsOfYear(LineChart<String, Number> linechart,
+			int from, int until, int year, boolean income){
 		
-		
-	}
-	
-	
-	
-
-	public LineChart<String, Number> show( LineChart<String, Number> linechart) {
-
-        final CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Months");       
-                        
-        linechart.setTitle("Bookings of 2016");
-                                
+		// Each month is been represented from i-1. So months[0] is for January, months[11] for December
+		int[] months = new int[12];
+    	int max = 0;
         XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        series.setName("My portfolio");
+        series.setName("Months");
         
-        series.getData().add(new XYChart.Data<String, Number>("Jan", 23));
-        series.getData().add(new XYChart.Data<String, Number>("Feb", 14));
-        series.getData().add(new XYChart.Data<String, Number>("Mar", 15));
-        series.getData().add(new XYChart.Data<String, Number>("Apr", 24));
-        series.getData().add(new XYChart.Data<String, Number>("May", 34));
-        series.getData().add(new XYChart.Data<String, Number>("Jun", 36));
-        series.getData().add(new XYChart.Data<String, Number>("Jul", 22));
-        series.getData().add(new XYChart.Data<String, Number>("Aug", 45));
-        series.getData().add(new XYChart.Data<String, Number>("Sep", 43));
-        series.getData().add(new XYChart.Data<String, Number>("Oct", 17));
-        series.getData().add(new XYChart.Data<String, Number>("Nov", 29));
-        series.getData().add(new XYChart.Data<String, Number>("Dec", 25));
-       
+        try {
+        	Connection conn = Conn.connect();
+        	
+        	String query;
+        	if (!income) {
+        		query = "SELECT MONTH(`check_in`) MONTH, COUNT(*) COUNT ";
+        	} else {
+        		query = "SELECT MONTH(`check_in`) MONTH, SUM(`money_received`) COUNT ";
+        	}
+        	query += "FROM `bookings` "
+        			+ "WHERE YEAR(`check_in`)=? "
+        			+ "GROUP BY MONTH(`check_in`)";
+
+        	PreparedStatement ps = conn.prepareStatement(query);
+        	ps.setInt(1, year);
+
+        	ResultSet rs = ps.executeQuery();
+        	
+        	while ( rs.next() ) {
+        		months[rs.getInt("MONTH")-1] = rs.getInt("COUNT");
+        	}
+        	
+        	for(int i=from; i<until+1; i++){
+        		if ( max < months[i] ){ max = months[i]; }
+        		series.getData().add(new XYChart.Data<String, Number>(
+        				(new DateFormatSymbols().getMonths()[i]), months[i] ));
+        	}
+
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        
+        linechart.getData().clear();
         linechart.getData().add(series);
-        
-        return linechart;
+		
+		return linechart;
 	}
  
     public static void main(String[] args) {
@@ -62,7 +67,6 @@ public class Statistics extends Application{
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 }

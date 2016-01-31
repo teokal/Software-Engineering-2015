@@ -215,7 +215,7 @@ public class Book {
 				String name = rs.getString("room_name");
 				return name;
 			}
-			
+			conn.close();
 		} catch (SQLException e) {
 			Logger logger = Logger.getLogger("database");
 			logger.setLevel(Level.INFO);
@@ -237,6 +237,7 @@ public class Book {
 			ps.setInt(2, getB_id() );
 			
 			ps.executeUpdate();
+			conn.close();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -272,6 +273,7 @@ public class Book {
 			ps.setInt(2, getB_id() );
 			
 			ps.executeUpdate();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

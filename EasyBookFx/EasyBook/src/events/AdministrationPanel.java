@@ -25,7 +25,7 @@ import application.Main;
 import application.Offer;
 import application.Room;
 import application.Statistics;
-import applications.Users;
+import application.Users;
 import database.Conn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -510,24 +510,6 @@ public class AdministrationPanel implements Initializable {
 		rooms_4plusbeds.setSelected(false);
 	}
 
-	private String hash(String s) {
-		
-		MessageDigest m;
-		BigInteger bi = null;
-		try {
-			
-			m = MessageDigest.getInstance("MD5");
-			m.update( s.getBytes(), 0, s.length() );
-			bi = new BigInteger(1, m.digest() );
-			
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		
-		return bi.toString(16);
-		
-	}
-	
 	/* Offers TAB */
 	public void showAllOffers(ActionEvent event) {
 		showOffersOnTable("SELECT * FROM `offers`");
@@ -674,174 +656,6 @@ public class AdministrationPanel implements Initializable {
 		}
 
 	}
-<<<<<<< HEAD
-	
-	private String hash(String s) {
-		
-		MessageDigest m;
-		BigInteger bi = null;
-		try {
-			
-			m = MessageDigest.getInstance("MD5");
-			m.update( s.getBytes(), 0, s.length() );
-			bi = new BigInteger(1, m.digest() );
-			
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		
-		return bi.toString(16);
-		
-	}
-	
-	/* Users Section */
-	/* New User Details */
-	public void newUserAdd (ActionEvent event) throws ParseException{
-		
-		if ( newUserName.getText()== null ||  newUserName.getText().trim().isEmpty() ) {
-			showError("The name of new user cannot be empty!");
-			return;
-		}if ( newUserSurame.getText()== null ||  newUserSurame.getText().trim().isEmpty() ) {
-			showError("Surname of new user cannot be empty!");
-			return;
-		}if ( newUserEmail.getText()== null ||  newUserEmail.getText().trim().isEmpty() ) {
-			showError("Email of new user cannot be empty!");
-			return;
-		}if ( newUsername.getText()== null ||  newUsername.getText().trim().isEmpty() ) {
-			showError("Username of new user cannot be empty!");
-			return;
-		}if ( newUserPass.getText()== null ||  newUserPass.getText().trim().isEmpty() ) {
-			showError("Password of new user cannot be empty!");
-			return;
-		}if (getSelectedType()== "none"){
-			showError("Please choose user`s mode: Admin or User.");
-		}
-		
-		Connection conn = Conn.connect();
-		
-
-		String query = "";
-		
-		if(update){
-			query = "UPDATE `users` SET "
-					+ "`username` = ?,"
-					+ "`password` = ?,"
-					+ "`name` = ?,"
-					+ "`sname` = ?,"
-					+ "`email` = ? "
-					+ "`user_type` = ? "
-					+ "WHERE `user_id` = ?";
-		} else {
-			query = "INSERT INTO `users`(`username`,`password`,"
-					+ "`name`,`sname`,`email`,`user_type`) "
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
-		}
-		
-		try {   
-				PreparedStatement ps = conn.prepareStatement( query );
-			
-				ps.setString(1, newUsername.getText() );
-				ps.setString(2, hash(newUserPass.getText() ) );
-				ps.setString(3, newUserName.getText() );
-				ps.setString(4, newUserSurame.getText() );
-				ps.setString(5, newUserEmail.getText() );
-				String s=getSelectedType();
-				ps.setString(6, s );
-			
-				int rs = ps.executeUpdate();
-				if (rs != 0 ){
-					showSuccess("New user created!");
-				} else {
-					showError("Could not create new user!");
-				}
-				conn.close();				
-				
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			
-		}
-	}
-	
-		public String getSelectedType() {
-			if ( newUserAdmin.isSelected() == true ) {
-				return "admin";
-			} else if ( newUserUser.isSelected() == true ) {
-				return "user";
-			}  else {
-				return "none";
-			}
-		}
-	
-		public void newUserCancel (ActionEvent event) throws ParseException{
-			newUserName.setText("");
-			newUserPass.setText("");
-			newUserName.setText("");
-			newUserSurame.setText("");
-			newUserEmail.setText("");
-		}
-		
-		public void SearchNewUser (ActionEvent event){
-			
-			String s = searchRoomText.getText();
-	
-			if (! s.isEmpty() ) {
-	
-				String query = "SELECT * FROM `users` WHERE "
-						+ "`username` LIKE '%" + s + "%'";
-	
-				showUsersTable(query);
-			}
-		}
-		
-		public void showUsersTable (String query){
-		
-			showUsersTable_col.setCellValueFactory(new PropertyValueFactory<Options, String>("username") );
-			showUsersType_col.setCellValueFactory(new PropertyValueFactory<Options, String>("type") );
-			
-		//	List<Users> listUsers = new ArrayList<Users>();
-			
-			Connection conn = Conn.connect();
-			try {
-				PreparedStatement ps = conn.prepareStatement( query );
-				ResultSet rs;
-				
-				rs = ps.executeQuery(query);
-				
-				
-				
-				while ( rs.next() ) {
-				//	listUsers.add( new user(rs.getString("usernmame"),rs.getString("type"));
-	                
-	            }
-	            conn.close();
-				
-			} catch (SQLException e) {
-			
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//usersList = getOffersTableData(query);
-		   //newUserTable.setItems(listUsers,listPass);
-			
-			
-
-			}
-			
-		
-		
-		
-			
-			
-			
-		
-	
-		
-		
-=======
->>>>>>> origin/master
 	public void saveOffer (ActionEvent event) throws ParseException {
 
 		if (newOffer) {
@@ -984,7 +798,6 @@ public class AdministrationPanel implements Initializable {
 			showError("Offer could not be saved!");
 		}
 	} 		
-
 	public void cancelOffer (ActionEvent event) {
 		offers_default_data();
 		offers_disableAllControls();
@@ -1060,7 +873,8 @@ public class AdministrationPanel implements Initializable {
 
 		offersTable.setDisable(false);
 	}
-
+	
+	/* Options TAB */
 	/* Users Section */
 	/* New User Details */
 	public void newUserAdd (ActionEvent event) throws ParseException{
@@ -1090,13 +904,13 @@ public class AdministrationPanel implements Initializable {
 
 		String query = "";
 		
-		if(update){
+		if (update){
 			query = "UPDATE `users` SET "
 					+ "`username` = ?,"
 					+ "`password` = ?,"
 					+ "`name` = ?,"
 					+ "`sname` = ?,"
-					+ "`email` = ? "
+					+ "`email` = ?, "
 					+ "`user_type` = ? "
 					+ "WHERE `user_id` = ?";
 		} else {
@@ -1113,8 +927,8 @@ public class AdministrationPanel implements Initializable {
 				ps.setString(3, newUserName.getText() );
 				ps.setString(4, newUserSurame.getText() );
 				ps.setString(5, newUserEmail.getText() );
-				String s=getSelectedType();
-				ps.setString(6, s );
+				ps.setString(6, getSelectedType() );
+				if (update) { ps.setInt(7, usersToEdit.getUser_id()); }
 			
 				int rs = ps.executeUpdate();
 				if (rs != 0 ){
@@ -1132,9 +946,8 @@ public class AdministrationPanel implements Initializable {
 			
 			
 		}
+		showAllUsers();
 	}
-	
-
 	public String getSelectedType() {
 		if ( newUserAdmin.isSelected() == true ) {
 			return "admin";
@@ -1144,15 +957,12 @@ public class AdministrationPanel implements Initializable {
 			return "none";
 		}
 	}
-
 	public void showAllUsers() {
 		showUsersTable("SELECT * FROM `users`");
 	}
-	
 	public void show(ActionEvent event){
 		showAllUsers();
 	}
-	
 	public void newUserCancel (ActionEvent event) throws ParseException{
 		newUserName.setText("");
 		newUserPass.setText("");
@@ -1163,7 +973,6 @@ public class AdministrationPanel implements Initializable {
 		newUserAdmin.setSelected(false);
 		newUserUser.setSelected(false);
 	}
-	
 	public void clear(){
 		newUserName.setText("");
 		newUserPass.setText("");
@@ -1175,10 +984,8 @@ public class AdministrationPanel implements Initializable {
 		newUserUser.setSelected(false);
 
 	}
-
 	public void SearchNewUser (ActionEvent event){
-
-		
+	
 		String s = newUserSearch.getText();
 
 		if (! s.isEmpty() ) {
@@ -1186,11 +993,9 @@ public class AdministrationPanel implements Initializable {
 			String query = "SELECT * FROM `users` WHERE "
 					+ "`username` LIKE '%" + s + "%'";
 
-			
 			showUsersTable(query);
 		}
 	}
-
 	public void showUsersTable (String query){
 
 		showUsersTable_col.setCellValueFactory(new PropertyValueFactory<Users, String>("username") );
@@ -1199,7 +1004,6 @@ public class AdministrationPanel implements Initializable {
 		usersList = getUsersTableData(query);
 		newUserTable.setItems( usersList );
 	}
-
 	private ObservableList<Users> getUsersTableData(Object query) {
 		List<Users> list = new ArrayList<Users>();
 
@@ -1217,12 +1021,12 @@ public class AdministrationPanel implements Initializable {
 			while ( rs.next()) {
 
 				list.add( new Users(
+						rs.getInt("user_id"),
 						rs.getString("username"), 
 						rs.getString("user_type"),
-						rs.getString("password"),
+						rs.getString("email"),
 						rs.getString("sname"),
-						rs.getString("name"),
-						rs.getString("email") ) );
+						rs.getString("name") ) );
 
 			}
 		} catch (SQLException e) { e.printStackTrace();
@@ -1232,24 +1036,22 @@ public class AdministrationPanel implements Initializable {
 
 		return data;
 	}
-	
 	public void editUsers (ActionEvent event) {
-		
 		
 		usersToEdit = newUserTable.getSelectionModel().getSelectedItem();
 		update=true;
 		if (usersToEdit != null){
 			newUserName.setText(String.valueOf(usersToEdit.getName() ) );
-			//newUserPass.setText(String.valueOf(usersToEdit.getPass() ) );
 			newUsername.setText(String.valueOf(usersToEdit.getUsername() ) );
 			newUserSurame.setText(String.valueOf(usersToEdit.getSname() ) );
 			newUserEmail.setText(String.valueOf(usersToEdit.getEmail() ) );
-		
+			if ( usersToEdit.getUser_type().equals("admin") ) {
+				newUserAdmin.setSelected(true);
+			} else {
+				newUserUser.setSelected(true);
+			}
 		}
-		
-		
 	}
-	
 	public void deleteUsers (ActionEvent event) {
 		
 		usersToEdit = newUserTable.getSelectionModel().getSelectedItem();
@@ -1270,6 +1072,7 @@ public class AdministrationPanel implements Initializable {
 		
 
 		}
+		showAllUsers();
 	}
 	
 	/* Statistics TAB */
@@ -1294,7 +1097,6 @@ public class AdministrationPanel implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
 	private void fillMonthsDropdownMenus(){
 		try {
 			
@@ -1330,7 +1132,6 @@ public class AdministrationPanel implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
 	private void showStatistics() {
 		Statistics stat = new Statistics();
 		
@@ -1361,7 +1162,6 @@ public class AdministrationPanel implements Initializable {
 		
 	}
 	
-	/* Options TAB */
 	/* Room Services Section */
 	public void selectStandardRoomServices(ActionEvent event){
 		selectCheckboxes(0);
@@ -1670,7 +1470,6 @@ public class AdministrationPanel implements Initializable {
 	}
 
 	
-
 	/* Alert functions for whole class*/
 	private void showSuccess(String s) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -1699,4 +1498,22 @@ public class AdministrationPanel implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	private String hash(String s) {
+		
+		MessageDigest m;
+		BigInteger bi = null;
+		try {
+			
+			m = MessageDigest.getInstance("MD5");
+			m.update( s.getBytes(), 0, s.length() );
+			bi = new BigInteger(1, m.digest() );
+			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return bi.toString(16);
+		
+	}
+	
 }
